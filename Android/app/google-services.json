@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "477419768405",
+    "firebase_url": "https://uniting-bad5d.firebaseio.com",
+    "project_id": "uniting-bad5d",
+    "storage_bucket": "uniting-bad5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477419768405:android:f80dd223171259ce3062dc",
+        "android_client_info": {
+          "package_name": "com.uniting.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477419768405-kv8jhrqis3b22t0dpervkh92t42kvmuq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNdwWPfe1m-ky-y8CJLOaEkF3Vadw2AgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477419768405-kv8jhrqis3b22t0dpervkh92t42kvmuq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
