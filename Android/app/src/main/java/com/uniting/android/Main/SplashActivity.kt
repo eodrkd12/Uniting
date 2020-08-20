@@ -1,11 +1,15 @@
-package com.uniting.android
+package com.uniting.android.Main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.uniting.android.R
 
-class MainActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash)
+
+
+
     }
 }
