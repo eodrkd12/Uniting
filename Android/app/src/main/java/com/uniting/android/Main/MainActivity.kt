@@ -3,15 +3,16 @@ package com.uniting.android.Main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.uniting.android.Cafeteria.CafeteriaFragment
+import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Chat.ChatFragment
 import com.uniting.android.Home.HomeFragment
+import com.uniting.android.Interface.NaverAPI
 import com.uniting.android.Item.Test
 import com.uniting.android.Option.OptionFragment
 import com.uniting.android.R
-import com.uniting.android.Singleton.RetrofitService
+import com.uniting.android.Interface.RetrofitService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,6 +60,25 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ArrayList<Test.User>>, t: Throwable) {
             }
 
+        })
+
+        val aretrofit = Retrofit.Builder()
+            .baseUrl("https://store.naver.com/sogum/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api = aretrofit.create(NaverAPI::class.java)
+
+        api.getCafeteriaList(1, 10, "Seongseo", "reviewCount").enqueue(object : Callback<CafeteriaItem.Cafeteria> {
+            override fun onResponse(call: Call<CafeteriaItem.Cafeteria>, response: Response<CafeteriaItem.Cafeteria>) {
+                var array = response.body()
+
+                Log.d("test", array.toString())
+            }
+
+            override fun onFailure(call: Call<CafeteriaItem.Cafeteria>, t: Throwable) {
+                Log.d("test", t.message!!)
+            }
         })
 
 

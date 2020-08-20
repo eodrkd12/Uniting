@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/text_cafeteriatype"
+        android:id="@+id/text_cafeteria_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,22 +20,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_horizontalcafeteria"
+        android:id="@+id/rv_horizontal_cafeteria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/text_cafeteriatype"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_cafeteria_type"/>
 
     <TextView
-        android:id="@+id/text_cafeteriaetc"
+        android:id="@+id/text_cafeteria_etc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="더보기"
-        app:layout_constraintBaseline_toBaselineOf="@+id/text_cafeteriatype"
+        app:layout_constraintBaseline_toBaselineOf="@+id/text_cafeteria_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toEndOf="@+id/text_cafeteriatype" />
+        app:layout_constraintStart_toEndOf="@+id/text_cafeteria_type" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

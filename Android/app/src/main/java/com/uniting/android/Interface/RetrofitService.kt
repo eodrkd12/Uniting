@@ -1,9 +1,8 @@
-package com.uniting.android.Singleton
+package com.uniting.android.Interface
 
 import com.uniting.android.Item.Test
 import retrofit2.Call
 import retrofit2.http.GET
-import java.sql.Array
 
 interface RetrofitService {
     @GET("/user/data")
