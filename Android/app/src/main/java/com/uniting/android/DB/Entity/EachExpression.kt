@@ -4,11 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "eachexpression")
+@Entity(tableName = "eachexpression", primaryKeys = arrayOf("user_id","partner_id"))
 data class EachExpression(
-    @PrimaryKey
     val user_id : String,
-    @PrimaryKey
     val partner_id : String,
     val expression_type : String,
     val expression_date : String

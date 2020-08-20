@@ -14,7 +14,8 @@ import com.uniting.android.DB.Entity.*
         Expression::class,
         Image::class,
         Joined::class,
-        Room::class
+        Room::class,
+        User::class
     ], version = 1
 )
 abstract class UnitingDB : RoomDatabase() {
@@ -40,7 +41,7 @@ abstract class UnitingDB : RoomDatabase() {
         }
 
         fun destroyInstance() {
-            instance=null
+            instance = null
         }
     }
 }
