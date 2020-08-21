@@ -107,4 +107,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
 
+    //Naver Map
+    implementation 'com.naver.maps:map-sdk:3.8.0'
+
+    //Web Crolling
+    implementation 'org.jsoup:jsoup:1.12.1'
+
 }

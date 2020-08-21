@@ -3,6 +3,11 @@ package com.uniting.android.Cafeteria
 import com.google.gson.annotations.SerializedName
 
 class CafeteriaItem {
+    data class CafeteriaList(
+        @SerializedName("items")
+        val cafeteriaList : ArrayList<Cafeteria>
+    )
+
     data class Cafeteria(
         @SerializedName("id")
         val id: String,
