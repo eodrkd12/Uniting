@@ -1,6 +1,7 @@
 package com.uniting.android.Cafeteria
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class CafeteriaItem {
     data class CafeteriaList(
@@ -32,11 +33,8 @@ class CafeteriaItem {
         var starPoint:String
     )
 
-
-    data class User(
-        @SerializedName("user_id")
-        val userId: String,
-        @SerializedName("user_pw")
-        val userPw: String
-    )
+    data class Menu (
+        val name:String?,
+        val price:String?
+    ) : Serializable
 }
