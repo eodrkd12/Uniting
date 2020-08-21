@@ -11,7 +11,7 @@ data class Chat(
     val user_id : String,
     val user_nickname : String,
     val chat_content : String,
-    val chat_date : String,
+    val chat_time : String,
     val unread_count : Int,
     val system_chat : Int
 )
