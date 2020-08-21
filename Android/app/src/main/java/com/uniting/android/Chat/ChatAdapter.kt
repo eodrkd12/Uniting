@@ -15,7 +15,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
     RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     lateinit var beforeChatView : View
-    lateinit var beforeChat : Chat
+    lateinit var beforeChat : ChatItem
 
     override fun getItemCount(): Int {
         return chatList.size
@@ -37,6 +37,19 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             hideImageAndNickname = true
         }
 
+        var timeStr = ""
+        val time = item.chat.chat_time!!.split(" ")[1].split(":")
+        val hour = time[0].toInt()
+        val min = time[1]
+        if (hour < 12)
+            timeStr = "오전 ${hour}:${min}"
+        else {
+            if (hour != 12)
+                timeStr = "오후 ${hour - 12}:${min}"
+            else
+                timeStr = "오후 ${hour}:${min}"
+        }
+
         if (item.chat.system_chat == 1)
             holder.setSystemChat(item.chat.chat_content)
         else {
@@ -44,7 +57,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
 
                 holder.setMyChat(
                     item.chat.chat_content,
-                    item.chat.chat_time,
+                    timeStr,
                     item.chat.unread_count.toString()
                 )
             else {
@@ -52,20 +65,20 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
                     "",
                     item.chat.user_nickname,
                     item.chat.chat_content,
-                    item.chat.chat_time,
+                    timeStr,
                     item.chat.unread_count.toString(),
                     hideImageAndNickname
                 )
             }
         }
 
-        if(position > 0 && beforeChat.user_id==item.chat.user_id){
+        if(position > 0 && beforeChat.chat.user_id==item.chat.user_id){
             beforeChatView.text_time.visibility=View.GONE
             beforeChatView.text_partner_time.visibility=View.GONE
         }
 
         beforeChatView=holder.view
-        beforeChat=item.chat
+        beforeChat=item
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
