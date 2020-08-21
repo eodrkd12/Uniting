@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Chat.ChatActivity"></activity>
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="4fk2n2jfrm" />
+
+
+
+
+        <activity android:name=".Cafeteria.CafeteriaInformActivity"></activity>
+        <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
         <activity android:name=".Main.MainActivity">

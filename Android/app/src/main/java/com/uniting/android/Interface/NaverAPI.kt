@@ -13,6 +13,6 @@ interface NaverAPI {
         @Query("display") display: Int,
         @Query("query") query: String,
         @Query("sortingOrder") sortingOrder : String
-    ) : Call<CafeteriaItem.Cafeteria>
+    ) : Call<CafeteriaItem.CafeteriaList>
 
 }

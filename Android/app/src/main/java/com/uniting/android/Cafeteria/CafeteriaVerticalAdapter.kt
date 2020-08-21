@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.Interface.NaverAPI
 import com.uniting.android.R
@@ -15,7 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CafeteriaVerticalAdapter(activity: Activity, val cafeteriaType: ArrayList<String>) : RecyclerView.Adapter<CafeteriaVerticalAdapter.ViewHolder>() {
+class CafeteriaVerticalAdapter(val activity: Activity, val cafeteriaType: ArrayList<String>) : RecyclerView.Adapter<CafeteriaVerticalAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return cafeteriaType.size
     }
@@ -29,24 +30,33 @@ class CafeteriaVerticalAdapter(activity: Activity, val cafeteriaType: ArrayList<
         holder.cafeteriaType.text = cafeteriaType.get(position)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://store.naver.com/sogum/api")
+            .baseUrl("https://store.naver.com/sogum/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val api = retrofit.create(NaverAPI::class.java)
 
-        /*api.getCafeteriaList(1, 10, "성서계명대", "reviewCount").enqueue(object : Callback<ArrayList<CafeteriaItem.Cafeteria>> {
-            override fun onResponse(call: Call<ArrayList<CafeteriaItem.Cafeteria>>, response: Response<ArrayList<CafeteriaItem.Cafeteria>>) {
-                var array = response.body()
+        api.getCafeteriaList(1, 10, "성서계명대${cafeteriaType.get(position)}", "reviewCount").enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
+            override fun onResponse(call: Call<CafeteriaItem.CafeteriaList>, response: Response<CafeteriaItem.CafeteriaList>) {
+                if(response.isSuccessful) {
+                    val success = response.body()
 
-                for(i in array!!) {
-                    Log.d("test", i.toString())
+                    Log.d("test", cafeteriaType.get(position))
+
+                    for(i in success!!.cafeteriaList)
+                        Log.d("test", i.toString())
+
+                    holder.horizontalCafeteriaRV.setHasFixedSize(true)
+                    holder.horizontalCafeteriaRV.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+                    holder.horizontalCafeteriaRV.adapter = CafeteriaHorizontalAdapter(activity, success!!.cafeteriaList)
                 }
+
             }
 
-            override fun onFailure(call: Call<ArrayList<CafeteriaItem.Cafeteria>>, t: Throwable) {
+            override fun onFailure(call: Call<CafeteriaItem.CafeteriaList>, t: Throwable) {
+                Log.d("test", t.message!!)
             }
-        })*/
+        })
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {

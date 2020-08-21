@@ -15,13 +15,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_imageview"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_image" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/text_speaker"
@@ -69,18 +67,5 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toTopOf="@+id/text_time"
         app:layout_constraintStart_toStartOf="@+id/text_time" />
-
-    <Button
-        android:id="@+id/btn_buycandy"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/buycandy_background"
-        android:text="확인하기"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/text_content"
-        app:layout_constraintStart_toEndOf="@+id/text_time"
-        app:layout_constraintTop_toTopOf="@+id/text_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

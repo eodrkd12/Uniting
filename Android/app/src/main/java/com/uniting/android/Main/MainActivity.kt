@@ -22,10 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var homeFragment : HomeFragment
-    lateinit var chatFragment : ChatFragment
-    lateinit var cafeteriaFragment : CafeteriaFragment
-    lateinit var optionFragment : OptionFragment
+    var homeFragment : HomeFragment? = null
+    var chatFragment : ChatFragment? = null
+    var cafeteriaFragment : CafeteriaFragment? = null
+    var optionFragment : OptionFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             homeFragment = HomeFragment()
-            supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment).commit()
+            supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
         }
 
         bnv_main.setOnNavigationItemSelectedListener(navListener)
@@ -62,28 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        val aretrofit = Retrofit.Builder()
-            .baseUrl("https://store.naver.com/sogum/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val api = aretrofit.create(NaverAPI::class.java)
-
-        api.getCafeteriaList(1, 10, "Seongseo", "reviewCount").enqueue(object : Callback<CafeteriaItem.Cafeteria> {
-            override fun onResponse(call: Call<CafeteriaItem.Cafeteria>, response: Response<CafeteriaItem.Cafeteria>) {
-                var array = response.body()
-
-                Log.d("test", array.toString())
-            }
-
-            override fun onFailure(call: Call<CafeteriaItem.Cafeteria>, t: Throwable) {
-                Log.d("test", t.message!!)
-            }
-        })
-
-
-
-
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -91,13 +69,13 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_home -> {
                 if(homeFragment == null) {
                     homeFragment = HomeFragment()
-                    supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment).commit()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
                 }
 
-                if(homeFragment != null) supportFragmentManager.beginTransaction().show(homeFragment).commit()
-                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment).commit()
-                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment).commit()
-                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment).commit()
+                if(homeFragment != null) supportFragmentManager.beginTransaction().show(homeFragment!!).commit()
+                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment!!).commit()
+                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
+                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
 
                 return@OnNavigationItemSelectedListener true
@@ -105,26 +83,26 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_chat -> {
                 if(chatFragment == null) {
                     chatFragment = ChatFragment()
-                    supportFragmentManager.beginTransaction().add(R.id.frame_main, chatFragment).commit()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, chatFragment!!).commit()
                 }
 
-                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment).commit()
-                if(chatFragment != null) supportFragmentManager.beginTransaction().show(chatFragment).commit()
-                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment).commit()
-                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment).commit()
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(chatFragment != null) supportFragmentManager.beginTransaction().show(chatFragment!!).commit()
+                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
+                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.menu_cafeteria -> {
                 if(cafeteriaFragment == null) {
                     cafeteriaFragment = CafeteriaFragment()
-                    supportFragmentManager.beginTransaction().add(R.id.frame_main, cafeteriaFragment).commit()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, cafeteriaFragment!!).commit()
                 }
 
-                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment).commit()
-                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment).commit()
-                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().show(cafeteriaFragment).commit()
-                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment).commit()
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment!!).commit()
+                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().show(cafeteriaFragment!!).commit()
+                if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -134,10 +112,10 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, optionFragment!!).commit()
                 }
 
-                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment).commit()
-                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment).commit()
-                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment).commit()
-                if(optionFragment != null) supportFragmentManager.beginTransaction().show(optionFragment).commit()
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment!!).commit()
+                if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
+                if(optionFragment != null) supportFragmentManager.beginTransaction().show(optionFragment!!).commit()
 
                 return@OnNavigationItemSelectedListener true
             }
