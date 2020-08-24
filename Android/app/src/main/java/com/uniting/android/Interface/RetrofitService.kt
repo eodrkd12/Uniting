@@ -7,4 +7,6 @@ import retrofit2.http.GET
 interface RetrofitService {
     @GET("/user/data")
     fun getData() : Call<ArrayList<Test.User>>
+    
+    
 }
