@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.uniting.android.Cafeteria.CafeteriaFragment
-import com.uniting.android.Cafeteria.CafeteriaItem
-import com.uniting.android.Chat.ChatFragment
+import com.uniting.android.Chat.RoomFragment
 import com.uniting.android.Home.HomeFragment
-import com.uniting.android.Interface.NaverAPI
 import com.uniting.android.Item.Test
 import com.uniting.android.Option.OptionFragment
 import com.uniting.android.R
@@ -23,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     var homeFragment : HomeFragment? = null
-    var chatFragment : ChatFragment? = null
+    var chatFragment : RoomFragment? = null
     var cafeteriaFragment : CafeteriaFragment? = null
     var optionFragment : OptionFragment? = null
 
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_chat -> {
                 if(chatFragment == null) {
-                    chatFragment = ChatFragment()
+                    chatFragment = RoomFragment()
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, chatFragment!!).commit()
                 }
 

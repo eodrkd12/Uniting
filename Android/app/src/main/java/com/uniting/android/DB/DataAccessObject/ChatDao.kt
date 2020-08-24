@@ -17,4 +17,7 @@ interface ChatDao {
 
     @Query("SELECT * FROM chat")
     fun getAllElement() : LiveData<List<Chat>>
+
+    @Query("SELECT * FROM chat WHERE room_id = :roomId ORDER BY chat_time LIMIT 1")
+    fun getLastChat(roomId: String) : LiveData<List<Chat>>
 }

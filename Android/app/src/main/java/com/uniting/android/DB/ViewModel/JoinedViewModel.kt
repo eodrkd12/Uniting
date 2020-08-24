@@ -41,4 +41,8 @@ class JoinedViewModel(app: Application): AndroidViewModel(app) {
         super.onCleared()
         disposable.dispose()
     }
+
+    fun getNumOfMembers(roomId: String): Int {
+        return repository.getNumOfMembers(roomId)
+    }
 }

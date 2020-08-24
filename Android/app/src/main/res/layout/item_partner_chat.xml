@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/image_chatpartner"
+        android:id="@+id/image_partner"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_speaker"
@@ -29,8 +29,8 @@
         android:text="test"
         android:textColor="#000000"
         android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/image_chatpartner"
-        app:layout_constraintTop_toTopOf="@+id/image_chatpartner" />
+        app:layout_constraintStart_toEndOf="@+id/image_partner"
+        app:layout_constraintTop_toTopOf="@+id/image_partner" />
 
     <TextView
         android:id="@+id/text_content"

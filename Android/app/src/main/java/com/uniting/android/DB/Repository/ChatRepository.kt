@@ -33,4 +33,8 @@ class ChatRepository(app : Application) {
             dao.deleteById(id)
         }
     }
+
+    fun getLastChat(roomId: String) : LiveData<List<Chat>> {
+        return dao.getLastChat(roomId)
+    }
 }
