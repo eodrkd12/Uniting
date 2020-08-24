@@ -78,6 +78,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     // Annotation processor
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     //annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // alternately - if using Java8, use the following instead of lifecycle-compiler

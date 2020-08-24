@@ -59,9 +59,11 @@ class ChatActivity : AppCompatActivity() {
             var current = simpleDateFormat.format(System.currentTimeMillis())
 
             Retrofit.insertChat("test_room_id","test","test",edit_chat.text.toString(),current,1,0){
-                if(it == "success"){
+                if(it.result == "success"){
                     writeFirebase("test_room_id","test","test",edit_chat.text.toString(),current, 1, 0)
-
+                    chatViewModel.insert(Chat(0,"test_room_id","test","test",edit_chat.text.toString(),current,1,0)){
+                        Log.d("test",chatList.toString())
+                    }
                 }
             }
         }
@@ -70,7 +72,7 @@ class ChatActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         ref = FirebaseDatabase.getInstance().reference.child("chat").child("test_room_id")
-        query = ref!!.orderByKey()
+        query = ref!!.orderByChild("chat_time")
 
         query!!.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -82,17 +84,23 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                if(ref != null) chatConversation(snapshot,"change")
+                if(ref != null) chatChange(snapshot)
             }
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                if(ref != null) chatConversation(snapshot,"add")
+                if(ref != null) chatAdd(snapshot)
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ref=null
+        query=null
     }
 
     fun writeFirebase(roomId: String, userId: String, userNickname: String, chatContent: String, chatTime: String, unreadCount: Int, systemChat: Int){
@@ -114,45 +122,28 @@ class ChatActivity : AppCompatActivity() {
         root.updateChildren(objectMap)
     }
 
-    fun chatConversation(snapshot: DataSnapshot,updateType : String) {
+    fun chatAdd(snapshot: DataSnapshot){
+        var key=snapshot.key
+        var value=snapshot.value as HashMap<String,Any>
 
-        if(updateType=="add") {
-            var key=snapshot.key
-            var value=snapshot.value as HashMap<String,Any>
-
-            if("test"!=value.get("user_id").toString()){
-                val hashMap=HashMap<String,Any>()
-                hashMap.put("${key}/unread_count",0)
-                ref!!.updateChildren(hashMap)
-            }
-
-            var i = snapshot.children.iterator()
-            while (i.hasNext()) {
-
-                var chatContent = ((i.next() as DataSnapshot).getValue()) as String
-                var userId = ((i.next() as DataSnapshot).getValue()) as String
-                var userNickname = ((i.next() as DataSnapshot).getValue()) as String
-                var chatTime = ((i.next() as DataSnapshot).getValue()) as String
-                var roomId = ((i.next() as DataSnapshot).getValue()) as String
-                var unreadCount = ((i.next() as DataSnapshot).getValue()) as Long
-
-                
-            }
+        if("test"!=value.get("user_id").toString()){
+            val hashMap=HashMap<String,Any>()
+            hashMap.put("${key}/unread_count",0)
+            ref!!.updateChildren(hashMap)
         }
-        else if(updateType=="change"){
+        var i = snapshot.children.iterator()
+        while (i.hasNext()) {
+            Log.d("test",i.next().toString())
 
-            var i = snapshot.children.iterator()
-            while (i.hasNext()) {
 
-                var chatContent = ((i.next() as DataSnapshot).getValue()) as String
-                var chatSpeaker = ((i.next() as DataSnapshot).getValue()) as String
-                var chatSpeakerNickname = ((i.next() as DataSnapshot).getValue()) as String
-                var chatTime = ((i.next() as DataSnapshot).getValue()) as String
-                var roomId = ((i.next() as DataSnapshot).getValue()) as String
-                var unreadCount = ((i.next() as DataSnapshot).getValue()) as Long
-
-            }
         }
+    }
 
+    fun chatChange(snapshot: DataSnapshot){
+        var i = snapshot.children.iterator()
+        while (i.hasNext()) {
+
+
+        }
     }
 }

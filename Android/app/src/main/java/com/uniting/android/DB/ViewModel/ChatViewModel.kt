@@ -41,4 +41,8 @@ class ChatViewModel(app: Application): AndroidViewModel(app) {
         super.onCleared()
         disposable.dispose()
     }
+
+    fun getLastChat(roomId: String) : LiveData<List<Chat>> {
+        return repository.getLastChat(roomId)
+    }
 }

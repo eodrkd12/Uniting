@@ -35,4 +35,8 @@ class JoinedRepository(app : Application) {
             dao.deleteById(roomId, userId)
         }
     }
+
+    fun getNumOfMembers(roomId: String): Int {
+        return dao.getNumOfMembers(roomId)
+    }
 }

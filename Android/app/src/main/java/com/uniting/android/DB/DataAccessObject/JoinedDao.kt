@@ -17,4 +17,7 @@ interface JoinedDao {
 
     @Query("SELECT * FROM joined")
     fun getAllElement() : LiveData<List<Joined>>
+
+    @Query("SELECT COUNT(*) AS count FROM joined where room_id = :roomId")
+    fun getNumOfMembers(roomId: String): Int
 }

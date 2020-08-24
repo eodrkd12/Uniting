@@ -1,0 +1,34 @@
+package com.uniting.android.Chat
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.RecyclerView
+import com.uniting.android.R
+import kotlinx.android.synthetic.main.item_chat.view.*
+
+class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
+    RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
+
+    override fun getItemCount(): Int {
+        return roomList.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomAdapter.ViewHolder {
+        var itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
+
+        return ViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: RoomAdapter.ViewHolder, position: Int) {
+
+    }
+
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
+    }
+}
