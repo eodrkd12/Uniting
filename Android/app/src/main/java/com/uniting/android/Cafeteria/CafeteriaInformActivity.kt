@@ -1,6 +1,7 @@
 package com.uniting.android.Cafeteria
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -108,12 +109,13 @@ class CafeteriaInformActivity : AppCompatActivity(), OnMapReadyCallback {
 
         rating_inform.setOnRatingBarChangeListener{ ratingBar, fl, b ->
             if(rating_inform.rating != 0.0f) {
-                val psDialog = PSDialog(this)
-                psDialog.setWriteReview(ratingBar.rating)
-                rating_inform.rating = 0.0f
-                psDialog.show()
+                var intent = Intent(this, WriteReviewActivity::class.java)
+                intent.putExtra("rating", rating_inform.rating)
+                intent.putExtra("cafeteriaName", name)
+                startActivity(intent)
             }
         }
+
     }
 
     override fun onMapReady(naverMap: NaverMap) {

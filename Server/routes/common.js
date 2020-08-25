@@ -7,10 +7,10 @@ var moment=require('moment');
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
 
-router.get('/insert', function(req, res) {
+router.post('/', function(req, res) {
 	var sql = req.body.sql
 
-	db_common.insert(sql, function(err,result){
+	db_common.sql(sql, function(err,result){
 		if(err) console.log(err);
 		else {
 			var object = new Object();
@@ -19,6 +19,9 @@ router.get('/insert', function(req, res) {
 		}
 	})
 })
+
+
+
 
 router.get('/', function(req, res, next) {
   db_user.get_user(function(err,result){

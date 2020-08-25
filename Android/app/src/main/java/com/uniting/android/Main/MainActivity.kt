@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

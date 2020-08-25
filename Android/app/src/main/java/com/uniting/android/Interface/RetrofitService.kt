@@ -22,9 +22,19 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/common/sql")
-    fun insertChat(@Field("sql") sql: String) : Call<ResultModel>
+    fun insert(@Field("sql") sql: String) : Call<ResultModel>
 
     @FormUrlEncoded
     @POST("/common/sql")
     fun getMyRoom(@Field("sql") sql: String) : Call<ArrayList<Room>>
+
+    @FormUrlEncoded
+    @POST("/review/insert")
+    fun insertReview(@Field("user_id") userId: String,
+    @Field("user_nickname") userNickname: String,
+    @Field("cafe_name") cafeteriaName : String,
+    @Field("review_content") reviewContent: String,
+    @Field("review_date") reviewDate: String,
+    @Field("review_point") reviewPoint: Int,
+    @Field("review_type") reviewType: String) : Call<ResultModel>
 }
