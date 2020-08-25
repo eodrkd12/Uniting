@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.uniting.android.Cafeteria.CafeteriaFragment
-import com.uniting.android.Chat.RoomFragment
+import com.uniting.android.Room.MyRoomFragment
 import com.uniting.android.Home.HomeFragment
 import com.uniting.android.Item.Test
 import com.uniting.android.Option.OptionFragment
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     var homeFragment : HomeFragment? = null
-    var chatFragment : RoomFragment? = null
+    var chatFragment : MyRoomFragment? = null
     var cafeteriaFragment : CafeteriaFragment? = null
     var optionFragment : OptionFragment? = null
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_chat -> {
                 if(chatFragment == null) {
-                    chatFragment = RoomFragment()
+                    chatFragment = MyRoomFragment()
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, chatFragment!!).commit()
                 }
 

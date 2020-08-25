@@ -1,7 +1,6 @@
-package com.uniting.android.Chat
+package com.uniting.android.Room
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,22 +9,21 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.uniting.android.DB.ViewModel.ChatViewModel
 import com.uniting.android.DB.ViewModel.JoinedViewModel
 import com.uniting.android.DB.ViewModel.RoomViewModel
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 
-class RoomFragment : Fragment() {
+class MyRoomFragment : Fragment() {
 
     lateinit var roomViewModel : RoomViewModel
     lateinit var chatViewModel : ChatViewModel
     lateinit var joinedViewModel : JoinedViewModel
 
-    lateinit var roomAdapter : RoomAdapter
+    lateinit var roomAdapter : MyRoomAdapter
 
-    var roomList = ArrayList<RoomItem>()
+    var roomList = ArrayList<MyRoomItem>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -44,30 +42,20 @@ class RoomFragment : Fragment() {
         roomViewModel.getAllElement().observe(this, Observer {
             roomList.clear()
             it.forEach{
-                var lastChat = ""
-                var lastChatTime = ""
-                var numOfMembers = 0
 
-                chatViewModel.getLastChat(it.room_id).observe(this, Observer{
-                    lastChat=it[0].chat_content
-                    lastChatTime=it[0].chat_time
-                })
-
-                numOfMembers = joinedViewModel.getNumOfMembers(it.room_id)
 
                 roomList.add(
-                    RoomItem(
-                        it,
-                        lastChat,
-                        lastChatTime,
-                        numOfMembers
+                    MyRoomItem(
+                        it
                     )
                 )
             }
         })
 
         Retrofit.getMyRoom("test"){
-            Log.d("test",it.toString())
+            roomList.clear()
+            it.forEach{
+            }
         }
 
         return rootView

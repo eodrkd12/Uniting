@@ -20,6 +20,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Cafeteria.WriteReviewActivity"></activity>
+        <activity android:name=".Room.MakeRoomActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Room.RoomListActivity" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -30,11 +38,7 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
         <activity android:name=".Main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
