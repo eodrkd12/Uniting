@@ -6,4 +6,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.StatusBar" parent="AppTheme">
+        <item name="android:statusBarColor">#D5212121</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
 </resources>
