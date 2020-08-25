@@ -4,6 +4,30 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AnimationPopupStyle">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/anim_notwork</item>
+    </style>
+
+    <style name="CustomRatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorMdGrey_300</item>
+        <item name="colorControlActivated">@color/colorMdOrange_400</item>
+    </style>
+
+
+    <style name="popCasterDlgTheme" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.StatusBar" parent="AppTheme">

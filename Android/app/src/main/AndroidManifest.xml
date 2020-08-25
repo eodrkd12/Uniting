@@ -3,6 +3,13 @@
     package="com.uniting.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Cafeteria.WriteReviewActivity"></activity>
         <activity android:name=".Room.MakeRoomActivity"
             android:theme="@style/AppTheme.StatusBar">
             <intent-filter>
@@ -27,7 +35,7 @@
             android:value="4fk2n2jfrm" />
 
         <activity android:name=".Cafeteria.CafeteriaInformActivity" />
-        <activity android:name=".Chat.ChatActivity" />
+        <activity android:name=".Chat.ChatActivity"></activity>
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
         <activity android:name=".Main.MainActivity">

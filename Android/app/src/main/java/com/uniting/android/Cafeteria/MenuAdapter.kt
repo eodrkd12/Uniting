@@ -10,7 +10,7 @@ import com.uniting.android.R
 class MenuAdapter(val menuList:ArrayList<CafeteriaItem.Menu>) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return menuList.size
+        return menuList.size-1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuAdapter.ViewHolder {

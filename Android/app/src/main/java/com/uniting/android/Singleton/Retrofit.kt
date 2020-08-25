@@ -2,17 +2,20 @@ package com.uniting.android.Singleton
 
 import android.util.Log
 import com.uniting.android.Chat.ChatItem
+import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Item.Test
+import kotlinx.android.synthetic.main.activity_write_review.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 
 object Retrofit {
     private val retrofit = Retrofit.Builder()
@@ -21,6 +24,12 @@ object Retrofit {
         .build()
 
     private val service = retrofit.create(RetrofitService::class.java)
+
+    fun curDate() : String {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var curDate = simpleDateFormat.format(System.currentTimeMillis())
+        return curDate
+    }
 
     fun getChat(roomId: String,count: Int, callback: (ArrayList<Chat>) -> Unit){
 
@@ -44,7 +53,7 @@ object Retrofit {
         val sql = "INSERT INTO chat(room_id,user_id,user_nickname,chat_content,chat_time,unread_count,system_chat) " +
                 "VALUES('${roomId}','${userId}','${userNickname}','${content}','${current}',${unreadCount},${systemChat})"
 
-        service.insertChat(sql).enqueue(object: Callback<ResultModel> {
+        service.insert(sql).enqueue(object: Callback<ResultModel> {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
@@ -72,6 +81,20 @@ object Retrofit {
                 Log.d("test",t.message.toString())
             }
         })
+    }
+
+    fun insertReview(cafeteriaName: String, reviewContent: String, reviewPoint:Int, reviewType: String, callback : (ResultModel) -> Unit) {
+
+        service.insertReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, reviewType).enqueue(object: Callback<ResultModel> {
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+        })
+
     }
 
 }
