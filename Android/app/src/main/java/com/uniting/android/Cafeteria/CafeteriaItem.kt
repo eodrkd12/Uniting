@@ -37,4 +37,19 @@ class CafeteriaItem {
         val name:String?,
         val price:String?
     ) : Serializable
+
+    data class Review(
+        @SerializedName("user_id")
+        val userId : String,
+        @SerializedName("user_nickname")
+        val userNickname : String,
+        @SerializedName("review_content")
+        val reviewContent : String,
+        @SerializedName("review_date")
+        val reviewDate : String,
+        @SerializedName("review_point")
+        val reviewPoint : Int,
+        @SerializedName("image_url")
+        val imageUrl : String?
+    )
 }

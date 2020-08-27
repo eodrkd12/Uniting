@@ -18,37 +18,43 @@ var upload = multer({storage: multer.diskStorage({
 router.post('/upload/profile', upload.single('img'), (req, res) => {
 
     var user_id = req.body.user_id
-    var image = "http://18.217.130.157:3000/" + req.file.filename
-    var image_usage = req.body.image_usage
-    var image_date = req.body.image_date
-    var upload_type = req.body.upload_type
-    var image_id = req.body.image_id
-    var delete_image = req.body.delete_image
+    var user_nickname = req.body.user_nickname
+    var cafe_name = req.body.cafe_name
+    var review_content = req.body.review_content
+    var review_date = req.body.review_date
+    var review_point = req.body.review_point
+    var image = "http://52.78.27.41:1901" + req.file.filename
 
-    if(upload_type == "insert") {
-            db_image.insert_image(user_id, image, image_usage, "NULL", image_date, function(err, result) {
-                    if(err) console.log(err)
-                    else {
-                            console.log(req.file.filename + user_id)
-                            res.send(req.file)
-                    }
-            })
-    }
-    else if(upload_type == "update") {
-            db_image.update_image(parseInt(image_id), image, function(err, result) {
-                    if(err) console.log(err)
-                    else {
-                        fs.unlink("uploads/"+delete_image, (err) => {
-                            if(err) console.log(err)
-                            else {
-                              var object = new Object()
-                              object.result = "success"
-                              res.send(object)
-                            }
-                          })
-                    }
-            })
-    }
+   
+    db_image.insert_review(user_id, user_nickname, cafe_name, review_content, review_date, review_point, image, function (err, result) {
+        if (err) console.log(err)
+        else {
+            console.log(req.file.filename + user_id)
+            var object = new Object();
+            object.result = "success"
+            res.send(object)
+        }
+    })
+})
+
+router.post('/review/insert/noimage', function(req, res) {
+
+    var user_id = req.body.user_id
+    var user_nickname = req.body.user_nickname
+    var cafe_name = req.body.cafe_name
+    var review_content = req.body.review_content
+    var review_date = req.body.review_date
+    var review_point = req.body.review_point
+
+   
+    db_image.insert_review(user_id, user_nickname, cafe_name, review_content, review_date, review_point, null, function (err, result) {
+        if (err) console.log(err)
+        else {
+            var object = new Object();
+            object.result = "success"
+            res.send(object)
+        }
+    })
 })
 
 router.post('/upload/story', upload.single('img'), (req, res) => {
