@@ -6,6 +6,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
@@ -16,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.uniting.android.R
 import java.text.SimpleDateFormat
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.uniting.android.Room.MakeRoomActivity
 
 class PSDialog(activity: Activity) {
 
@@ -44,5 +50,38 @@ class PSDialog(activity: Activity) {
         }
     }
 
+    class BottomSheetDialog() : BottomSheetDialogFragment() {
 
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            super.onCreateView(inflater, container, savedInstanceState)
+            return inflater.inflate(R.layout.dialog_category, container, false)
+        }
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+            view?.findViewById<TextView>(R.id.text_hobby)?.setOnClickListener {
+                MakeRoomActivity.category="취미"
+                dismiss()
+            }
+
+            view?.findViewById<TextView>(R.id.text_study)?.setOnClickListener {
+                MakeRoomActivity.category="스터디"
+                dismiss()
+            }
+
+            view?.findViewById<TextView>(R.id.text_counsel)?.setOnClickListener {
+                MakeRoomActivity.category="고민상담"
+                dismiss()
+            }
+
+            view?.findViewById<TextView>(R.id.text_talk)?.setOnClickListener {
+                MakeRoomActivity.category="잡담"
+                dismiss()
+            }
+        }
+    }
 }

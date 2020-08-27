@@ -20,8 +20,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Cafeteria.RecyclerViewActivity"></activity>
-        <activity android:name=".Cafeteria.WriteReviewActivity" />
         <activity android:name=".Room.MakeRoomActivity"></activity>
+        <activity android:name=".Cafeteria.WriteReviewActivity"></activity>
+        <activity android:name=".Room.MakeRoomActivity"
+            android:theme="@style/AppTheme.StatusBar">
+        </activity>
         <activity android:name=".Room.RoomListActivity" />
 
         <meta-data

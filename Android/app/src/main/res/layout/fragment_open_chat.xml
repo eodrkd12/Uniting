@@ -4,27 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.HomeFragment">
+    tools:context=".Home.OpenChatFragment">
 
-    <Button
-        android:id="@+id/btn_swap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="오픈채팅으로 전환"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_category"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/frame_home"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/btn_chatlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="채팅하기"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_swap">
-
-    </FrameLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/vp_category" />
 </androidx.constraintlayout.widget.ConstraintLayout>
