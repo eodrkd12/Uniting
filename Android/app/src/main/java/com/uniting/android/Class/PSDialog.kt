@@ -1,10 +1,15 @@
 package com.uniting.android.Class
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
@@ -68,18 +73,13 @@ class PSDialog(activity: Activity) {
                 dismiss()
             }
 
-            view?.findViewById<TextView>(R.id.text_recruit)?.setOnClickListener {
-                MakeRoomActivity.category="취/창업"
-                dismiss()
-            }
-
             view?.findViewById<TextView>(R.id.text_counsel)?.setOnClickListener {
                 MakeRoomActivity.category="고민상담"
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_talk)?.setOnClickListener {
-                MakeRoomActivity.category="아무말"
+                MakeRoomActivity.category="잡담"
                 dismiss()
             }
         }

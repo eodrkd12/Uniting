@@ -41,30 +41,6 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorMdGrey_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_study" />
-
-    <TextView
-        android:id="@+id/text_recruit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="취/창업"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-    <View
         android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -73,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_recruit" />
+        app:layout_constraintTop_toBottomOf="@+id/text_study" />
 
     <TextView
         android:id="@+id/text_counsel"
@@ -103,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="아무말"
+        android:text="잡담"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -22,11 +22,6 @@
         <activity android:name=".Cafeteria.WriteReviewActivity"></activity>
         <activity android:name=".Room.MakeRoomActivity"
             android:theme="@style/AppTheme.StatusBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Room.RoomListActivity" />
 
@@ -39,7 +34,11 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
         <activity android:name=".Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
