@@ -9,12 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.uniting.android.Class.GpsTracker
 import com.uniting.android.R
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
-class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaItem.Review>) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaItem.Review>, val size : Int) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return reviewList.size
+        return size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {
@@ -23,6 +26,10 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
     }
 
     override fun onBindViewHolder(holder: ReviewAdapter.ViewHolder, position: Int) {
+        val gpsTracker = GpsTracker(activity)
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val reviewDate = simpleDateFormat.parse(reviewList.get(position).reviewDate)
+
         holder.reviewNickname.text = reviewList.get(position).userNickname
         when(reviewList.get(position).reviewPoint) {
             1 -> holder.reviewPoint.text = "★☆☆☆☆"
@@ -31,7 +38,7 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
             4 -> holder.reviewPoint.text = "★★★★☆"
             5 -> holder.reviewPoint.text = "★★★★★"
         }
-        holder.reviewDate.text = reviewList.get(position).reviewDate
+        holder.reviewDate.text = gpsTracker.timeDiff(reviewDate.time)
 
         if(reviewList.get(position).imageUrl == "null") {
             holder.reviewImage.visibility = View.GONE

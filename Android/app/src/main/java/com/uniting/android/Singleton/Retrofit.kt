@@ -73,7 +73,7 @@ object Retrofit {
 
     fun getReview(cafeteriaName: String, callback: (ArrayList<CafeteriaItem.Review>) -> Unit) {
 
-        val sql = "select * from review where cafe_name='${cafeteriaName}'"
+        val sql = "select * from review where cafe_name='${cafeteriaName}' order by review_date desc"
 
         service.getReview(sql).enqueue(object: Callback<ArrayList<CafeteriaItem.Review>>{
             override fun onResponse(

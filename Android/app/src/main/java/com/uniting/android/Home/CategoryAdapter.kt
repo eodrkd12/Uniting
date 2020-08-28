@@ -24,7 +24,6 @@ class CategoryAdapter(val context: Context, val categoryList: ArrayList<String>)
     }
 
     override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
-
         holder.setItem(categoryList[position])
     }
 
