@@ -20,11 +20,11 @@ class MakeRoom1Fragment : Fragment() {
 
         var editTilte = rootView.findViewById<EditText>(R.id.edit_title)
 
-        editTilte.addTextChangedListener {
-            if(it!!.length==0){
-
-            }
-        }
+//        editTilte.addTextChangedListener{
+//            if(it!!.length==0){
+//
+//            }
+//        }
 
         return rootView
     }
