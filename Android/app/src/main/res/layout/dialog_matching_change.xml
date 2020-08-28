@@ -18,9 +18,9 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/dialog_cancel_button"
@@ -42,12 +42,13 @@
 
         <Button
             android:id="@+id/btn_change"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="32dp"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/dialog_change_button"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_cancel"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
         <TextView
             android:id="@+id/text_content"

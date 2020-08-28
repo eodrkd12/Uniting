@@ -138,6 +138,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_age_tag"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
@@ -148,6 +149,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_department_tag"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
@@ -158,6 +160,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_hobby_tag"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
@@ -168,6 +171,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_personality_tag"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />

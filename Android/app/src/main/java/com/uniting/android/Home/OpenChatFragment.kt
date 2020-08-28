@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
 import com.uniting.android.R
+import com.uniting.android.Room.MakeRoomActivity
 import com.uniting.android.Room.RoomListActivity
 
 class OpenChatFragment : Fragment() {
@@ -25,6 +26,7 @@ class OpenChatFragment : Fragment() {
         var vpCategory = rootView.findViewById<ViewPager2>(R.id.vp_category)
         var categoryAdapter = CategoryAdapter(activity!!,categoryList)
         var btnConnect = rootView.findViewById<Button>(R.id.btn_connect)
+        var btnMakeRoom = rootView.findViewById<Button>(R.id.btn_makeroom)
 
         vpCategory.adapter=categoryAdapter
 
@@ -50,6 +52,10 @@ class OpenChatFragment : Fragment() {
             startActivity(intent)
         }
 
+        btnMakeRoom.setOnClickListener {
+            var intent = Intent(activity,MakeRoomActivity::class.java)
+            startActivity(intent)
+        }
 
         return rootView
     }
