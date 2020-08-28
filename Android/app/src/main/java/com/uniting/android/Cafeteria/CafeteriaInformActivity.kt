@@ -1,15 +1,20 @@
 package com.uniting.android.Cafeteria
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +25,7 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.Class.PSDialog
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
@@ -31,14 +37,16 @@ import kotlinx.android.synthetic.main.activity_cafeteria_inform.*
 import org.jsoup.Jsoup
 
 
-class CafeteriaInformActivity : AppCompatActivity(), OnMapReadyCallback {
+class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
 
     var mapx : Double = 0.0
     var mapy : Double = 0.0
     var id : String = ""
     var menuList = ArrayList<CafeteriaItem.Menu>()
     var imageList = ArrayList<String>()
+    var reviewList = ArrayList<CafeteriaItem.Review>()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafeteria_inform)
@@ -71,18 +79,44 @@ class CafeteriaInformActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         //리뷰 불러오기
+        val spaceDecoration = VerticalSpaceItemDecoration(20) // RecyclerView 간격
+
         Retrofit.getReview(name!!) {
+            reviewList.clear()
             if(it.size != 0) {
+                reviewList = it
                 text_no_review.visibility = View.GONE
-                rv_cafeteria_review.setHasFixedSize(true)
-                rv_cafeteria_review.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                rv_cafeteria_review.adapter = ReviewAdapter(this, it)
+                if(it.size < 3) {
+                    rv_cafeteria_review.setHasFixedSize(true)
+                    rv_cafeteria_review.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    rv_cafeteria_review.adapter = ReviewAdapter(this, it, it.size)
+                    rv_cafeteria_review.addItemDecoration(spaceDecoration)
+                } else {
+                    rv_cafeteria_review.setHasFixedSize(true)
+                    rv_cafeteria_review.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    rv_cafeteria_review.adapter = ReviewAdapter(this, it, 3)
+                    rv_cafeteria_review.addItemDecoration(spaceDecoration)
+                }
+
+                text_review_etc.setOnClickListener {
+                    var intent = Intent(this, RecyclerViewActivity::class.java)
+                    intent.putExtra("reviewList", reviewList)
+                    intent.putExtra("activityType", "review")
+                    startActivity(intent)
+                }
+
+            } else {
+                text_no_review.visibility = View.VISIBLE
             }
         }
+
+        //리뷰 더보기
+
 
 
         if(bizHourInfo == "" || bizHourInfo == null)
         {
+            text_bizhourinfo.setTextColor(R.color.colorMdGrey_900)
             bizHourInfo = "정보없음"
         }
 
@@ -94,6 +128,28 @@ class CafeteriaInformActivity : AppCompatActivity(), OnMapReadyCallback {
         if(phone == "" || phone == null)
         {
             phone = "정보없음"
+            text_phone.setTextColor(R.color.colorMdGrey_900)
+        } else {
+            text_phone.setOnClickListener {
+                val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.Theme_AppCompat_Light_Dialog))
+                builder.setTitle(name)
+                builder.setMessage(phone)
+
+                builder.setNegativeButton("통화") { dialog, id->
+                    Log.d("test", phone)
+                    val call = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${phone}"))
+                    try {
+                        startActivity(call)
+                    } catch (e: Exception) {
+                        Log.d("test",e.toString())
+                        e.printStackTrace()
+                    }
+                }
+                builder.setPositiveButton("취소") { dialog, id ->
+
+                }
+                builder.show()
+            }
         }
 
         if("|" in bizHourInfo!!)
@@ -188,20 +244,28 @@ class CafeteriaInformActivity : AppCompatActivity(), OnMapReadyCallback {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result: Any? ->
                     // onPostExecute
-                    rv_cafeteria_menu.adapter = MenuAdapter(menuList)
-                    rv_cafeteria_menu.setHasFixedSize(true)
-                    rv_cafeteria_menu.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    if(menuList.size == 0) {
+                        text_no_menu.visibility = View.VISIBLE
+                    } else {
+                        text_no_menu.visibility = View.GONE
+                        rv_cafeteria_menu.adapter = MenuAdapter(menuList)
+                        rv_cafeteria_menu.setHasFixedSize(true)
+                        rv_cafeteria_menu.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    }
 
+                    val gridSpaceDecoration = GrideSpaceItemDecoration(1)
 
                     if(imageList.size < 6) {
                         rv_cafeteria_image.setHasFixedSize(true)
                         rv_cafeteria_image.adapter = CafeteriaImageAdapter(this, imageList, imageList.size)
                         rv_cafeteria_image.layoutManager = GridLayoutManager(this, 3)
+                        rv_cafeteria_image.addItemDecoration(gridSpaceDecoration)
                     }
                     else {
                         rv_cafeteria_image.setHasFixedSize(true)
                         rv_cafeteria_image.adapter = CafeteriaImageAdapter(this, imageList, 6)
                         rv_cafeteria_image.layoutManager = GridLayoutManager(this, 3)
+                        rv_cafeteria_image.addItemDecoration(gridSpaceDecoration)
                     }
                     backgroundtask?.dispose()
                 }

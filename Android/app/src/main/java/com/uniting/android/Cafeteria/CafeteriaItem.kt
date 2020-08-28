@@ -51,5 +51,5 @@ class CafeteriaItem {
         val reviewPoint : Int,
         @SerializedName("image_url")
         val imageUrl : String?
-    )
+    ) : Serializable
 }
