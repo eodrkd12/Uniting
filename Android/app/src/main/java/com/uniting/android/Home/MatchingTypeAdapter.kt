@@ -1,11 +1,10 @@
 package com.uniting.android.Home
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.R
 
@@ -29,15 +28,18 @@ class MatchingTypeAdapter(val context: Context, val matchingTypeList: ArrayList<
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var layoutItem = view.findViewById<ConstraintLayout>(R.id.layout_item)
+        var textTitle = view.findViewById<TextView>(R.id.layout_room)
+        var textContent = view.findViewById<TextView>(R.id.text_content)
 
         fun setItem(type : String){
             when(type){
                 "일반매칭" -> {
-                    layoutItem.setBackgroundColor(Color.GREEN)
+                    textTitle.setText("일반 매칭")
+                    textContent.setText("유니팅에 가입한 상대방과 매칭")
                 }
                 "스마트매칭" -> {
-                    layoutItem.setBackgroundColor(Color.GRAY)
+                    textTitle.setText("스마트 매칭")
+                    textContent.setText("유니팅에 가입한 상대방 스마트하게 매칭(유료)")
                 }
             }
         }

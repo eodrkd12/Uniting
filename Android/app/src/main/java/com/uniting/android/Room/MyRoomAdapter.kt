@@ -16,7 +16,7 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_myroom, parent, false)
 
         return ViewHolder(itemView)
     }

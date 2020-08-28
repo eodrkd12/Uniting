@@ -18,18 +18,18 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
-            android:text="취소"
+            android:background="@drawable/dialog_cancel_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_content" />
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/layout_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -42,12 +42,13 @@
 
         <Button
             android:id="@+id/btn_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="바꾸기"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/dialog_change_button"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_cancel"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
         <TextView
             android:id="@+id/text_content"
@@ -62,7 +63,7 @@
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_room" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
