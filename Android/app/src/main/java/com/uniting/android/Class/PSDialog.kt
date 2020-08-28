@@ -66,7 +66,7 @@ class PSDialog(activity: Activity) {
         }
     }
 
-    fun setMatchingCondition(title : String, conditionList: ArrayList<String>, editText: EditText){
+    fun setMatchingCondition(title : String, conditionList: ArrayList<String>, textView: TextView){
         dialog = Dialog(context!!, R.style.popCasterDlgTheme)
         var view = context!!.layoutInflater.inflate(R.layout.dialog_edit_condition, null)
 
@@ -83,7 +83,7 @@ class PSDialog(activity: Activity) {
         rvCondition.adapter=ConditionAdapter(context!!, conditionList)
 
         btnSave.setOnClickListener {
-            editText.setText(ConditionAdapter.selectedCondition)
+            textView.setText(ConditionAdapter.selectedCondition)
             dismiss()
         }
     }
@@ -101,7 +101,7 @@ class PSDialog(activity: Activity) {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            view?.findViewById<TextView>(R.id.text_hobby)?.setOnClickListener {
+            view?.findViewById<TextView>(R.id.text_hobby_tag)?.setOnClickListener {
                 MakeRoomActivity.category="취미"
                 dismiss()
             }

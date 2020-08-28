@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.uniting.android.Class.PSDialog
@@ -30,15 +31,15 @@ class MatchingFragment : Fragment() {
         vpMatching.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         vpMatching.currentItem=0
 
-        var editAge = rootView.findViewById<EditText>(R.id.edit_age)
-        var editDepartment = rootView.findViewById<EditText>(R.id.edit_department)
-        var editHobby = rootView.findViewById<EditText>(R.id.edit_hobby)
-        var editPersonality = rootView.findViewById<EditText>(R.id.edit_personality)
+        var textAge = rootView.findViewById<TextView>(R.id.text_age)
+        var textDepartment = rootView.findViewById<TextView>(R.id.text_department)
+        var textHobby = rootView.findViewById<TextView>(R.id.text_hobby)
+        var textPersonality = rootView.findViewById<TextView>(R.id.text_personality)
 
-        editAge.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
-        editDepartment.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
-        editHobby.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
-        editPersonality.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
+        textAge.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
+        textDepartment.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
+        textHobby.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
+        textPersonality.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
 
         return rootView
     }
@@ -54,25 +55,25 @@ class MatchingFragment : Fragment() {
                 var title : String? = null
                 var conditionList : ArrayList<String>? = null
                 when(p0!!.id){
-                    R.id.edit_age -> {
+                    R.id.text_age -> {
                         title = "나이"
                         conditionList = arrayListOf("20","21","22")
                     }
-                    R.id.edit_department -> {
+                    R.id.text_department -> {
                         title = "학과"
                         conditionList = arrayListOf("컴퓨터공학과","전자공학과","기계자동차공학과")
                     }
-                    R.id.edit_hobby -> {
+                    R.id.text_hobby -> {
                         title = "취미"
                         conditionList = arrayListOf("축구","여행","카페가기")
                     }
-                    R.id.edit_personality -> {
+                    R.id.text_personality -> {
                         title = "성격"
                         conditionList = arrayListOf("착함","성실함")
                     }
                 }
                 var psDialog = PSDialog(activity)
-                psDialog.setMatchingCondition(title!!, conditionList!!,p0 as EditText)
+                psDialog.setMatchingCondition(title!!, conditionList!!,p0 as TextView)
                 psDialog.show()
             }
 
