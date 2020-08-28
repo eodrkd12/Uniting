@@ -43,7 +43,6 @@ class MyRoomFragment : Fragment() {
             roomList.clear()
             it.forEach{
 
-
                 roomList.add(
                     MyRoomItem(
                         it

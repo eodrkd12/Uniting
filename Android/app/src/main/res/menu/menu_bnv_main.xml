@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/home_click_icon"
         android:title="홈"
         app:itemIconTint="@drawable/item_color"
         app:itemTextColor="@drawable/item_color"/>
@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/menu_cafeteria"
-        android:icon="@drawable/restaurent_icon"
+        android:icon="@drawable/locate_icon"
         android:title="맛집"
         app:itemIconTint="@drawable/item_color"
         app:itemTextColor="@drawable/item_color"
