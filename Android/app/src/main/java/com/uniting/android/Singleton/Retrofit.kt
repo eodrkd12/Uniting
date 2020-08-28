@@ -10,6 +10,7 @@ import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Item.Test
+import com.uniting.android.Room.RoomItem
 import kotlinx.android.synthetic.main.activity_write_review.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -142,6 +143,13 @@ object Retrofit {
         }
     }
 
+    fun getOpenChatList(
+        univName: String,
+        category: String?,
+        callback: (ArrayList<RoomItem>) -> Unit
+    ) {
+
+    }
 
 
 }

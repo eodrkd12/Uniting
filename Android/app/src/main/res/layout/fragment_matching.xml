@@ -179,7 +179,7 @@
         android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/main_connect_button"
+        android:background="@drawable/big_main_connect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_condition" />
