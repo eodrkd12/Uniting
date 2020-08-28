@@ -41,17 +41,17 @@ class ProfileActivity : AppCompatActivity() {
         layoutMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, dm!!).toInt()
 
         Retrofit.randomMatching {
-            text_profile_city.text = it.userCity
-            text_profile_dept.text = it.deptName
-            text_profile_gender.text = it.userGender
-            text_profile_nickname.text = it.userNickname
-            text_profile_height.text = it.userHeight
-            text_profile_age.text = it.userAge
+            text_profile_city.text = it.get(0).userCity
+            text_profile_dept.text = it.get(0).deptName
+            text_profile_gender.text = it.get(0).userGender
+            text_profile_nickname.text = it.get(0).userNickname
+            text_profile_height.text = it.get(0).userHeight
+            text_profile_age.text = it.get(0).userAge
 
-            var hobby : List<String> = it.userHobby.split(",")
+            var hobby : List<String> = it.get(0).userHobby.split(",")
             setLayout(layout_hobby, hobby)
 
-            var personality : List<String> = it.userPersonality.split(",")
+            var personality : List<String> = it.get(0).userPersonality.split(",")
             setLayout(layout_personality, personality)
         }
 

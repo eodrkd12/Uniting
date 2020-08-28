@@ -117,26 +117,26 @@ object Retrofit {
         }
     }
 
-    fun randomMatching(callback : (ProfileModel.Profile) -> Unit) {
-        val sql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and (user_id not in (select user_id from blocking where blocking = '${UserInfo.DEPT}') and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' order by rand() limit 1;"
+    fun randomMatching(callback : (ArrayList<ProfileModel.Profile>) -> Unit) {
+        val sql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and (user_id not in (select user_id from blocking where blocking = '${UserInfo.DEPT}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' order by rand() limit 1;"
         val blockingSql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' and dept_name <> '${UserInfo.DEPT}' order by rand() limit 1;"
 
 
         if(UserInfo.BLOCKINGDEPT == 0) {
-            service.randomMatching(sql).enqueue(object: Callback<ProfileModel.Profile> {
-                override fun onResponse(call: Call<ProfileModel.Profile>, response: Response<ProfileModel.Profile>) {
+            service.randomMatching(sql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+                override fun onResponse(call: Call<ArrayList<ProfileModel.Profile>>, response: Response<ArrayList<ProfileModel.Profile>>) {
                     callback(response.body()!!)
                 }
-                override fun onFailure(call: Call<ProfileModel.Profile>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
                     Log.d("test", t.toString())
                 }
             })
         } else {
-            service.randomMatching(blockingSql).enqueue(object: Callback<ProfileModel.Profile> {
-                override fun onResponse(call: Call<ProfileModel.Profile>, response: Response<ProfileModel.Profile>) {
+            service.randomMatching(blockingSql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+                override fun onResponse(call: Call<ArrayList<ProfileModel.Profile>>, response: Response<ArrayList<ProfileModel.Profile>>) {
                     callback(response.body()!!)
                 }
-                override fun onFailure(call: Call<ProfileModel.Profile>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
                     Log.d("test", t.toString())
                 }
             })

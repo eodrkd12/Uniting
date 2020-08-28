@@ -55,5 +55,5 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/common/sql/select")
-    fun randomMatching(@Field("sql") sql : String) : Call<ProfileModel.Profile>
+    fun randomMatching(@Field("sql") sql : String) : Call<ArrayList<ProfileModel.Profile>>
 }
