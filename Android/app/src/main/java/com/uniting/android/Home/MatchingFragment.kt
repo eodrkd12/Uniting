@@ -31,11 +31,13 @@ class MatchingFragment : Fragment() {
         vpMatching.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         vpMatching.currentItem=0
 
+        var textHeight = rootView.findViewById<TextView>(R.id.text_height)
         var textAge = rootView.findViewById<TextView>(R.id.text_age)
         var textDepartment = rootView.findViewById<TextView>(R.id.text_department)
         var textHobby = rootView.findViewById<TextView>(R.id.text_hobby)
         var textPersonality = rootView.findViewById<TextView>(R.id.text_personality)
 
+        textHeight.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
         textAge.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
         textDepartment.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
         textHobby.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
@@ -55,20 +57,24 @@ class MatchingFragment : Fragment() {
                 var title : String? = null
                 var conditionList : ArrayList<String>? = null
                 when(p0!!.id){
+                    R.id.text_height -> {
+                        title = "키를 선택해주세요."
+                        conditionList = arrayListOf("160cm","170cm","180cm")
+                    }
                     R.id.text_age -> {
-                        title = "나이"
+                        title = "나이를 선택해주세요."
                         conditionList = arrayListOf("20","21","22")
                     }
                     R.id.text_department -> {
-                        title = "학과"
+                        title = "학과를 선택해주세요."
                         conditionList = arrayListOf("컴퓨터공학과","전자공학과","기계자동차공학과")
                     }
                     R.id.text_hobby -> {
-                        title = "취미"
+                        title = "취미를 선택해주세요."
                         conditionList = arrayListOf("축구","여행","카페가기")
                     }
                     R.id.text_personality -> {
-                        title = "성격"
+                        title = "성격를 선택해주세요."
                         conditionList = arrayListOf("착함","성실함")
                     }
                 }

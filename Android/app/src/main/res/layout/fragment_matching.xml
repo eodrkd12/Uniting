@@ -40,8 +40,20 @@
             android:id="@+id/text_age_tag"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="나이"
+            android:textAlignment="center"
+            android:textColor="@color/colorMdGrey_700"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="@+id/text_height_tag"
+            app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
+
+        <TextView
+            android:id="@+id/text_height_tag"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="키"
             android:textAlignment="center"
             android:textColor="@color/colorMdGrey_700"
             android:textSize="15dp"
@@ -97,6 +109,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
 
         <View
+            android:id="@+id/view9"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/colorMdGrey_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
+
+        <View
             android:id="@+id/view5"
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -142,6 +166,17 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/text_age_tag"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+
+        <TextView
+            android:id="@+id/text_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorMdGrey_900"
+            android:textSize="15dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_height_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintStart_toEndOf="@+id/text_height_tag" />
 
         <TextView
             android:id="@+id/text_department"

@@ -84,6 +84,7 @@ class PSDialog(activity: Activity) {
 
         btnSave.setOnClickListener {
             textView.setText(ConditionAdapter.selectedCondition)
+            ConditionAdapter.selectedCondition=""
             dismiss()
         }
     }

@@ -38,7 +38,7 @@ class ConditionAdapter(val context: Context, val conditionList: ArrayList<String
             if(befTextView!=null){
                 befTextView!!.setTextColor(Color.parseColor("#9E9E9E"))
             }
-            textCondition.setTextColor(Color.parseColor("#000000"))
+            textCondition.setTextColor(context.getColor(R.color.colorPrimary))
             selectedCondition=textCondition.text.toString()
             befTextView=textCondition
         }
