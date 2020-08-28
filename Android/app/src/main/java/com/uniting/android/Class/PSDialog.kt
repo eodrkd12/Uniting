@@ -2,8 +2,6 @@ package com.uniting.android.Class
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,8 +11,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -23,7 +19,6 @@ import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Room.MakeRoomActivity
-import java.util.concurrent.locks.Condition
 
 class PSDialog(activity: Activity) {
 
@@ -75,7 +70,7 @@ class PSDialog(activity: Activity) {
         dialog = Dialog(context!!, R.style.popCasterDlgTheme)
         var view = context!!.layoutInflater.inflate(R.layout.dialog_edit_condition, null)
 
-        var textTitle = view.findViewById<TextView>(R.id.text_title)
+        var textTitle = view.findViewById<TextView>(R.id.layout_room)
         var rvCondition = view.findViewById<RecyclerView>(R.id.rv_condition)
         var btnSave = view.findViewById<Button>(R.id.btn_save)
 

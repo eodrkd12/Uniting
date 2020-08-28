@@ -8,9 +8,9 @@
 
     <Button
         android:id="@+id/btn_swap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="오픈채팅으로 전환"
+        android:layout_width="81dp"
+        android:layout_height="25dp"
+        android:background="@drawable/openchat_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,7 +19,6 @@
         android:id="@+id/frame_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

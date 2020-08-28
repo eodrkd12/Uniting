@@ -8,18 +8,19 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_category"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_width="295dp"
+        android:layout_height="277dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_chatlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btn_connect"
+        android:layout_width="338dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
-        android:text="채팅하기"
+        android:background="@drawable/main_connect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_category" />

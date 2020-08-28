@@ -4,6 +4,7 @@ import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Chat.ChatItem
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Item.Test
 import okhttp3.MultipartBody
@@ -51,4 +52,8 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun getReview(@Field("sql") sql : String) : Call<ArrayList<CafeteriaItem.Review>>
+
+    @FormUrlEncoded
+    @POST("/common/sql/select")
+    fun randomMatching(@Field("sql") sql : String) : Call<ProfileModel.Profile>
 }

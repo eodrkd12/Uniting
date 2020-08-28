@@ -8,8 +8,8 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_matchingtype"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_width="295dp"
+        android:layout_height="277dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,12 +23,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_matchingtype">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:text="매칭조건"
+            android:textColor="@color/colorMdGrey_900"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/edit_personality"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="50dp"
             android:editable="false"
             android:ems="10"
             android:textAlignment="center"
@@ -42,20 +54,19 @@
             android:id="@+id/text_age"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="나이"
             android:textAlignment="center"
             android:textColor="@color/colorMdGrey_700"
             android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/text_department"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="학과"
             android:textAlignment="center"
             android:textColor="@color/colorMdGrey_700"
@@ -67,7 +78,7 @@
             android:id="@+id/text_hobby"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="취미"
             android:textAlignment="center"
             android:textColor="@color/colorMdGrey_700"
@@ -79,13 +90,11 @@
             android:id="@+id/text_personality"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:text="성격"
             android:textAlignment="center"
             android:textColor="@color/colorMdGrey_700"
             android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_hobby"
             app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
@@ -93,8 +102,8 @@
             android:id="@+id/edit_age"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="50dp"
             android:editable="false"
             android:ems="10"
             android:textAlignment="center"
@@ -107,8 +116,8 @@
             android:id="@+id/edit_department"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="50dp"
             android:editable="false"
             android:ems="10"
             android:textAlignment="center"
@@ -122,8 +131,8 @@
             android:id="@+id/edit_hobby"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="50dp"
             android:editable="false"
             android:ems="10"
             android:textAlignment="center"
@@ -136,10 +145,10 @@
 
     <Button
         android:id="@+id/btn_matching"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="연결하기"
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_connect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_condition" />
