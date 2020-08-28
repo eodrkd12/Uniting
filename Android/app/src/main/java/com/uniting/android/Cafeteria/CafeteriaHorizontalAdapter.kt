@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.uniting.android.R
 import kotlinx.android.synthetic.main.item_horizontalcafeteria.view.*
 
@@ -25,10 +26,13 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
 
         Glide.with(holder.itemView)
             .load(cafeteriaList.get(position).imageSrc)
+            .transition(DrawableTransitionOptions().crossFade())
             .override(300, 300)
             .into(holder.cafeteriaImage)
 
-        holder.cafeteriaTitle.text = cafeteriaList.get(position).name
+        holder.cafeteriaImage.clipToOutline = true
+
+        holder.cafeteriaTitle.text = cafeteriaList.get(position).name.replace(" ", "")
 
         holder.itemView.setOnClickListener {
             var intent = Intent(activity, CafeteriaInformActivity::class.java)
