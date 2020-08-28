@@ -34,14 +34,14 @@ class HomeFragment : Fragment() {
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                         .replace(R.id.frame_home,openChatFragment!!).commit()
                     currentFragment=1
-                    btnSwap.setText("매칭으로 전환")
+                    btnSwap.background=resources.getDrawable(R.drawable.by1_button)
                 }
                 1 -> {
                     activity!!.supportFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right,R.anim.exit_to_left)
                         .replace(R.id.frame_home,matchingFragment!!).commit()
                     currentFragment=0
-                    btnSwap.setText("오픈채팅으로 전환")
+                    btnSwap.background=resources.getDrawable(R.drawable.openchat_button)
                 }
             }
         }

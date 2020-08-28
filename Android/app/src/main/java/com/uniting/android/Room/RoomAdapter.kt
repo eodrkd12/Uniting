@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.R
+import kotlinx.android.synthetic.main.item_room.view.*
 
-class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
-    RecyclerView.Adapter<MyRoomAdapter.ViewHolder>() {
+class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
+    RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return roomList.size
@@ -16,7 +17,7 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_myroom, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_room, parent, false)
 
         return ViewHolder(itemView)
     }
@@ -27,5 +28,13 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
+        fun setItem(roomItem: RoomItem){
+            view.text_title.text=roomItem.roomTitle
+            view.text_introduce.text=roomItem.roomIntroduce
+            view.text_num_member.text=roomItem.numOfMembers.toString()
+            view.btn_enter.setOnClickListener {
+
+            }
+        }
     }
 }
