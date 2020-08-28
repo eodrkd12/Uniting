@@ -1,15 +1,18 @@
 package com.uniting.android.Home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.uniting.android.Class.PSDialog
+import com.uniting.android.Profile.ProfileActivity
 import com.uniting.android.R
 
 class MatchingFragment : Fragment() {
@@ -25,6 +28,7 @@ class MatchingFragment : Fragment() {
 
         var vpMatching = rootView.findViewById<ViewPager2>(R.id.vp_matchingtype)
         var matchingAdapter = MatchingTypeAdapter(activity!!, matchingTypeList)
+        var btnMatching : Button = rootView.findViewById(R.id.btn_matching)
 
         vpMatching.adapter=matchingAdapter
 
@@ -42,6 +46,11 @@ class MatchingFragment : Fragment() {
         textDepartment.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
         textHobby.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
         textPersonality.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching))
+
+        btnMatching.setOnClickListener {
+            var intent = Intent(activity, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         return rootView
     }
