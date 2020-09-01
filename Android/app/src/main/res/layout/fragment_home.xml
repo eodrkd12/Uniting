@@ -10,6 +10,7 @@
         android:id="@+id/btn_swap"
         android:layout_width="81dp"
         android:layout_height="25dp"
+
         android:background="@drawable/openchat_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

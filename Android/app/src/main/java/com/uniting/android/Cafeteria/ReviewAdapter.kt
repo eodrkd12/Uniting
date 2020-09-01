@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.uniting.android.Class.GpsTracker
+import com.uniting.android.Class.UserInfo
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
@@ -51,8 +54,40 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
         }
 
         holder.reviewImage.clipToOutline = true
-
         holder.reviewContent.text = reviewList.get(position).reviewContent
+
+
+        if(reviewList.get(position).userId == UserInfo.ID) {
+            holder.reviewDelete.visibility = View.VISIBLE
+            holder.reviewDelete.setOnClickListener {
+                if(reviewList.get(position).imageUrl == "null") {
+                    Retrofit.deleteReview(reviewList.get(position).reviewId, "noimage") {
+                        if(it.result == "success") {
+                            Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            reviewList.removeAt(position)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(position, reviewList.size)
+                        }
+                        else {
+                            Toast.makeText(activity, "서버와의 통신오류", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    var list : List<String>? = reviewList.get(position).imageUrl?.split("/")
+                    Retrofit.deleteReview(reviewList.get(position).reviewId, list!!.get(3)) {
+                        if(it.result == "success") {
+                            Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                            reviewList.removeAt(position)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(position, reviewList.size)
+                        }
+                        else {
+                            Toast.makeText(activity, "서버와의 통신오류", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -61,5 +96,6 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
         val reviewDate : TextView = view.findViewById(R.id.text_review_date)
         val reviewImage : ImageView = view.findViewById(R.id.image_review)
         val reviewContent : TextView = view.findViewById(R.id.text_review_content)
+        val reviewDelete : TextView = view.findViewById(R.id.text_review_delete)
     }
 }

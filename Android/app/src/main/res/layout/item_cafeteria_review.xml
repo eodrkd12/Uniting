@@ -10,8 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:scaleType="fitXY"
         android:background="@drawable/rounded_imageview"
+        android:scaleType="fitXY"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,18 @@
         android:textColor="@color/colorMdGrey_900"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/image_review"
-        app:layout_constraintStart_toStartOf="@+id/image_review"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_review" />
+
+    <TextView
+        android:id="@+id/text_review_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        android:visibility="gone"
+        android:textSize="10dp"
+        android:textColor="@color/colorMdRed_600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

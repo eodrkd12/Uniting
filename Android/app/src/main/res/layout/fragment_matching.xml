@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Home.MatchingFragment">
+    android:layout_height="wrap_content"
+    tools:context=".Home.MatchingFragment"
+    android:layout_gravity="center">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_matchingtype"
@@ -28,9 +29,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="40dp"
             android:text="매칭조건"
-            android:textColor="@color/colorMdGrey_900"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,7 @@
             android:layout_marginTop="16dp"
             android:text="나이"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_700"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="@+id/text_height_tag"
             app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
@@ -52,10 +53,10 @@
             android:id="@+id/text_height_tag"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="키"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_700"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -67,7 +68,7 @@
             android:layout_marginTop="16dp"
             android:text="학과"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_700"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="@+id/text_age_tag"
             app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
@@ -79,7 +80,7 @@
             android:layout_marginTop="16dp"
             android:text="취미"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_700"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="@+id/text_department_tag"
             app:layout_constraintTop_toBottomOf="@+id/text_department_tag" />
@@ -91,7 +92,7 @@
             android:layout_marginTop="16dp"
             android:text="성격"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_700"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="@+id/text_hobby_tag"
             app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
@@ -100,10 +101,10 @@
             android:id="@+id/view2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/colorMdGrey_500"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
@@ -112,10 +113,10 @@
             android:id="@+id/view9"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/colorMdGrey_500"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
@@ -124,10 +125,10 @@
             android:id="@+id/view5"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/colorMdGrey_500"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_department_tag" />
@@ -136,10 +137,10 @@
             android:id="@+id/view6"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/colorMdGrey_500"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_personality_tag" />
@@ -148,10 +149,10 @@
             android:id="@+id/view7"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:background="@color/colorMdGrey_500"
+            android:layout_marginEnd="50dp"
+            android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
@@ -160,11 +161,11 @@
             android:id="@+id/text_age"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="15dp"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_age_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView9"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
 
         <TextView
@@ -172,44 +173,89 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/colorMdGrey_900"
+            android:textColor="@color/text_primary"
             android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_height_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintEnd_toStartOf="@+id/imageView8"
             app:layout_constraintStart_toEndOf="@+id/text_height_tag" />
 
         <TextView
             android:id="@+id/text_department"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="15dp"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_department_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView10"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
 
         <TextView
             android:id="@+id/text_hobby"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="15dp"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_hobby_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
 
         <TextView
             android:id="@+id/text_personality"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="15dp"
             android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_personality_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView12"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text_height_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintTop_toTopOf="@+id/text_height_tag" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text_age_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/text_age_tag" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text_department_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view5"
+            app:layout_constraintTop_toTopOf="@+id/text_department_tag" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text_hobby_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view7"
+            app:layout_constraintTop_toTopOf="@+id/text_hobby_tag" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/more_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/text_personality_tag"
+            app:layout_constraintEnd_toEndOf="@+id/view6"
+            app:layout_constraintTop_toTopOf="@+id/text_personality_tag" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -217,7 +263,7 @@
         android:id="@+id/btn_matching"
         android:layout_width="300dp"
         android:layout_height="46dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/big_main_connect_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

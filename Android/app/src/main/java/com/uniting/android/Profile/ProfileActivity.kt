@@ -40,7 +40,21 @@ class ProfileActivity : AppCompatActivity() {
         margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, dm!!).toInt()
         layoutMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, dm!!).toInt()
 
-        Retrofit.randomMatching {
+        val userId = intent.getStringExtra("userId")
+        text_profile_city.text = intent.getStringExtra("userCity")
+        text_profile_dept.text = intent.getStringExtra("deptName")
+        text_profile_gender.text = intent.getStringExtra("userGender")
+        text_profile_nickname.text = intent.getStringExtra("userNickname")
+        text_profile_height.text = intent.getStringExtra("userHeight")
+        text_profile_age.text = intent.getStringExtra("userAge")
+
+        var hobby : List<String> = intent.getStringExtra("userHobby")!!.split(",")
+        setLayout(layout_hobby, hobby)
+
+        var personality : List<String> = intent.getStringExtra("userPersonality")!!.split(",")
+        setLayout(layout_personality, personality)
+
+        /*Retrofit.randomMatching {
             text_profile_city.text = it.get(0).userCity
             text_profile_dept.text = it.get(0).deptName
             text_profile_gender.text = it.get(0).userGender
@@ -53,7 +67,7 @@ class ProfileActivity : AppCompatActivity() {
 
             var personality : List<String> = it.get(0).userPersonality.split(",")
             setLayout(layout_personality, personality)
-        }
+        }*/
 
     }
 

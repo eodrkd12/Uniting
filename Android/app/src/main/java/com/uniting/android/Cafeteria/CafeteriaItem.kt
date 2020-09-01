@@ -39,6 +39,8 @@ class CafeteriaItem {
     ) : Serializable
 
     data class Review(
+        @SerializedName("review_id")
+        val reviewId: Int,
         @SerializedName("user_id")
         val userId : String,
         @SerializedName("user_nickname")

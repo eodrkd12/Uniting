@@ -50,13 +50,9 @@ class PSDialog(activity: Activity) {
     fun setMatchingChange(vpMatching : ViewPager2) {
         dialog!!.setContentView(R.layout.dialog_matching_change)
 
-        var layoutBackground = dialog!!.findViewById<ConstraintLayout>(R.id.layout_background)
         var btnCancel = dialog!!.findViewById<Button>(R.id.btn_cancel)
         var btnChange = dialog!!.findViewById<Button>(R.id.btn_change)
 
-        layoutBackground.setOnClickListener {
-            dismiss()
-        }
         btnCancel.setOnClickListener {
             dismiss()
         }

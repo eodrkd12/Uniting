@@ -1,6 +1,7 @@
 package com.uniting.android.Singleton
 
 import android.util.Log
+import android.widget.Toast
 import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Chat.ChatItem
 import com.uniting.android.Class.UserInfo
@@ -83,6 +84,9 @@ object Retrofit {
                 response: Response<ArrayList<CafeteriaItem.Review>>
             ) {
                 callback(response.body()!!)
+
+                for(i in response.body()!!)
+                    Log.d("test", i.toString())
             }
             override fun onFailure(call: Call<ArrayList<CafeteriaItem.Review>>, t: Throwable) {
                 Log.d("test",t.message.toString())
@@ -149,6 +153,19 @@ object Retrofit {
         callback: (ArrayList<RoomItem>) -> Unit
     ) {
 
+    }
+
+    fun deleteReview(reviewId: Int, imagePath: String, callback : (ResultModel) -> Unit) {
+        service.deleteReview(reviewId, imagePath).enqueue(object:Callback<ResultModel> {
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+
+        })
     }
 
 
