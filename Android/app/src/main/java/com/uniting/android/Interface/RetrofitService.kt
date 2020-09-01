@@ -56,4 +56,10 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun randomMatching(@Field("sql") sql : String) : Call<ArrayList<ProfileModel.Profile>>
+
+    //리뷰삭제
+    @FormUrlEncoded
+    @POST("/image/review/delete")
+    fun deleteReview(@Field("review_id") reviewId: Int,
+    @Field("image_path") imagePath: String) : Call<ResultModel>
 }

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
     tools:context=".Home.OpenChatFragment">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -18,21 +19,21 @@
 
     <Button
         android:id="@+id/btn_connect"
-        android:layout_width="156dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/main_connect_button"
+        app:layout_constraintEnd_toStartOf="@+id/btn_makeroom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_category" />
 
     <Button
         android:id="@+id/btn_makeroom"
-        android:layout_width="156dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="50dp"
         android:background="@drawable/openchat_make_icon"
+        app:layout_constraintStart_toEndOf="@+id/btn_connect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vp_category" />
 </androidx.constraintlayout.widget.ConstraintLayout>
