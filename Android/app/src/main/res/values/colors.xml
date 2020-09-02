@@ -23,4 +23,8 @@
     <color name="text_primary">#515C6F</color>
 
     <color name="view__primary_line">@color/colorMdGrey_200</color>
+
+    <color name="cursorColor">@color/colorMdGrey_700</color>
+    <color name="nomalColor">@color/colorMdGrey_200</color>
+
 </resources>
