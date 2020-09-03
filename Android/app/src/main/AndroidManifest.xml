@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.Signup2Activity"></activity>
-        <activity android:name=".Login.Signup1Activity" >
+        <activity android:name=".Login.Signup1Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

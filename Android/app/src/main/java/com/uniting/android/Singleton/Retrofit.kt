@@ -11,6 +11,7 @@ import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Item.Test
+import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Room.RoomItem
 import kotlinx.android.synthetic.main.activity_write_review.*
 import okhttp3.MediaType
@@ -165,6 +166,35 @@ object Retrofit {
                 Log.d("test", t.toString())
             }
 
+        })
+    }
+
+    fun getUniversity(callback : (ArrayList<UniversityItem.University>) -> Unit) {
+        service.getUniversity().enqueue(object : Callback<ArrayList<UniversityItem.University>> {
+            override fun onFailure(call: Call<ArrayList<UniversityItem.University>>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+
+            override fun onResponse(call: Call<ArrayList<UniversityItem.University>>, response: Response<ArrayList<UniversityItem.University>>) {
+                callback(response.body()!!)
+                for(i in response.body()!!) {
+                    Log.d("test", i.toString())
+                }
+            }
+        })
+    }
+
+    fun getDepartment(univName: String, callback: (ArrayList<UniversityItem.Department>) -> Unit) {
+        val sql = "SELECT dept_name FROM department WHERE univ_name='${univName}'"
+
+        service.getDepartment(sql).enqueue(object: Callback<ArrayList<UniversityItem.Department>> {
+            override fun onFailure(call: Call<ArrayList<UniversityItem.Department>>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+
+            override fun onResponse(call: Call<ArrayList<UniversityItem.Department>>, response: Response<ArrayList<UniversityItem.Department>>) {
+                callback(response.body()!!)
+            }
         })
     }
 
