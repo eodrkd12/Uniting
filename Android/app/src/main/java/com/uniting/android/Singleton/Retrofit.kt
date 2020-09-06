@@ -1,20 +1,29 @@
 package com.uniting.android.Singleton
 
 import android.util.Log
+import android.widget.Toast
+import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Chat.ChatItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Item.Test
+import com.uniting.android.Login.UniversityItem
+import com.uniting.android.Room.RoomItem
 import kotlinx.android.synthetic.main.activity_write_review.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.text.SimpleDateFormat
 
 object Retrofit {
@@ -29,23 +38,6 @@ object Retrofit {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         var curDate = simpleDateFormat.format(System.currentTimeMillis())
         return curDate
-    }
-
-    fun getChat(roomId: String,count: Int, callback: (ArrayList<Chat>) -> Unit){
-
-        var sql = "SELECT * FROM chat WHERE "
-
-        service.getChat(sql).enqueue(object: Callback<ArrayList<Chat>> {
-            override fun onResponse(call: Call<ArrayList<Chat>>, response: Response<ArrayList<Chat>>) {
-                if(response.isSuccessful) {
-                    var array = response.body()
-
-                }
-            }
-            override fun onFailure(call: Call<ArrayList<Chat>>, t: Throwable) {
-            }
-
-        })
     }
 
     fun insertChat(roomId: String, userId: String, userNickname: String, content: String, current: String, unreadCount: Int, systemChat: Int, callback: (ResultModel) -> Unit) {
@@ -83,9 +75,89 @@ object Retrofit {
         })
     }
 
-    fun insertReview(cafeteriaName: String, reviewContent: String, reviewPoint:Int, reviewType: String, callback : (ResultModel) -> Unit) {
+    fun getReview(cafeteriaName: String, callback: (ArrayList<CafeteriaItem.Review>) -> Unit) {
 
-        service.insertReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, reviewType).enqueue(object: Callback<ResultModel> {
+        val sql = "select * from review where cafe_name='${cafeteriaName}' order by review_date desc"
+
+        service.getReview(sql).enqueue(object: Callback<ArrayList<CafeteriaItem.Review>>{
+            override fun onResponse(
+                call: Call<ArrayList<CafeteriaItem.Review>>,
+                response: Response<ArrayList<CafeteriaItem.Review>>
+            ) {
+                callback(response.body()!!)
+
+                for(i in response.body()!!)
+                    Log.d("test", i.toString())
+            }
+            override fun onFailure(call: Call<ArrayList<CafeteriaItem.Review>>, t: Throwable) {
+                Log.d("test",t.message.toString())
+            }
+        })
+    }
+
+    fun insertReview(cafeteriaName: String, reviewContent: String, reviewPoint:Int, reviewType: String, imagePath: String, callback : (ResultModel) -> Unit) {
+        if(reviewType == "noimage") {
+            service.insertNoImageReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint).enqueue(object: Callback<ResultModel> {
+                override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                    callback(response.body()!!)
+                }
+
+                override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                    Log.d("test", t.toString())
+                }
+            })
+        }
+        else {
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), File(imagePath))
+            val uploadFile = MultipartBody.Part.createFormData("img", imagePath, requestFile)
+            service.insertReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, uploadFile).enqueue(object: Callback<ResultModel> {
+                override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                    callback(response.body()!!)
+                }
+
+                override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                    Log.d("test", t.toString())
+                }
+            })
+        }
+    }
+
+    fun randomMatching(callback : (ArrayList<ProfileModel.Profile>) -> Unit) {
+        val sql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and (user_id not in (select user_id from blocking where blocking = '${UserInfo.DEPT}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' order by rand() limit 1;"
+        val blockingSql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' and dept_name <> '${UserInfo.DEPT}' order by rand() limit 1;"
+
+
+        if(UserInfo.BLOCKINGDEPT == 0) {
+            service.randomMatching(sql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+                override fun onResponse(call: Call<ArrayList<ProfileModel.Profile>>, response: Response<ArrayList<ProfileModel.Profile>>) {
+                    callback(response.body()!!)
+                }
+                override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
+                    Log.d("test", t.toString())
+                }
+            })
+        } else {
+            service.randomMatching(blockingSql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+                override fun onResponse(call: Call<ArrayList<ProfileModel.Profile>>, response: Response<ArrayList<ProfileModel.Profile>>) {
+                    callback(response.body()!!)
+                }
+                override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
+                    Log.d("test", t.toString())
+                }
+            })
+        }
+    }
+
+    fun getOpenChatList(
+        univName: String,
+        category: String?,
+        callback: (ArrayList<RoomItem>) -> Unit
+    ) {
+
+    }
+
+    fun deleteReview(reviewId: Int, imagePath: String, callback : (ResultModel) -> Unit) {
+        service.deleteReview(reviewId, imagePath).enqueue(object:Callback<ResultModel> {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
@@ -93,8 +165,37 @@ object Retrofit {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
                 Log.d("test", t.toString())
             }
-        })
 
+        })
+    }
+
+    fun getUniversity(callback : (ArrayList<UniversityItem.University>) -> Unit) {
+        service.getUniversity().enqueue(object : Callback<ArrayList<UniversityItem.University>> {
+            override fun onFailure(call: Call<ArrayList<UniversityItem.University>>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+
+            override fun onResponse(call: Call<ArrayList<UniversityItem.University>>, response: Response<ArrayList<UniversityItem.University>>) {
+                callback(response.body()!!)
+                for(i in response.body()!!) {
+                    Log.d("test", i.toString())
+                }
+            }
+        })
+    }
+
+    fun getDepartment(univName: String, callback: (ArrayList<UniversityItem.Department>) -> Unit) {
+        val sql = "SELECT dept_name FROM department WHERE univ_name='${univName}'"
+
+        service.getDepartment(sql).enqueue(object: Callback<ArrayList<UniversityItem.Department>> {
+            override fun onFailure(call: Call<ArrayList<UniversityItem.Department>>, t: Throwable) {
+                Log.d("test", t.toString())
+            }
+
+            override fun onResponse(call: Call<ArrayList<UniversityItem.Department>>, response: Response<ArrayList<UniversityItem.Department>>) {
+                callback(response.body()!!)
+            }
+        })
     }
 
     fun createRoom(

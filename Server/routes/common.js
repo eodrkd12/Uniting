@@ -3,20 +3,21 @@ var router = express.Router();
 
 var db_user = require('../public/SQL/user_sql')();
 
-var moment=require('moment');
-require('moment-timezone');
-moment.tz.setDefault("Asia/Seoul");
+var pool = require('../config/db_config');
 
-router.post('/', function(req, res) {
+router.post('/sql', function(req, res) {
 	var sql = req.body.sql
 
-	db_common.sql(sql, function(err,result){
-		if(err) console.log(err);
-		else {
-			var object = new Object();
-			object.result = "success";
-			res.send(object);
-		}
+	pool.getConnection(function(err, con) {
+		con.query(sql, function(err, result) {
+			con.release();
+			if(err) console.log(err)
+			else {
+				var object = new Object();
+				object.result = "success"
+				res.send(object)
+			}
+		})
 	})
 })
 

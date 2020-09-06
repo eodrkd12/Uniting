@@ -2,6 +2,7 @@ package com.uniting.android.Cafeteria
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,7 +50,7 @@ class WriteReviewActivity : PSAppCompatActivity() {
                         Toast.makeText(this, "글 내용을 확인해주세요.", Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        Retrofit.insertReview(cafeteriaName!!, edit_review_content.text.toString(), rating_insert_review.rating.toInt(), "noimage") {
+                        Retrofit.insertReview(cafeteriaName!!, edit_review_content.text.toString(), rating_insert_review.rating.toInt(), "noimage", "") {
                             if(it.result == "success") {
                                 Toast.makeText(this, "리뷰 작성을 완료 했습니다.", Toast.LENGTH_SHORT).show()
                                 finish()
@@ -61,7 +62,20 @@ class WriteReviewActivity : PSAppCompatActivity() {
                     }
                 }
                 true -> {
-
+                    if(edit_review_content.length() == 0) {
+                        Toast.makeText(this, "글 내용을 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Retrofit.insertReview(cafeteriaName!!, edit_review_content.text.toString(), rating_insert_review.rating.toInt(), "image", imagePath!!) {
+                            if(it.result == "success") {
+                                Toast.makeText(this, "리뷰 작성을 완료 했습니다.", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            else {
+                                Toast.makeText(this, "서버와의 통신오류", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -107,7 +121,7 @@ class WriteReviewActivity : PSAppCompatActivity() {
         when (requestCode) {
             PICK_FROM_ALBUM -> {
                 imageCaptureUri = data!!.data
-                imagePath = imageCaptureUri!!.path
+                imagePath = getPath(imageCaptureUri!!)
 
                 try {
                     val imageBitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageCaptureUri)
@@ -129,5 +143,15 @@ class WriteReviewActivity : PSAppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.setType("image/*")
         startActivityForResult(intent, PICK_FROM_ALBUM)
+    }
+
+    fun getPath(uri: Uri) : String {
+        val projection =
+            arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor = managedQuery(uri, projection, null, null, null)
+        startManagingCursor(cursor)
+        val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(columnIndex)
     }
 }

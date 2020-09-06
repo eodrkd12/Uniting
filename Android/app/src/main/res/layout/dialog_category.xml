@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <TextView
-        android:id="@+id/text_hobby"
+        android:id="@+id/text_hobby_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -26,7 +26,7 @@
         android:background="@color/colorMdGrey_300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
+        app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
 
     <TextView
         android:id="@+id/text_study"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_recruit" />
+        app:layout_constraintTop_toBottomOf="@+id/text_study" />
 
     <TextView
         android:id="@+id/text_counsel"
@@ -103,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="아무말"
         android:textColor="@color/colorMdGrey_700"
+        android:text="잡담"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

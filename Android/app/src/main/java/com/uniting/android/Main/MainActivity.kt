@@ -3,6 +3,7 @@ package com.uniting.android.Main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.uniting.android.Cafeteria.CafeteriaFragment
 import com.uniting.android.Room.MyRoomFragment
@@ -74,6 +75,10 @@ class MainActivity : AppCompatActivity() {
                 if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
                 if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
+                it.setIcon(R.drawable.home_click_icon)
+
+                bnv_main.menu.findItem(R.id.menu_chat)
+
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -88,6 +93,8 @@ class MainActivity : AppCompatActivity() {
                 if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
                 if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
+                bnv_main.menu.findItem(R.id.menu_home).setIcon(R.drawable.home_icon)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.menu_cafeteria -> {
@@ -101,6 +108,8 @@ class MainActivity : AppCompatActivity() {
                 if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().show(cafeteriaFragment!!).commit()
                 if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
+                bnv_main.menu.findItem(R.id.menu_home).setIcon(R.drawable.home_icon)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.menu_option -> {
@@ -113,6 +122,9 @@ class MainActivity : AppCompatActivity() {
                 if(chatFragment != null) supportFragmentManager.beginTransaction().hide(chatFragment!!).commit()
                 if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
                 if(optionFragment != null) supportFragmentManager.beginTransaction().show(optionFragment!!).commit()
+
+                bnv_main.menu.findItem(R.id.menu_home).setIcon(R.drawable.home_icon)
+
 
                 return@OnNavigationItemSelectedListener true
             }

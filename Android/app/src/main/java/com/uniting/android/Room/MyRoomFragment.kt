@@ -27,7 +27,7 @@ class MyRoomFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val rootView = inflater.inflate(R.layout.fragment_chat, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_myroom, container, false)
 
         var rvRoom=rootView.findViewById<RecyclerView>(R.id.rv_room)
         var textNothingRoom=rootView.findViewById<TextView>(R.id.text_nothingroom)
@@ -42,7 +42,6 @@ class MyRoomFragment : Fragment() {
         roomViewModel.getAllElement().observe(this, Observer {
             roomList.clear()
             it.forEach{
-
 
                 roomList.add(
                     MyRoomItem(

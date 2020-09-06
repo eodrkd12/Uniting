@@ -9,5 +9,7 @@ class UserInfo : Application() {
         var NICKNAME: String = "test"
         var BIRTHDAY : String = ""
         var GENDER: String = "F"
+        var DEPT : String = ""
+        var BLOCKINGDEPT : Int = 0
     }
 }
