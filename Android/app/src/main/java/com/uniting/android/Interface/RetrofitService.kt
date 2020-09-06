@@ -21,11 +21,11 @@ interface RetrofitService {
     fun getChat(@Field("sql") sql: String) : Call<ArrayList<Chat>>
 
     @FormUrlEncoded
-    @POST("/common/sql")
+    @POST("/common/sql/insert")
     fun insert(@Field("sql") sql: String) : Call<ResultModel>
 
     @FormUrlEncoded
-    @POST("/common/sql")
+    @POST("/common/sql/select")
     fun getMyRoom(@Field("sql") sql: String) : Call<ArrayList<Room>>
 
     @FormUrlEncoded
@@ -37,4 +37,8 @@ interface RetrofitService {
     @Field("review_date") reviewDate: String,
     @Field("review_point") reviewPoint: Int,
     @Field("review_type") reviewType: String) : Call<ResultModel>
+
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun createRoom(@Field("sql") sql: String) : Call<ResultModel>
 }

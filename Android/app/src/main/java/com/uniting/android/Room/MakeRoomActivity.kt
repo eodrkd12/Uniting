@@ -4,11 +4,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_make_room.*
 
-class MakeRoomActivity : AppCompatActivity() {
+class MakeRoomActivity : PSAppCompatActivity() {
 
     companion object{
         var current = 0
@@ -31,8 +34,6 @@ class MakeRoomActivity : AppCompatActivity() {
         //window.statusBarColor= Color.parseColor("#D5212121")
 
         textNext = text_next
-
-        textNext!!.isEnabled = false
 
         if(savedInstanceState == null){
             firstFragment = MakeRoom1Fragment()
@@ -71,7 +72,16 @@ class MakeRoomActivity : AppCompatActivity() {
                     current++
                 }
                 3 -> {
-                    //채팅방으로 화면 전환
+
+                    var date = this.getCurDate()
+
+                    var roomId = "test_room_id"
+
+                    Retrofit.createRoom(roomId,MakeRoomActivity.title, category, date, introduce,"test","test"){
+                        if(it.result=="success"){
+
+                        }
+                    }
                 }
             }
         }

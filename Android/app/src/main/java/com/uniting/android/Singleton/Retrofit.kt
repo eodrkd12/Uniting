@@ -97,4 +97,28 @@ object Retrofit {
 
     }
 
+    fun createRoom(
+        roomId: String,
+        title: String,
+        category: String,
+        curDate: String,
+        introduce: String,
+        univName: String,
+        userId: String,
+        callback: (ResultModel) -> Unit
+    ) {
+
+        var sql = "INSERT INTO room " +
+                "VALUES('${roomId}','${title}','${category}','${curDate}','${introduce}','${univName}','${userId}')"
+
+        service.createRoom(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
 }

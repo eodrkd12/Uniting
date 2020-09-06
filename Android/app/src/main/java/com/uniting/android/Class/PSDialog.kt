@@ -1,10 +1,15 @@
 package com.uniting.android.Class
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
@@ -17,6 +22,7 @@ import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Room.MakeRoomActivity
+import kotlinx.android.synthetic.main.dialog_category.*
 
 class PSDialog(activity: Activity) {
 
@@ -45,7 +51,7 @@ class PSDialog(activity: Activity) {
         }
     }
 
-    class BottomSheetDialog() : BottomSheetDialogFragment() {
+    class BottomSheetDialog(var textView: TextView) : BottomSheetDialogFragment() {
 
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -60,26 +66,46 @@ class PSDialog(activity: Activity) {
             super.onActivityCreated(savedInstanceState)
             view?.findViewById<TextView>(R.id.text_hobby)?.setOnClickListener {
                 MakeRoomActivity.category="취미"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "취미"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_study)?.setOnClickListener {
                 MakeRoomActivity.category="스터디"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "스터디"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_recruit)?.setOnClickListener {
                 MakeRoomActivity.category="취/창업"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "취/창업"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_counsel)?.setOnClickListener {
                 MakeRoomActivity.category="고민상담"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "고민상담"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_talk)?.setOnClickListener {
                 MakeRoomActivity.category="아무말"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "아무말"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
         }
