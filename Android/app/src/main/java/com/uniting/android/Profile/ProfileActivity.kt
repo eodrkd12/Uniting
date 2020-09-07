@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.uniting.android.R
-import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -85,7 +84,7 @@ class ProfileActivity : AppCompatActivity() {
             view.setLayoutParams(layoutParams)
 
             view.setPadding(padding, topPadding, padding, topPadding)
-            view.setBackgroundResource(R.drawable.more_rounded_corner_shape_button)
+            view.setBackgroundResource(R.drawable.enable_rounded_button)
             view.setTextColor(Color.WHITE)
             view.setText(textList.get(i))
             view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)

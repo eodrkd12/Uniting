@@ -20,13 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Login.Signup2Activity"></activity>
-        <activity android:name=".Login.Signup1Activity">
+        <activity android:name=".Login.Signup3Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Login.Signup2Activity" />
+        <activity android:name=".Login.Signup1Activity">
         </activity>
         <activity android:name=".Profile.ProfileActivity" /> <!-- meta-data -->
         <meta-data
@@ -43,8 +45,7 @@
         <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
-        <activity android:name=".Main.MainActivity">
-        </activity>
+        <activity android:name=".Main.MainActivity"></activity>
     </application>
 
 </manifest>

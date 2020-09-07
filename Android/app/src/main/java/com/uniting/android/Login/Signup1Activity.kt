@@ -115,6 +115,7 @@ class Signup1Activity : AppCompatActivity() {
                                                         edit_department.setText(name)
                                                         edit_department.isCursorVisible = false
                                                         btn_signup1.isEnabled = true
+                                                        btn_signup1.setBackgroundResource(R.drawable.enable_button)
                                                         rv_department.adapter = null
                                                         imm.hideSoftInputFromWindow(edit_department.windowToken, 0)
                                                     }
@@ -149,6 +150,7 @@ class Signup1Activity : AppCompatActivity() {
                     edit_university.setCursorVisible(true)
                     edit_department.setText(null)
                     btn_signup1.setEnabled(false)
+                    btn_signup1.setBackgroundResource(R.drawable.not_enable_button)
                     deptList.clear()
                     deptFilter.clear()
                 }
@@ -162,6 +164,7 @@ class Signup1Activity : AppCompatActivity() {
                     edit_department.setCursorVisible(true)
                     edit_department.setText(null)
                     btn_signup1.setEnabled(false)
+                    btn_signup1.setBackgroundResource(R.drawable.not_enable_button)
                 }
             }
             false
@@ -169,6 +172,10 @@ class Signup1Activity : AppCompatActivity() {
 
         btn_signup1.setOnClickListener {
             var intent = Intent(this, Signup2Activity::class.java)
+            intent.putExtra("univName", univName)
+            intent.putExtra("univMail", univMail)
+            intent.putExtra("deptName", deptName)
+            finish()
             startActivity(intent)
         }
     }
