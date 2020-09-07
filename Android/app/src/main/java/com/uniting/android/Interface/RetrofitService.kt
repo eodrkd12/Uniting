@@ -7,6 +7,7 @@ import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Item.Test
+import com.uniting.android.Login.UniversityItem
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -17,13 +18,19 @@ interface RetrofitService {
     fun getData() : Call<ArrayList<Test.User>>
 
     @FormUrlEncoded
+    @POST("/")
+    fun getChat(@Field("sql") sql: String) : Call<ArrayList<Chat>>
+
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
     @POST("/common/sql")
     fun insert(@Field("sql") sql: String) : Call<ResultModel>
 
     @FormUrlEncoded
-    @POST("/common/sql")
+    @POST("/common/sql/select")
     fun getMyRoom(@Field("sql") sql: String) : Call<ArrayList<Room>>
 
+    //리뷰 작성(이미지 포함)
     @Multipart
     @POST("/image/review/insert")
     fun insertReview(@Part("user_id") userId: String,
@@ -40,6 +47,7 @@ interface RetrofitService {
     var id : RequestBody = RequestBody.create(okhttp3.MultipartBody.FORM, userId);
     */
 
+    //리뷰 작성(이미지 제외)
     @FormUrlEncoded
     @POST("/image/review/insert/noimage")
     fun insertNoImageReview(@Field("user_id") userId: String,
@@ -47,12 +55,20 @@ interface RetrofitService {
     @Field("cafe_name") cafeteriaName: String,
     @Field("review_content") reviewContent: String,
     @Field("review_date") reviewDate: String,
+    @Field("review_point") reviewPoint: Int,
+    @Field("review_type") reviewType: String) : Call<ResultModel>
+
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun createRoom(@Field("sql") sql: String) : Call<ResultModel>
     @Field("review_point") reviewPoint: Int) : Call<ResultModel>
 
+    //리뷰 불러오기
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun getReview(@Field("sql") sql : String) : Call<ArrayList<CafeteriaItem.Review>>
 
+    //프로필 정보 불러오기
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun randomMatching(@Field("sql") sql : String) : Call<ArrayList<ProfileModel.Profile>>
@@ -62,4 +78,13 @@ interface RetrofitService {
     @POST("/image/review/delete")
     fun deleteReview(@Field("review_id") reviewId: Int,
     @Field("image_path") imagePath: String) : Call<ResultModel>
+
+    //대학 리스트 불러오기
+    @GET("/university")
+    fun getUniversity() : Call<ArrayList<UniversityItem.University>>
+
+    //학과 리스트 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select")
+    fun getDepartment(@Field("sql") sql: String) : Call<ArrayList<UniversityItem.Department>>
 }

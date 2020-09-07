@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Room.MakeRoomActivity
+import kotlinx.android.synthetic.main.dialog_category.*
 
 class PSDialog(activity: Activity) {
 
@@ -100,21 +101,46 @@ class PSDialog(activity: Activity) {
             super.onActivityCreated(savedInstanceState)
             view?.findViewById<TextView>(R.id.text_hobby_tag)?.setOnClickListener {
                 MakeRoomActivity.category="취미"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "취미"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_study)?.setOnClickListener {
                 MakeRoomActivity.category="스터디"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "스터디"
+                textView.setTextColor(Color.WHITE)
+                dismiss()
+            }
+
+            view?.findViewById<TextView>(R.id.text_recruit)?.setOnClickListener {
+                MakeRoomActivity.category="취/창업"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "취/창업"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_counsel)?.setOnClickListener {
                 MakeRoomActivity.category="고민상담"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "고민상담"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
 
             view?.findViewById<TextView>(R.id.text_talk)?.setOnClickListener {
                 MakeRoomActivity.category="잡담"
+                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
+                MakeRoomActivity.textNext!!.isEnabled=true
+                textView.text = "잡담"
+                textView.setTextColor(Color.WHITE)
                 dismiss()
             }
         }
