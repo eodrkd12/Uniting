@@ -34,6 +34,8 @@ struct HomeView: View {
                 OpenChatView()
             }
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

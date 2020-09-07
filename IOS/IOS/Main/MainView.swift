@@ -10,23 +10,26 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        TabView{
-            HomeView().tabItem({
-                Text("홈")
+        NavigationView{
+            TabView{
+                HomeView().tabItem({
+                    Text("홈")
                 }).tag(0)
-            
-            MyRoomListView().tabItem({
-                Text("채팅")
+                
+                MyRoomListView().tabItem({
+                    Text("채팅")
                 }).tag(1)
-            
-            CafeteriaView().tabItem({
-                Text("맛집")
+                
+                CafeteriaView().tabItem({
+                    Text("맛집")
                 }).tag(2)
-            
-            OptionView().tabItem({
-                Text("옵션")
+                
+                OptionView().tabItem({
+                    Text("옵션")
                 }).tag(3)
+            }
         }
+        .navigationBarHidden(true)
     }
 }
 
