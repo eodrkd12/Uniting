@@ -6,3 +6,8 @@ data class ResultModel (
     @SerializedName("result")
     var result : String
 )
+
+data class CountModel (
+    @SerializedName("count")
+    var count : Int
+)

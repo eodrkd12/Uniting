@@ -4,6 +4,7 @@ import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Chat.ChatItem
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DataModel.CountModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Item.Test
@@ -23,7 +24,6 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/common/sql/insert")
-    @POST("/common/sql")
     fun insert(@Field("sql") sql: String) : Call<ResultModel>
 
     @FormUrlEncoded
@@ -61,7 +61,6 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun createRoom(@Field("sql") sql: String) : Call<ResultModel>
-    @Field("review_point") reviewPoint: Int) : Call<ResultModel>
 
     //리뷰 불러오기
     @FormUrlEncoded
@@ -87,4 +86,23 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun getDepartment(@Field("sql") sql: String) : Call<ArrayList<UniversityItem.Department>>
+
+    //아이디 중복확인
+    @FormUrlEncoded
+    @POST("/common/sql/select")
+    fun idCheck(@Field("sql") sql: String) : Call<CountModel>
+
+    //임시 아이디 데이터 삽입
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun idInsert(@Field("sql") sql : String) : Call<ResultModel>
+
+    //회원삭제 & 임시데이터 삭제
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun idDelete(@Field("sql") sql : String) : Call<ResultModel>
+
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun signUp(@Field("sql") sql : String) : Call<ResultModel>
 }

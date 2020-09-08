@@ -3,8 +3,12 @@ package com.uniting.android.Class
 import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +22,10 @@ import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
+import com.uniting.android.Login.DepartmentAdapter
+import com.uniting.android.Login.UserItem
+import com.uniting.android.Login.UserOptionAdapter
 import com.uniting.android.Room.MakeRoomActivity
-import kotlinx.android.synthetic.main.dialog_category.*
 
 class PSDialog(activity: Activity) {
 
@@ -48,6 +54,54 @@ class PSDialog(activity: Activity) {
         }
     }
 
+    interface SaveBtnClickListener {
+        fun onClick(userOption : String)
+    }
+
+    private lateinit var saveBtnClickListener : SaveBtnClickListener
+
+    fun setSaveBtnClickListener(saveBtnClickListener: SaveBtnClickListener) {
+        this.saveBtnClickListener = saveBtnClickListener
+    }
+
+    fun setUserOption(title : String, userOptionList: ArrayList<UserItem.UserOption>) {
+        dialog = Dialog(context!!, R.style.popCasterDlgTheme)
+        val dialogView = context!!.layoutInflater.inflate(R.layout.dialog_edit_condition, null)
+        var titleText : TextView = dialogView.findViewById(R.id.text_condition_title)
+        var userOptionRV: RecyclerView = dialogView.findViewById(R.id.rv_condition)
+        var selectedOption = ""
+        var saveBtn: Button = dialogView.findViewById(R.id.btn_save)
+
+        dialog!!.getWindow()!!.getAttributes().windowAnimations = R.style.DialogSlideRight
+        dialog!!.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
+
+
+        var ssb: SpannableStringBuilder = SpannableStringBuilder(title + "을 알려주세요.")
+        ssb.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleText.text = ssb
+
+        userOptionRV.setHasFixedSize(true)
+        userOptionRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        userOptionRV.adapter = UserOptionAdapter(context!!, userOptionList)
+
+        saveBtn.setOnClickListener {
+            for(i in userOptionList) {
+                if(i.isSelected) {
+                    selectedOption = i.title
+                }
+            }
+
+            if(selectedOption == "") {
+                Toast.makeText(context, "선택된 항목이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                saveBtnClickListener.onClick(selectedOption)
+                dismiss()
+            }
+
+        }
+    }
+
     fun setMatchingChange(vpMatching : ViewPager2) {
         dialog!!.setContentView(R.layout.dialog_matching_change)
 
@@ -67,7 +121,7 @@ class PSDialog(activity: Activity) {
         dialog = Dialog(context!!, R.style.popCasterDlgTheme)
         var view = context!!.layoutInflater.inflate(R.layout.dialog_edit_condition, null)
 
-        var textTitle = view.findViewById<TextView>(R.id.layout_room)
+        var textTitle = view.findViewById<TextView>(R.id.text_condition_title)
         var rvCondition = view.findViewById<RecyclerView>(R.id.rv_condition)
         var btnSave = view.findViewById<Button>(R.id.btn_save)
 
@@ -86,8 +140,7 @@ class PSDialog(activity: Activity) {
         }
     }
 
-    class BottomSheetDialog() : BottomSheetDialogFragment() {
-
+    class BottomSheetDialog(var textView: TextView) : BottomSheetDialogFragment() {
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
