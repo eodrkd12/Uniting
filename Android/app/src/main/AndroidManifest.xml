@@ -22,11 +22,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.Signup2Activity"></activity>
         <activity android:name=".Login.Signup1Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Profile.ProfileActivity" /> <!-- meta-data -->
         <meta-data
@@ -44,6 +40,11 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
         <activity android:name=".Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

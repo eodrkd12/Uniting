@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Room.MakeRoomActivity
-import kotlinx.android.synthetic.main.dialog_category.*
 
 class PSDialog(activity: Activity) {
 
@@ -86,7 +85,7 @@ class PSDialog(activity: Activity) {
         }
     }
 
-    class BottomSheetDialog() : BottomSheetDialogFragment() {
+    class BottomSheetDialog(var textView: TextView) : BottomSheetDialogFragment() {
 
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -99,7 +98,7 @@ class PSDialog(activity: Activity) {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            view?.findViewById<TextView>(R.id.text_hobby_tag)?.setOnClickListener {
+            view?.findViewById<TextView>(R.id.text_hobby)?.setOnClickListener {
                 MakeRoomActivity.category="취미"
                 MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
                 MakeRoomActivity.textNext!!.isEnabled=true

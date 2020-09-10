@@ -97,7 +97,7 @@ object Retrofit {
 
     fun insertReview(cafeteriaName: String, reviewContent: String, reviewPoint:Int, reviewType: String, imagePath: String, callback : (ResultModel) -> Unit) {
         if(reviewType == "noimage") {
-            service.insertNoImageReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint).enqueue(object: Callback<ResultModel> {
+            service.insertNoImageReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, "noimage").enqueue(object: Callback<ResultModel> {
                 override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                     callback(response.body()!!)
                 }

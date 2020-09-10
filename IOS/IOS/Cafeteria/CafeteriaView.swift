@@ -11,8 +11,6 @@ import SwiftSoup
 
 struct CafeteriaView: View {
     
-    @ObservedObject var afService = AlamofireService()
-    
     @State var cafeteriaListSet : [CafeteriaDataList] = [
         CafeteriaDataList(),
         CafeteriaDataList(),
@@ -41,7 +39,7 @@ struct CafeteriaView: View {
             
             if self.initCount < 5 {
                 self.cafeteriaType.forEach { (type) in
-                    self.afService.getCafeteriaList(start: 1,display: 10,query: "성서계명대\(type)",sortingOrder: "reviewCount"){ items in
+                    AlamofireService.shared.getCafeteriaList(start: 1,display: 10,query: "성서계명대\(type)",sortingOrder: "reviewCount"){ items in
                         
                         switch type {
                         case "한식":

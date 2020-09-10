@@ -23,7 +23,6 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/common/sql/insert")
-    @POST("/common/sql")
     fun insert(@Field("sql") sql: String) : Call<ResultModel>
 
     @FormUrlEncoded
@@ -61,7 +60,6 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun createRoom(@Field("sql") sql: String) : Call<ResultModel>
-    @Field("review_point") reviewPoint: Int) : Call<ResultModel>
 
     //리뷰 불러오기
     @FormUrlEncoded

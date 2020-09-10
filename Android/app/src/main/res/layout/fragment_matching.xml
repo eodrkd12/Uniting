@@ -74,7 +74,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
 
         <TextView
-            android:id="@+id/text_hobby_tag"
+            android:id="@+id/text_hobby"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -94,8 +94,8 @@
             android:textAlignment="center"
             android:textColor="@color/text_primary"
             android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_hobby_tag"
-            app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
+            app:layout_constraintStart_toStartOf="@+id/text_hobby"
+            app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
         <View
             android:id="@+id/view2"
@@ -155,7 +155,7 @@
             android:background="@color/colorMdGrey_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
+            app:layout_constraintTop_toBottomOf="@+id/text_hobby" />
 
         <TextView
             android:id="@+id/text_age"
@@ -197,7 +197,7 @@
             android:textAlignment="center"
             android:textColor="@color/text_primary"
             android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_hobby_tag"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_hobby"
             app:layout_constraintEnd_toStartOf="@+id/imageView11"
             app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
 
@@ -244,9 +244,9 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_hobby_tag"
+            app:layout_constraintBottom_toBottomOf="@+id/text_hobby"
             app:layout_constraintEnd_toEndOf="@+id/view7"
-            app:layout_constraintTop_toTopOf="@+id/text_hobby_tag" />
+            app:layout_constraintTop_toTopOf="@+id/text_hobby" />
 
         <ImageView
             android:id="@+id/imageView12"
