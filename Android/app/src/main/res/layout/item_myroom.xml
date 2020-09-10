@@ -26,7 +26,7 @@
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
         android:textSize="15dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/layout_room"
+        app:layout_constraintBaseline_toBaselineOf="@+id/text_condition_title"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -41,11 +41,11 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/layout_room"
-        app:layout_constraintTop_toBottomOf="@+id/layout_room" />
+        app:layout_constraintStart_toStartOf="@+id/text_condition_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_condition_title" />
 
     <TextView
-        android:id="@+id/layout_room"
+        android:id="@+id/text_condition_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -68,6 +68,6 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_room"
+        app:layout_constraintTop_toBottomOf="@+id/text_condition_title"
         app:layout_constraintEnd_toEndOf="@id/text_last_chat_time"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

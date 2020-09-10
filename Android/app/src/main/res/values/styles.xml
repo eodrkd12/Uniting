@@ -73,4 +73,14 @@
         <item name="colorAccent">@color/cursorColor</item>
     </style>
 
+
+    <!--생년월일 선택 -->
+    <style name="MySpinnerDatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MySpinnerDatePicker</item>
+    </style>
+
+    <style name="MySpinnerDatePicker" parent="android:Widget.Material.Light.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
 </resources>

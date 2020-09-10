@@ -22,7 +22,10 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.Signup2Activity"></activity>
         <activity android:name=".Login.Signup1Activity">
-
+        <activity android:name=".Login.Signup3Activity">
+        </activity>
+        <activity android:name=".Login.Signup2Activity" />
+        <activity android:name=".Login.Signup1Activity">
         </activity>
         <activity android:name=".Profile.ProfileActivity" /> <!-- meta-data -->
         <meta-data

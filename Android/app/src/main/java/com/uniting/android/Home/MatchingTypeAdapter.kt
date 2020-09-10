@@ -28,7 +28,7 @@ class MatchingTypeAdapter(val context: Context, val matchingTypeList: ArrayList<
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var textTitle = view.findViewById<TextView>(R.id.layout_room)
+        var textTitle = view.findViewById<TextView>(R.id.text_condition_title)
         var textContent = view.findViewById<TextView>(R.id.text_content)
 
         fun setItem(type : String){

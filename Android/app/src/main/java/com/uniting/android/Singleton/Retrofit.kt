@@ -7,6 +7,7 @@ import com.uniting.android.Chat.ChatItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DataModel.CountModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
@@ -214,6 +215,63 @@ object Retrofit {
 
         service.createRoom(sql).enqueue(object: Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun idCheck(userId: String, callback: (CountModel) -> Unit) {
+        var sql = "SELECT count(user_id) as count FROM user WHERE user_id='${userId}'"
+
+        service.idCheck(sql).enqueue(object:Callback<CountModel> {
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun idInsert(userId: String, callback: (ResultModel) -> Unit) {
+        val sql = "INSERT INTO user(user_id, blocking_dept, alarm_visit, alarm_openprofile) values('${userId}', 0, 0, 0)"
+
+        service.idInsert(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun idDelete(userId: String, callback: (ResultModel) -> Unit) {
+        val sql = "DELETE FROM user WHERE user_id='${userId}'"
+
+        service.idDelete(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun signUp(userId: String, userPw: String, userNickname: String, userBirthday: String, userCity: String, userGender: String, univName: String, deptName: String, webMail: String, enterYear: String, callback: (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET user_pw = '${userPw}', user_nickname = '${userNickname}', user_birthday = '${userBirthday}'," +
+                "user_gender = '${userGender}', user_email = '${webMail}', univ_name = '${univName}', dept_name = '${deptName}'," +
+                "enter_year = '${enterYear}', user_city = '${userCity}', user_signdate = '${curDate()}' WHERE user_id = '${userId}'"
+        service.signUp(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {

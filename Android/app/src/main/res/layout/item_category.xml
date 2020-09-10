@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/main_test_img" />
 
     <TextView
-        android:id="@+id/layout_room"
+        android:id="@+id/text_condition_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -37,5 +37,5 @@
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_room" />
+        app:layout_constraintTop_toBottomOf="@+id/text_condition_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>
