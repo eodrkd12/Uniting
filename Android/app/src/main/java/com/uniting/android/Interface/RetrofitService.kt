@@ -102,6 +102,7 @@ interface RetrofitService {
     @POST("/common/sql/insert")
     fun idDelete(@Field("sql") sql : String) : Call<ResultModel>
 
+    //회원가입
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun signUp(@Field("sql") sql : String) : Call<ResultModel>

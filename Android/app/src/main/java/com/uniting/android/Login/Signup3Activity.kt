@@ -39,10 +39,17 @@ class Signup3Activity : AppCompatActivity() {
     var gender = ""
     var birthday = ""
     var city = ""
+    var webMail = ""
+    var univName = ""
+    var deptName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup3)
+
+        webMail = intent.getStringExtra("mail")!!
+        univName = intent.getStringExtra("univName")!!
+        deptName = intent.getStringExtra("deptName")!!
 
         val psDialog = PSDialog(this)
 
@@ -188,7 +195,9 @@ class Signup3Activity : AppCompatActivity() {
                 Toast.makeText(this, "거주지를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
             else {
+                Retrofit.signUp(id, pw, nickname, birthday, city, gender, univName, deptName, webMail, "") {
 
+                }
             }
 
         }
