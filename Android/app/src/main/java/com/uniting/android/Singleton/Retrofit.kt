@@ -13,6 +13,7 @@ import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
+import com.uniting.android.Login.UserItem
 import com.uniting.android.Room.RoomItem
 import kotlinx.android.synthetic.main.activity_write_review.*
 import okhttp3.MediaType
@@ -275,6 +276,42 @@ object Retrofit {
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun login(userId: String, userPw: String, callback: (Int) -> Unit) {
+        val sql = "SELECT user_pw as result FROM user WHERE user_id='${userId}'"
+
+        service.login(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                if(t is java.io.EOFException){
+                    Log.d("test","시발")
+                }
+
+                callback(0)
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                if(response.body()!!.result == userPw) {
+                    callback(1)
+                } else {
+                    callback(2)
+                }
+            }
+        })
+    }
+
+    fun getModifyUserInfo(userId: String, callback: (UserItem.ModifyUser) -> Unit) {
+        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_signdate"
+
+        service.getModifyUserInfo(sql).enqueue(object: Callback<UserItem.ModifyUser> {
+            override fun onFailure(call: Call<UserItem.ModifyUser>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<UserItem.ModifyUser>, response: Response<UserItem.ModifyUser>) {
                 callback(response.body()!!)
             }
         })
