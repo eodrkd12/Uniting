@@ -287,7 +287,6 @@ object Retrofit {
         service.login(sql).enqueue(object: Callback<ResultModel> {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
                 if(t is java.io.EOFException){
-                    Log.d("test","시발")
                 }
 
                 callback(0)
@@ -316,5 +315,4 @@ object Retrofit {
             }
         })
     }
-
 }
