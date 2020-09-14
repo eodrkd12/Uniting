@@ -9,6 +9,7 @@ import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
+import com.uniting.android.Login.UserItem
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -112,4 +113,13 @@ interface RetrofitService {
     @POST("/common/sql/single")
     fun accountCheck(@Field("sql") sql : String) : Call<CountModel>
 
+    //로그인
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun login(@Field("sql") sql : String) : Call<ResultModel>
+
+    //회원정보수정 데이터 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getModifyUserInfo(@Field("sql") sql : String) : Call<UserItem.ModifyUser>
 }

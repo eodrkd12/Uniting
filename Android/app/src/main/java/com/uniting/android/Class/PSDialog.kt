@@ -134,9 +134,24 @@ class PSDialog(activity: Activity) {
         rvCondition.adapter=ConditionAdapter(context!!, conditionList)
 
         btnSave.setOnClickListener {
-            textView.setText(ConditionAdapter.selectedCondition)
-            ConditionAdapter.selectedCondition=""
-            dismiss()
+            if(title.contains("키") || title.contains("나이")){
+                if(ConditionAdapter.selectedCondition.split(", ").size != 2){
+                    Toast.makeText(context, "두 가지를 선택해주세요.",Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                else{
+                    var array = ConditionAdapter.selectedCondition.split(", ")
+                    array = array.sorted()
+                    textView.setText("${array[0]} ~ ${array[1]}")
+                    ConditionAdapter.selectedCondition = ""
+                    dismiss()
+                }
+            }
+            else {
+                textView.setText(ConditionAdapter.selectedCondition)
+                ConditionAdapter.selectedCondition = ""
+                dismiss()
+            }
         }
     }
 
