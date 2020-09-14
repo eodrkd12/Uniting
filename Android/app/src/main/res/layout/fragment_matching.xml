@@ -89,6 +89,7 @@
             android:id="@+id/text_personality_tag"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="16dp"
             android:text="성격"
             android:textAlignment="center"
@@ -210,7 +211,7 @@
             android:textSize="15dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_personality_tag"
             app:layout_constraintEnd_toStartOf="@+id/imageView12"
-            app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+            app:layout_constraintStart_toEndOf="@+id/text_personality_tag" />
 
         <ImageView
             android:id="@+id/imageView8"

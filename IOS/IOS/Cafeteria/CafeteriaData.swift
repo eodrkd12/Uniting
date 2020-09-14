@@ -24,3 +24,8 @@ struct CafeteriaData : Codable {
     var options : String
     var bizHourInfo : String
 }
+
+struct Menu : Codable {
+    var name : String?
+    var price : String?
+}

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.item_room.view.*
 
 class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
@@ -24,16 +25,16 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder.setItem(roomList[position])
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun setItem(roomItem: RoomItem){
-            view.text_title.text=roomItem.roomTitle
-            view.text_introduce.text=roomItem.roomIntroduce
+            view.text_title.text=roomItem.room.room_title
+            view.text_introduce.text=roomItem.room.room_introduce
             view.text_num_member.text=roomItem.numOfMembers.toString()
             view.btn_enter.setOnClickListener {
-
             }
         }
     }

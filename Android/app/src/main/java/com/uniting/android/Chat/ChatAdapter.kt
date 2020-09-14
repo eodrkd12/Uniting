@@ -58,7 +58,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
                 holder.setMyChat(
                     item.chat.chat_content,
                     timeStr,
-                    item.chat.unread_count.toString()
+                    (item.chat.unread_member.split("|").size-1).toString()
                 )
             else {
                 holder.setPartnerChat(
@@ -66,7 +66,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
                     item.chat.user_nickname,
                     item.chat.chat_content,
                     timeStr,
-                    item.chat.unread_count.toString(),
+                    (item.chat.unread_member.split("|").size-1).toString(),
                     hideImageAndNickname
                 )
             }
@@ -109,7 +109,8 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
 
             textContent.text = content
             textTime.text = time
-            textUnreadCount.text = unreadCount
+            if(unreadCount == "0") textUnreadCount.text = ""
+            else textUnreadCount.text = unreadCount
         }
 
         fun setPartnerChat(
@@ -158,7 +159,8 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             textPartner.text = partner
             textPartnerContent.text = content
             textPartnerTime.text = time
-            textPartnerUnreadCount.text = unreadCount
+            if(unreadCount == "0") textPartnerUnreadCount.text = ""
+            else textPartnerUnreadCount.text = unreadCount
         }
 
         fun setSystemChat(content: String) {

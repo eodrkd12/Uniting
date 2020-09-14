@@ -78,10 +78,9 @@ struct CafeteriaItem: View {
         .onAppear(){
             if self.cafeteria.imageSrc != "" {
                 
-                KingfisherManager.shared.retrieveImage(with: URL(string: self.cafeteria.imageSrc)!, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-                    
-                    self.uiImage = image!
-                })
+                ImageManager.shared.loadImage(url: self.cafeteria.imageSrc){ uiImage in
+                    self.uiImage=uiImage
+                }
             }
         }
     }

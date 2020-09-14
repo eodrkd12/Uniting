@@ -1,12 +1,16 @@
 package com.uniting.android.Room
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.PSAppCompatActivity
+import com.uniting.android.Class.UserInfo
+import com.uniting.android.DB.Entity.Room
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_make_room.*
@@ -75,12 +79,31 @@ class MakeRoomActivity : PSAppCompatActivity() {
 
                     var date = this.getCurDate()
 
-                    var roomId = "test_room_id"
+                    var roomId = "${UserInfo.ID}_${date}"
 
-                    Retrofit.createRoom(roomId,MakeRoomActivity.title, category, date, introduce,"test","test"){
+                    Retrofit.createRoom(roomId,MakeRoomActivity.title, category, date, introduce,"${UserInfo.UNIV}","${UserInfo.ID}"){
                         if(it.result=="success"){
+                            Retrofit.joinRoom(roomId, UserInfo.ID, date){
+                                if(it.result=="success"){
+                                    var room = Room(
+                                        roomId,
+                                        MakeRoomActivity.title,
+                                        MakeRoomActivity.category,
+                                        date,
+                                        MakeRoomActivity.introduce,
+                                        UserInfo.UNIV,
+                                        UserInfo.ID
+                                    )
 
+                                    var intent = Intent(this, ChatActivity::class.java)
+                                    intent.putExtra("room",room)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
                         }
+
+
                     }
                 }
             }

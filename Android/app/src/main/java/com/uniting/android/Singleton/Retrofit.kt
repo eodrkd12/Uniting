@@ -1,25 +1,20 @@
 package com.uniting.android.Singleton
 
 import android.util.Log
-import android.widget.Toast
 import com.uniting.android.Cafeteria.CafeteriaItem
-import com.uniting.android.Chat.ChatItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.CountModel
+import com.uniting.android.DataModel.MemberModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
-import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
-import com.uniting.android.Room.RoomItem
-import kotlinx.android.synthetic.main.activity_write_review.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,10 +37,10 @@ object Retrofit {
         return curDate
     }
 
-    fun insertChat(roomId: String, userId: String, userNickname: String, content: String, current: String, unreadCount: Int, systemChat: Int, callback: (ResultModel) -> Unit) {
+    fun insertChat(chat: Chat, callback: (ResultModel) -> Unit) {
 
-        val sql = "INSERT INTO chat(room_id,user_id,user_nickname,chat_content,chat_time,unread_count,system_chat) " +
-                "VALUES('${roomId}','${userId}','${userNickname}','${content}','${current}',${unreadCount},${systemChat})"
+        val sql = "INSERT INTO chat " +
+                "VALUES('${chat.chat_id}','${chat.room_id}','${chat.user_id}','${chat.user_nickname}','${chat.chat_content}','${chat.chat_time}','${chat.unread_member}',${chat.system_chat})"
 
         service.insert(sql).enqueue(object: Callback<ResultModel> {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
@@ -59,9 +54,9 @@ object Retrofit {
 
     fun getMyRoom(userId: String, callback: (ArrayList<Room>) -> Unit) {
 
-        val sql = "SELECT room.room_id AS room_id, room_title, category, room_date , room_introduce, univ_name, maker" +
-                "FROM room, joined" +
-                "WHERE 'room.room_id' = 'joined.room_id' AND user_id = '${userId}'"
+        val sql = "SELECT room.room_id AS room_id, room_title, category, room_date , room_introduce, univ_name, maker " +
+                "FROM room, joined " +
+                "WHERE room.room_id = joined.room_id AND user_id = '${userId}'"
 
         service.getMyRoom(sql).enqueue(object: Callback<ArrayList<Room>>{
             override fun onResponse(
@@ -156,7 +151,7 @@ object Retrofit {
         department: String,
         hobby: String,
         personality: String,
-        callback: (ProfileModel.Profile) -> Void
+        callback: (ArrayList<ProfileModel.Profile>) -> Unit
     ) {
         var minHeight = height.split(" ~ ")[0]
         var maxHeight = height.split(" ~ ")[1]
@@ -174,37 +169,86 @@ object Retrofit {
         var sql = "SELECT * FROM user " +
                 "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id='${UserInfo.ID}')) " +
                 "AND (user_id NOT IN (SELECT partner_id FROM chathistory WHERE user_id='${UserInfo.ID}')) " +
-                "AND (user_gender <> '${UserInfo.GENDER}' " +
-                "AND (user_id <> '${UserInfo.ID}' " +
-                "AND (user_height >= '${minHeight}' " +
-                "AND (user_height <= '${maxHeight}' " +
-                "AND (user_birthday >= '${minYear}' " +
-                "AND (user_birthday < '${maxYear+1}' " +
-                "AND ("
+                "AND (user_gender <> '${UserInfo.GENDER}') " +
+                "AND (user_id <> '${UserInfo.ID}') " +
+                "AND (user_height >= '${minHeight}') " +
+                "AND (user_height <= '${maxHeight}') " +
+                "AND (user_birthday <= '${minYear}-12-31') " +
+                "AND (user_birthday >= '${maxYear}-01-01') "
 
-        var departmentList = department.split(", ")
-        departmentList.forEach {
-            sql += "OR (user_department LIKE '%${it}%') "
+        if(department != "") {
+            sql += "AND ("
+            var departmentList = department.split(", ")
+            departmentList.forEach {
+                if (it == departmentList[0])
+                    sql += "dept_name LIKE '%${it}%' "
+                else
+                    sql += "OR dept_name LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
-        
-        var hobbyList = hobby.split(", ")
-        hobbyList.forEach{
-            sql += "OR (user_hobby LIKE '%${it}%' "
+        if(hobby != "") {
+            sql += "AND ("
+            var hobbyList = hobby.split(", ")
+            hobbyList.forEach {
+                if (it == hobbyList[0])
+                    sql += "user_hobby LIKE '%${it}%' "
+                else
+                    sql += "OR (user_hobby LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
-        var personalityList = personality.split(", ")
-        personalityList.forEach{
-            sql += "OR (user_personality LIKE '%${it}%' "
+        if(personality != "") {
+            sql += "AND ("
+            var personalityList = personality.split(", ")
+            personalityList.forEach {
+                if (it == personalityList[0])
+                    sql += "(user_personality LIKE '%${it}%' "
+                else
+                    sql += "OR (user_personality LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
+        sql += "ORDER BY RAND() LIMIT 1"
+
+        service.smartMatching(sql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+            override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
+                Log.d("test",t.message!!)
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<ProfileModel.Profile>>,
+                response: Response<ArrayList<ProfileModel.Profile>>
+            ) {
+                callback(response.body()!!)
+            }
+
+        })
     }
 
     fun getOpenChatList(
         univName: String,
         category: String?,
-        callback: (ArrayList<RoomItem>) -> Unit
+        callback: (ArrayList<Room>) -> Unit
     ) {
+        val sql = "SELECT * FROM room WHERE univ_name = '${univName}' AND category = '${category}'"
+
+        service.getOpenChatList(sql).enqueue(object: Callback<ArrayList<Room>>{
+            override fun onFailure(call: Call<ArrayList<Room>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<Room>>,
+                response: Response<ArrayList<Room>>
+            ) {
+                callback(response.body()!!)
+            }
+
+        })
+
 
     }
 
@@ -271,6 +315,23 @@ object Retrofit {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
+        })
+    }
+
+
+    fun joinRoom(roomId: String, userId: String,date: String, callback: (ResultModel) -> Unit) {
+        var sql = "INSERT INTO joined " +
+                "VALUES('${roomId}','${userId}','${date}',1)"
+
+        service.joinRoom(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+
         })
     }
 
@@ -342,6 +403,25 @@ object Retrofit {
             override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
                 callback(response.body()!!)
             }
+        })
+    }
+    
+    fun getMembers(roomId: String, callback: (ArrayList<MemberModel>) -> Unit) {
+
+        val sql = "SELECT joined.user_id AS user_id, user_nickname FROM joined, user WHERE room_id = '${roomId}' AND joined.user_id = user.user_id"
+
+
+        service.getMembers(sql).enqueue(object: Callback<ArrayList<MemberModel>> {
+            override fun onFailure(call: Call<ArrayList<MemberModel>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<MemberModel>>,
+                response: Response<ArrayList<MemberModel>>
+            ) {
+                callback(response.body()!!)
+            }
+
         })
     }
     

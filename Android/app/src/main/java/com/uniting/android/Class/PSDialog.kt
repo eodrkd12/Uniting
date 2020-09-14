@@ -22,7 +22,6 @@ import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
-import com.uniting.android.Login.DepartmentAdapter
 import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
 import com.uniting.android.Room.MakeRoomActivity
@@ -156,6 +155,7 @@ class PSDialog(activity: Activity) {
     }
 
     class BottomSheetDialog(var textView: TextView) : BottomSheetDialogFragment() {
+
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -167,7 +167,7 @@ class PSDialog(activity: Activity) {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            view?.findViewById<TextView>(R.id.text_hobby_tag)?.setOnClickListener {
+            view?.findViewById<TextView>(R.id.text_hobby)?.setOnClickListener {
                 MakeRoomActivity.category="취미"
                 MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
                 MakeRoomActivity.textNext!!.isEnabled=true
@@ -181,15 +181,6 @@ class PSDialog(activity: Activity) {
                 MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
                 MakeRoomActivity.textNext!!.isEnabled=true
                 textView.text = "스터디"
-                textView.setTextColor(Color.WHITE)
-                dismiss()
-            }
-
-            view?.findViewById<TextView>(R.id.text_recruit)?.setOnClickListener {
-                MakeRoomActivity.category="취/창업"
-                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
-                MakeRoomActivity.textNext!!.isEnabled=true
-                textView.text = "취/창업"
                 textView.setTextColor(Color.WHITE)
                 dismiss()
             }
