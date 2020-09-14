@@ -83,7 +83,6 @@ class MatchingFragment : Fragment() {
                         var personality = textPersonality.text.toString()
 
                         Retrofit.smartMatching(height,age,department,hobby,personality) {
-
                             if(it.size == 0) {
                                 Toast.makeText(activity, "매칭 가능한 상대가 없습니다.", Toast.LENGTH_SHORT).show()
                             }

@@ -2,20 +2,28 @@ package com.uniting.android.Login
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.Spanned
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.uniting.android.Class.KeyboardVisibilityUtils
 import com.uniting.android.Class.PSDialog
+import com.uniting.android.Class.UserInfo
+import com.uniting.android.Main.MainActivity
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
-import kotlinx.android.synthetic.main.activity_signup1.scroll_signup1
 import kotlinx.android.synthetic.main.activity_signup3.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,29 +50,99 @@ class Signup3Activity : AppCompatActivity() {
     var webMail = ""
     var univName = ""
     var deptName = ""
+    var enterYear = ""
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode){
+            KeyEvent.KEYCODE_HOME -> {
+                Retrofit.idDelete(id) {
+                }
+            }
+            KeyEvent.KEYCODE_BACK -> {
+                Retrofit.idDelete(id) {
+                }
+            }
+        }
+
+        return super.onKeyDown(keyCode, event)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup3)
 
-        webMail = intent.getStringExtra("mail")!!
+        /*webMail = intent.getStringExtra("mail")!!
         univName = intent.getStringExtra("univName")!!
-        deptName = intent.getStringExtra("deptName")!!
+        deptName = intent.getStringExtra("deptName")!!*/
+        var displayMetrics = DisplayMetrics()
+        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
+        val height = displayMetrics.heightPixels
+        Log.d("test", "높이 : ${height}")
+
+        text_university_webmail.text = webMail
+        text_university_info.text = univName + " " + deptName
 
         val psDialog = PSDialog(this)
 
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(window, onShowKeyboard = {keyboardHeight ->
+        /*keyboardVisibilityUtils = KeyboardVisibilityUtils(window, onShowKeyboard = {keyboardHeight ->
             scroll_signup1.run {
                 smoothScrollTo(scrollX, scrollY + keyboardHeight)
             }
-        })
+        })*/
 
         edit_user_id.filters = arrayOf<InputFilter>(IdFilter())
 
+       /* for(i in layout_university_info.children)
+        {
+            if(i is EditText) {
+
+            }
+        }*/
+
+        edit_user_password.setOnFocusChangeListener { view, b ->
+            if(b) {
+                scroll_signup3.postDelayed(object: Runnable {
+                    override fun run() {
+                        val loc = IntArray(2)
+                        edit_user_password.getLocationOnScreen(loc)
+                        scroll_signup3.smoothScrollTo(loc[0], loc[1])
+                        //scroll_signup3.smoothScrollBy(0, 400)
+                    }
+                }, 100)
+            }
+        }
+
+        edit_user_nickname.setOnFocusChangeListener { view, b ->
+            if(b) {
+                scroll_signup3.postDelayed(object: Runnable {
+                    override fun run() {
+                        val loc = IntArray(2)
+                        edit_user_password.getLocationOnScreen(loc)
+                        scroll_signup3.smoothScrollTo(loc[0], loc[1])
+                        //scroll_signup3.smoothScrollBy(0, 400)
+                    }
+                }, 100)
+            }
+        }
+
+
         btn_check_id.setOnClickListener {
             if(edit_user_id.text.toString().replace(" ", "").length < 5) {
-                text_check_id.text = "아이디는 5자리 이상이어야 합니다."
-                text_check_id.setTextColor(Color.parseColor("#FF0000"))
+                if(id == "") {
+                    text_check_id.text = "아이디는 5자리 이상이어야 합니다."
+                    text_check_id.setTextColor(Color.parseColor("#FF0000"))
+                    id = ""
+                }
+                else {
+                    Retrofit.idDelete(id) {
+                        if(it.result == "success") {
+                            text_check_id.text = "아이디는 5자리 이상이어야 합니다."
+                            text_check_id.setTextColor(Color.parseColor("#FF0000"))
+                            id = ""
+                            idCheck = 0
+                        }
+                    }
+                }
             }
             else {
                 if(id == "") {
@@ -165,6 +243,22 @@ class Signup3Activity : AppCompatActivity() {
             psDialog.show()
         }
 
+        val yearList = arrayListOf("선택", "2020학년도", "2019학년도", "2018학년도", "2017학년도", "2016학년도", "2015학년도", "2014학년도", "2013학년도")
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, yearList)
+        spinner_year.adapter = adapter
+        spinner_year.setSelection(0)
+        spinner_year.onItemSelectedListener=object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                enterYear = spinner_year.getItemAtPosition(p2).toString()
+            }
+
+        }
+
         btn_signup3.setOnClickListener {
             pwLengthCheck()
             pwEqualCheck()
@@ -194,9 +288,20 @@ class Signup3Activity : AppCompatActivity() {
             {
                 Toast.makeText(this, "거주지를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
+            else if(enterYear == "선택" || enterYear == "")
+            {
+                Toast.makeText(this, "입학년도를 확인해주세요.", Toast.LENGTH_SHORT).show()
+            }
             else {
-                Retrofit.signUp(id, pw, nickname, birthday, city, gender, univName, deptName, webMail, "") {
-
+                Retrofit.signUp(id, pw, nickname, birthday, city, gender, univName, deptName, webMail, enterYear) {
+                    if(it.result == "success") {
+                        var intent = Intent(this, MainActivity::class.java)
+                        var userPref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                        var editor = userPref.edit()
+                        editor.putString("ID", id).apply()
+                        UserInfo.ID = id
+                        startActivity(intent)
+                    }
                 }
             }
 
@@ -249,13 +354,13 @@ class Signup3Activity : AppCompatActivity() {
     private fun idCheck() {
         Retrofit.idCheck(edit_user_id.text.toString()) {
             when(it.count) {
-                0 -> {
+                1 -> {
                     text_check_id.text = "중복된 아이디 입니다."
                     text_check_id.setTextColor(Color.parseColor("#FF0000"))
                     id = ""
                     idCheck = 0
                 }
-                1 -> {
+                0 -> {
                     Retrofit.idInsert(edit_user_id.text.toString()) {
                         when(it.result) {
                             "success" -> {
@@ -276,7 +381,7 @@ class Signup3Activity : AppCompatActivity() {
     }
 
     private fun nickCheck() {
-        if(edit_user_nickname.text.toString().replace(" ", "").length > 3 && edit_user_nickname.text.toString().replace(" ", "").length < 11) {
+        if(edit_user_nickname.text.toString().replace(" ", "").length > 2 && edit_user_nickname.text.toString().replace(" ", "").length < 11) {
             nickname = edit_user_nickname.text.toString().replace(" ", "")
         }
     }

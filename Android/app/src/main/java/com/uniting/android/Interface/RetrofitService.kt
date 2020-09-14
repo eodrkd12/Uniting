@@ -107,8 +107,8 @@ interface RetrofitService {
 
     //아이디 중복확인
     @FormUrlEncoded
-    @POST("/common/sql/select")
-    fun idCheck(@Field("sql") sql: String): Call<CountModel>
+    @POST("/common/sql/select/single")
+    fun idCheck(@Field("sql") sql: String) : Call<CountModel>
 
     //임시 아이디 데이터 삽입
     @FormUrlEncoded
@@ -135,6 +135,11 @@ interface RetrofitService {
     @POST("/common/sql/select")
     fun getOpenChatList(@Field("sql") sql: String): Call<ArrayList<Room>>
 
+    //중복 회원가입 확인
+    @FormUrlEncoded
+    @POST("/common/sql/single")
+    fun accountCheck(@Field("sql") sql : String) : Call<CountModel>
+
     //로그인
     @FormUrlEncoded
     @POST("/common/sql/select/single")
@@ -144,4 +149,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select/single")
     fun getModifyUserInfo(@Field("sql") sql : String) : Call<UserItem.ModifyUser>
+
+    //회원정보수정 업데이트
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun updateModifyUserInfo(@Field("sql") sql : String) : Call<ResultModel>
 }

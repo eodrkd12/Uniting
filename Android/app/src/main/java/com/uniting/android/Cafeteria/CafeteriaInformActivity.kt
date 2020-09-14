@@ -211,7 +211,6 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
     fun BackgroundTask() {
         backgroundtask =
             Observable.fromCallable<Any> {
-
                 // doInBackground
                 val url = "https://store.naver.com/restaurants/detail?id=$id"
                 val imageUrl = "https://store.naver.com/restaurants/detail?id=$id&tab=photo"

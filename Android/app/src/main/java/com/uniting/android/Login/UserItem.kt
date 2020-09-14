@@ -26,6 +26,6 @@ class UserItem {
         @SerializedName("user_city")
         val userCity : String,
         @SerializedName("user_signdate")
-        val user_signdate : String
+        val userSignDate : String
     )
 }

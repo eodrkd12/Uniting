@@ -204,4 +204,27 @@ class PSDialog(activity: Activity) {
             }
         }
     }
+
+    fun setCheckSave() {
+        dialog!!.setContentView(R.layout.dialog_check_save)
+
+        val title : TextView = dialog!!.findViewById(R.id.text_dialogtitle)
+        val content : TextView = dialog!!.findViewById(R.id.text_dialogcontent)
+        val btnCancel : Button = dialog!!.findViewById(R.id.btn_dialogcancel)
+        val btnAccept : Button = dialog!!.findViewById(R.id.btn_dialogaccept)
+
+        title.text = "경고"
+        content.text = "변경사항이 저장되지 않습니다.\n진행하시겠습니까?"
+
+        btnCancel.setOnClickListener {
+            dismiss()
+        }
+
+        btnAccept.setOnClickListener {
+            dismiss()
+            context?.finish()
+        }
+    }
+
+
 }

@@ -392,6 +392,20 @@ object Retrofit {
         })
     }
 
+    fun accountCheck(webMail: String, callback: (CountModel) -> Unit) {
+        var sql = "SELECT count(univ_mail) as count FROM user WHERE univ_mail='${webMail}'"
+
+        service.accountCheck(sql).enqueue(object:Callback<CountModel> {
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+    
     fun getMembers(roomId: String, callback: (ArrayList<MemberModel>) -> Unit) {
 
         val sql = "SELECT joined.user_id AS user_id, user_nickname FROM joined, user WHERE room_id = '${roomId}' AND joined.user_id = user.user_id"
@@ -410,6 +424,7 @@ object Retrofit {
 
         })
     }
+    
     fun login(userId: String, userPw: String, callback: (Int) -> Unit) {
         val sql = "SELECT user_pw as result FROM user WHERE user_id='${userId}'"
 
@@ -432,7 +447,7 @@ object Retrofit {
     }
 
     fun getModifyUserInfo(userId: String, callback: (UserItem.ModifyUser) -> Unit) {
-        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_signdate"
+        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_signdate FROM user WHERE user_id='${userId}'"
 
         service.getModifyUserInfo(sql).enqueue(object: Callback<UserItem.ModifyUser> {
             override fun onFailure(call: Call<UserItem.ModifyUser>, t: Throwable) {
@@ -440,6 +455,20 @@ object Retrofit {
             }
 
             override fun onResponse(call: Call<UserItem.ModifyUser>, response: Response<UserItem.ModifyUser>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun updateModifyUserInfo(userId: String, userNickname: String, userBirthday: String, userCity: String, callback : (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET user_nickname='${userNickname}', user_birthday = '${userBirthday}', user_city = '${userCity}' WHERE user_id='${userId}'"
+
+        service.updateModifyUserInfo(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
         })

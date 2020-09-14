@@ -102,6 +102,7 @@
         android:paddingBottom="10dp"
         android:text="로그아웃"
         android:textColor="@color/colorMdGrey_900"
+        android:background="?attr/selectableItemBackground"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
