@@ -1,6 +1,8 @@
 package com.uniting.android.Class
 
 import android.graphics.Rect
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.ViewTreeObserver
 import android.view.Window
 
@@ -8,7 +10,13 @@ class KeyboardVisibilityUtils(private val window: Window,
                               private val onShowKeyboard: ((keyboardHeight:Int)->Unit)? = null,
                               private val onHideKeyboard: (()->Unit)? = null) {
 
-    private val MIN_KEYBOARD_HEIGHT_PX = 150
+    var displayMetrics = DisplayMetrics()
+    val height = displayMetrics.heightPixels
+
+
+
+
+    private val MIN_KEYBOARD_HEIGHT_PX = 370
 
     private val windowVisibleDisplayFrame = Rect()
 
@@ -17,6 +25,8 @@ class KeyboardVisibilityUtils(private val window: Window,
     private val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         window.decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
         val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
+
+        Log.d("test", "높이 : '${height}' \n측정값 : '${visibleDecorViewHeight}'")
 
         // Decide whether keyboard is visible from changing decor view height.
         if (lastVisibleDecorViewHeight != 0) {

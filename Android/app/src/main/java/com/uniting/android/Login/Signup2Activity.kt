@@ -17,6 +17,7 @@ import com.uniting.android.Cafeteria.MenuAdapter
 import com.uniting.android.Class.GMailSender
 import com.uniting.android.Class.KeyboardVisibilityUtils
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -97,13 +98,24 @@ class Signup2Activity : AppCompatActivity() {
         }
 
         btn_signup2.setOnClickListener {
-            var intent = Intent(this, Signup3Activity::class.java)
-            intent.putExtra("mail", webMail)
-            intent.putExtra("univName", univName)
-            intent.putExtra("deptName", deptName)
+            Retrofit.accountCheck(webMail) {
+                when(it.count) {
+                    0 -> {
+                        var intent = Intent(this, Signup3Activity::class.java)
+                        intent.putExtra("mail", webMail)
+                        intent.putExtra("univName", univName)
+                        intent.putExtra("deptName", deptName)
 
-            finish()
-            startActivity(intent)
+                        finish()
+                        startActivity(intent)
+                    }
+                    1 -> {
+                        Toast.makeText(this, "해당 이메일로 가입된 계정이 존재합니다.", Toast.LENGTH_SHORT).show()
+                        var intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
         }
 
 

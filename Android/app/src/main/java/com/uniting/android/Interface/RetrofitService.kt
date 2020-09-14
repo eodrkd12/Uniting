@@ -89,7 +89,7 @@ interface RetrofitService {
 
     //아이디 중복확인
     @FormUrlEncoded
-    @POST("/common/sql/select")
+    @POST("/common/sql/select/single")
     fun idCheck(@Field("sql") sql: String) : Call<CountModel>
 
     //임시 아이디 데이터 삽입
@@ -106,4 +106,10 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun signUp(@Field("sql") sql : String) : Call<ResultModel>
+
+    //중복 회원가입 확인
+    @FormUrlEncoded
+    @POST("/common/sql/single")
+    fun accountCheck(@Field("sql") sql : String) : Call<CountModel>
+
 }

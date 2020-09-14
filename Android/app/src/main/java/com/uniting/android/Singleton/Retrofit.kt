@@ -280,4 +280,17 @@ object Retrofit {
         })
     }
 
+    fun accountCheck(webMail: String, callback: (CountModel) -> Unit) {
+        var sql = "SELECT count(univ_mail) as count FROM user WHERE univ_mail='${webMail}'"
+
+        service.accountCheck(sql).enqueue(object:Callback<CountModel> {
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
 }

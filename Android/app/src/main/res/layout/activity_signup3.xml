@@ -4,11 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_signup1"
+        android:id="@+id/scroll_signup3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -324,24 +325,24 @@
                 android:id="@+id/btn_signup3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/enable_button"
-                android:text="다음"
+                android:text="가입완료"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textView10"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/view18" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_university_info" />
 
             <RadioGroup
                 android:id="@+id/radiogroup_gender"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/rounded_corner"
+                android:background="@drawable/rounded_corner_stroke_primary_color"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="@+id/textView10"
@@ -379,7 +380,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text=""
-                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/view12"
                 app:layout_constraintTop_toBottomOf="@+id/view12" />
 
@@ -388,8 +388,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="TextView"
-                android:visibility="invisible"
+                android:text=""
                 app:layout_constraintStart_toStartOf="@+id/view13"
                 app:layout_constraintTop_toBottomOf="@+id/view13" />
 
@@ -399,125 +398,147 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text=""
-                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/view8"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="학교정보"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorMdGrey_900"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/radiogroup_gender" />
-
-            <View
-                android:id="@+id/view17"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorMdGrey_500"
-                app:layout_constraintEnd_toEndOf="@+id/textView10"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/text_university_info" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="학교, 학과"
-                android:textSize="13dp"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/view19" />
-
-            <TextView
-                android:id="@+id/text_university_info"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_university_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="학교정보"
-                android:textSize="15dp"
-                android:gravity="left"
-                app:layout_constraintEnd_toEndOf="@+id/view17"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_corner_stroke_color"
+                android:elevation="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.186"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiogroup_gender">
 
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="웹메일"
-                android:textSize="13dp"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/view17" />
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="웹메일"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/text_university_info"
+                    app:layout_constraintTop_toBottomOf="@+id/view17" />
 
-            <TextView
-                android:id="@+id/text_university_webmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="웹메일정보"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/view18"
-                app:layout_constraintStart_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                <View
+                    android:id="@+id/view17"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/colorMdGrey_500"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_university_info" />
 
-            <View
-                android:id="@+id/view18"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorMdGrey_500"
-                app:layout_constraintEnd_toEndOf="@+id/textView10"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/text_university_webmail" />
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="학교정보"
+                    android:textColor="@color/colorMdGrey_900"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="입학년도"
-                android:textSize="13dp"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                <TextView
+                    android:id="@+id/text_university_webmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="웹메일정보"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/view18"
+                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-            <TextView
-                android:id="@+id/text_university_enter_year"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="5dp"
-                android:text="선택"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView15"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                <View
+                    android:id="@+id/view19"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/colorMdGrey_500"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_year" />
 
-            <View
-                android:id="@+id/view19"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorMdGrey_500"
-                app:layout_constraintEnd_toEndOf="@+id/textView10"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/text_university_enter_year" />
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="입학년도"
+                    android:textColor="@color/colorMdGrey_700"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView17"
+                    app:layout_constraintTop_toBottomOf="@+id/view20" />
 
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_university_enter_year"
-                app:layout_constraintEnd_toEndOf="@+id/view19"
-                app:layout_constraintTop_toTopOf="@+id/text_university_enter_year"
-                app:srcCompat="@drawable/more_icon" />
+                <TextView
+                    android:id="@+id/text_university_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="left"
+                    android:text="학교정보"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/view17"
+                    app:layout_constraintStart_toStartOf="@+id/textView18"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="학교, 학과"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView17"
+                    app:layout_constraintTop_toBottomOf="@+id/view19" />
+
+                <View
+                    android:id="@+id/view18"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/colorMdGrey_500"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_university_webmail" />
+
+                <Spinner
+                    android:id="@+id/spinner_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    app:layout_constraintEnd_toEndOf="@+id/view19"
+                    app:layout_constraintStart_toStartOf="@+id/view19"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                <View
+                    android:id="@+id/view20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorMdGrey_300"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

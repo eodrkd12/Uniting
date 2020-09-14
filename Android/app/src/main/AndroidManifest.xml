@@ -45,7 +45,8 @@
         <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity" />
-        <activity android:name=".Main.MainActivity"></activity>
+        <activity android:name=".Main.MainActivity">
+        </activity>
     </application>
 
 </manifest>
