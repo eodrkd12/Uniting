@@ -21,7 +21,7 @@ class ConditionAdapter(val context: Context, val conditionList: ArrayList<String
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return conditionList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConditionAdapter.ViewHolder {
@@ -34,13 +34,33 @@ class ConditionAdapter(val context: Context, val conditionList: ArrayList<String
     override fun onBindViewHolder(holder: ConditionAdapter.ViewHolder, position: Int) {
         var textCondition = holder.view.findViewById<TextView>(R.id.text_condition)
         textCondition.setText(conditionList[position])
+
         textCondition.setOnClickListener {
-            if(befTextView!=null){
+            if (textCondition.currentTextColor == Color.parseColor("#9E9E9E")) {
+                textCondition.setTextColor(context.getColor(R.color.colorPrimary))
+                if(selectedCondition == ""){
+                    selectedCondition += textCondition.text.toString()
+                }
+                else {
+                    selectedCondition += ", ${textCondition.text}"
+                }
+            }
+            else {
+                textCondition.setTextColor(Color.parseColor("#9E9E9E"))
+                if(selectedCondition.split(", ").size < 2){
+                    selectedCondition = selectedCondition.replace("${textCondition.text}","")
+                }
+                else {
+                    selectedCondition = selectedCondition.replace(", ${textCondition.text}","")
+                }
+            }
+
+            /*if(befTextView!=null){
                 befTextView!!.setTextColor(Color.parseColor("#9E9E9E"))
             }
             textCondition.setTextColor(context.getColor(R.color.colorPrimary))
             selectedCondition=textCondition.text.toString()
-            befTextView=textCondition
+            befTextView=textCondition*/
         }
     }
 

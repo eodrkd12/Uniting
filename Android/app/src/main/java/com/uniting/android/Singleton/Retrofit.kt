@@ -150,6 +150,56 @@ object Retrofit {
         }
     }
 
+    fun smartMatching(
+        height: String,
+        age: String,
+        department: String,
+        hobby: String,
+        personality: String,
+        callback: (ProfileModel.Profile) -> Void
+    ) {
+        var minHeight = height.split(" ~ ")[0]
+        var maxHeight = height.split(" ~ ")[1]
+
+        var minAge = age.split(" ~ ")[0]
+        var maxAge = age.split(" ~ ")[1]
+
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var curDate = simpleDateFormat.format(System.currentTimeMillis())
+        var year = curDate.split("-")[0]
+
+        var minYear = year.toInt() - minAge.toInt() + 1
+        var maxYear = year.toInt() - maxAge.toInt() + 1
+
+        var sql = "SELECT * FROM user " +
+                "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id='${UserInfo.ID}')) " +
+                "AND (user_id NOT IN (SELECT partner_id FROM chathistory WHERE user_id='${UserInfo.ID}')) " +
+                "AND (user_gender <> '${UserInfo.GENDER}' " +
+                "AND (user_id <> '${UserInfo.ID}' " +
+                "AND (user_height >= '${minHeight}' " +
+                "AND (user_height <= '${maxHeight}' " +
+                "AND (user_birthday >= '${minYear}' " +
+                "AND (user_birthday < '${maxYear+1}' " +
+                "AND ("
+
+        var departmentList = department.split(", ")
+        departmentList.forEach {
+            sql += "OR (user_department LIKE '%${it}%') "
+        }
+
+        
+        var hobbyList = hobby.split(", ")
+        hobbyList.forEach{
+            sql += "OR (user_hobby LIKE '%${it}%' "
+        }
+
+        var personalityList = personality.split(", ")
+        personalityList.forEach{
+            sql += "OR (user_personality LIKE '%${it}%' "
+        }
+
+    }
+
     fun getOpenChatList(
         univName: String,
         category: String?,
@@ -315,4 +365,5 @@ object Retrofit {
             }
         })
     }
+
 }
