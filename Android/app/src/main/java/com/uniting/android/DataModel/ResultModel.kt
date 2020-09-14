@@ -12,7 +12,9 @@ data class CountModel (
     var count : Int
 )
 
-data class IdModel (
+data class MemberModel (
     @SerializedName("user_id")
-    var id : String
+    var id : String,
+    @SerializedName("user_nickname")
+    var nickname : String
 )

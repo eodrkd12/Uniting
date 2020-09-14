@@ -1,7 +1,6 @@
 package com.uniting.android.Chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,7 +15,7 @@ import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.ViewModel.ChatViewModel
-import com.uniting.android.DataModel.IdModel
+import com.uniting.android.DataModel.MemberModel
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -27,8 +26,10 @@ class ChatActivity : PSAppCompatActivity() {
     lateinit var room : Room
     lateinit var chatViewModel : ChatViewModel
     lateinit var chatAdapter : ChatAdapter
+    lateinit var memberAdapter : MemberAdapter
 
-    lateinit var memberList : ArrayList<IdModel>
+    lateinit var memberList : ArrayList<MemberItem>
+
 
     var chatList = ArrayList<ChatItem>()
 
@@ -54,7 +55,9 @@ class ChatActivity : PSAppCompatActivity() {
 
         Retrofit.getMembers(room.room_id){
             numOfMembers = it.size
-            memberList = it
+            it.forEach {
+                memberList.add(MemberItem(it))
+            }
         }
 
         rv_chat.setHasFixedSize(true)
@@ -83,7 +86,7 @@ class ChatActivity : PSAppCompatActivity() {
 
             var unreadMember = ""
             memberList.forEach {
-                unreadMember += "${it.id}|"
+                unreadMember += "${it.member.id}|"
             }
 
             unreadMember = unreadMember.replace("${UserInfo.ID}|","")
@@ -104,6 +107,17 @@ class ChatActivity : PSAppCompatActivity() {
                 }
             }
         }
+
+        //drawer layout
+        text_me.text = UserInfo.NICKNAME
+
+        rv_member.setHasFixedSize(true)
+        rv_member.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        memberAdapter = MemberAdapter(this, memberList)
+        rv_member.adapter = memberAdapter
+        memberAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {
@@ -177,14 +191,14 @@ class ChatActivity : PSAppCompatActivity() {
         var i = snapshot.children.iterator()
         var chat : Chat? = null
         while (i.hasNext()) {
-            var chatContent = i.next() as String
-            var chatId = i.next() as String
-            var chatTime = i.next() as String
-            var roomId = i.next() as String
-            var systemChat = i.next() as Int
-            var unreadMember = i.next() as String
-            var userId = i.next() as String
-            var userNickname = i.next() as String
+            var chatContent = i.next().value as String
+            var chatId = i.next().value as String
+            var chatTime = i.next().value as String
+            var roomId = i.next().value as String
+            var systemChat = (i.next().value as Long).toInt()
+            var unreadMember = i.next().value as String
+            var userId = i.next().value as String
+            var userNickname = i.next().value as String
 
             chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
         }
@@ -200,7 +214,7 @@ class ChatActivity : PSAppCompatActivity() {
             var chatId = i.next() as String
             var chatTime = i.next() as String
             var roomId = i.next() as String
-            var systemChat = i.next() as Int
+            var systemChat = (i.next().value as Long).toInt()
             var unreadMember = i.next() as String
             var userId = i.next() as String
             var userNickname = i.next() as String
@@ -216,7 +230,7 @@ class ChatActivity : PSAppCompatActivity() {
         var inflater = getMenuInflater()
         inflater.inflate(R.menu.menu_chat, menu)
         menu!!.add(0,0,0,"메뉴")
-            .setIcon(R.drawable.option_icon)
+            .setIcon(R.drawable.option1_icon)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
         return super.onCreateOptionsMenu(menu)

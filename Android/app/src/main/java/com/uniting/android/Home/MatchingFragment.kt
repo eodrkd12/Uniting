@@ -2,6 +2,7 @@ package com.uniting.android.Home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,22 @@ class MatchingFragment : Fragment() {
 
                         Retrofit.smartMatching(height,age,department,hobby,personality) {
 
+                            if(it.size == 0) {
+                                Toast.makeText(activity, "매칭 가능한 상대가 없습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                var intent = Intent(activity, ProfileActivity::class.java)
+                                intent.putExtra("userId", it.get(0).userId)
+                                intent.putExtra("userCity", it.get(0).userCity)
+                                intent.putExtra("deptName", it.get(0).deptName)
+                                intent.putExtra("userGender", it.get(0).userGender)
+                                intent.putExtra("userNickname", it.get(0).userNickname)
+                                intent.putExtra("userHeight", it.get(0).userHeight)
+                                intent.putExtra("userAge", it.get(0).userAge)
+                                intent.putExtra("userHobby", it.get(0).userHobby)
+                                intent.putExtra("userPersonality", it.get(0).userPersonality)
+                                startActivity(intent)
+                            }
                         }
                     }
                 }

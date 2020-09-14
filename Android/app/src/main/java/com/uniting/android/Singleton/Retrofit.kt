@@ -6,13 +6,12 @@ import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.CountModel
-import com.uniting.android.DataModel.IdModel
+import com.uniting.android.DataModel.MemberModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
-import com.uniting.android.Room.RoomItem
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -152,7 +151,7 @@ object Retrofit {
         department: String,
         hobby: String,
         personality: String,
-        callback: (ProfileModel.Profile) -> Void
+        callback: (ArrayList<ProfileModel.Profile>) -> Unit
     ) {
         var minHeight = height.split(" ~ ")[0]
         var maxHeight = height.split(" ~ ")[1]
@@ -170,30 +169,64 @@ object Retrofit {
         var sql = "SELECT * FROM user " +
                 "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id='${UserInfo.ID}')) " +
                 "AND (user_id NOT IN (SELECT partner_id FROM chathistory WHERE user_id='${UserInfo.ID}')) " +
-                "AND (user_gender <> '${UserInfo.GENDER}' " +
-                "AND (user_id <> '${UserInfo.ID}' " +
-                "AND (user_height >= '${minHeight}' " +
-                "AND (user_height <= '${maxHeight}' " +
-                "AND (user_birthday >= '${minYear}' " +
-                "AND (user_birthday < '${maxYear+1}' " +
-                "AND ("
+                "AND (user_gender <> '${UserInfo.GENDER}') " +
+                "AND (user_id <> '${UserInfo.ID}') " +
+                "AND (user_height >= '${minHeight}') " +
+                "AND (user_height <= '${maxHeight}') " +
+                "AND (user_birthday <= '${minYear}-12-31') " +
+                "AND (user_birthday >= '${maxYear}-01-01') "
 
-        var departmentList = department.split(", ")
-        departmentList.forEach {
-            sql += "OR (user_department LIKE '%${it}%') "
+        if(department != "") {
+            sql += "AND ("
+            var departmentList = department.split(", ")
+            departmentList.forEach {
+                if (it == departmentList[0])
+                    sql += "dept_name LIKE '%${it}%' "
+                else
+                    sql += "OR dept_name LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
-        
-        var hobbyList = hobby.split(", ")
-        hobbyList.forEach{
-            sql += "OR (user_hobby LIKE '%${it}%' "
+        if(hobby != "") {
+            sql += "AND ("
+            var hobbyList = hobby.split(", ")
+            hobbyList.forEach {
+                if (it == hobbyList[0])
+                    sql += "user_hobby LIKE '%${it}%' "
+                else
+                    sql += "OR (user_hobby LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
-        var personalityList = personality.split(", ")
-        personalityList.forEach{
-            sql += "OR (user_personality LIKE '%${it}%' "
+        if(personality != "") {
+            sql += "AND ("
+            var personalityList = personality.split(", ")
+            personalityList.forEach {
+                if (it == personalityList[0])
+                    sql += "(user_personality LIKE '%${it}%' "
+                else
+                    sql += "OR (user_personality LIKE '%${it}%' "
+            }
+            sql += ")"
         }
 
+        sql += "ORDER BY RAND() LIMIT 1"
+
+        service.smartMatching(sql).enqueue(object: Callback<ArrayList<ProfileModel.Profile>> {
+            override fun onFailure(call: Call<ArrayList<ProfileModel.Profile>>, t: Throwable) {
+                Log.d("test",t.message!!)
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<ProfileModel.Profile>>,
+                response: Response<ArrayList<ProfileModel.Profile>>
+            ) {
+                callback(response.body()!!)
+            }
+
+        })
     }
 
     fun getOpenChatList(
@@ -359,18 +392,18 @@ object Retrofit {
         })
     }
 
-    fun getMembers(roomId: String, callback: (ArrayList<IdModel>) -> Unit) {
+    fun getMembers(roomId: String, callback: (ArrayList<MemberModel>) -> Unit) {
 
-        val sql = "SELECT user_id FROM joined WHERE room_id = '${roomId}'"
+        val sql = "SELECT joined.user_id AS user_id, user_nickname FROM joined, user WHERE room_id = '${roomId}' AND joined.user_id = user.user_id"
 
 
-        service.getMembers(sql).enqueue(object: Callback<ArrayList<IdModel>> {
-            override fun onFailure(call: Call<ArrayList<IdModel>>, t: Throwable) {
+        service.getMembers(sql).enqueue(object: Callback<ArrayList<MemberModel>> {
+            override fun onFailure(call: Call<ArrayList<MemberModel>>, t: Throwable) {
             }
 
             override fun onResponse(
-                call: Call<ArrayList<IdModel>>,
-                response: Response<ArrayList<IdModel>>
+                call: Call<ArrayList<MemberModel>>,
+                response: Response<ArrayList<MemberModel>>
             ) {
                 callback(response.body()!!)
             }

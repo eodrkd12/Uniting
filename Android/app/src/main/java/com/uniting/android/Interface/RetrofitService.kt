@@ -1,18 +1,16 @@
 package com.uniting.android.Interface
 
 import com.uniting.android.Cafeteria.CafeteriaItem
-import com.uniting.android.Chat.ChatItem
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.CountModel
-import com.uniting.android.DataModel.IdModel
+import com.uniting.android.DataModel.MemberModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
 import okhttp3.MultipartBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -84,6 +82,12 @@ interface RetrofitService {
     @POST("/common/sql/select")
     fun randomMatching(@Field("sql") sql: String): Call<ArrayList<ProfileModel.Profile>>
 
+
+    //스마트 매칭
+    @FormUrlEncoded
+    @POST("/common/sql/select")
+    fun smartMatching(@Field("sql") sql: String): Call<ArrayList<ProfileModel.Profile>>
+
     //리뷰삭제
     @FormUrlEncoded
     @POST("/image/review/delete")
@@ -124,13 +128,12 @@ interface RetrofitService {
     //방 인원 수 가져오기
     @FormUrlEncoded
     @POST("/common/sql/select")
-    fun getMembers(@Field("sql") sql: String): Call<ArrayList<IdModel>>
+    fun getMembers(@Field("sql") sql: String): Call<ArrayList<MemberModel>>
 
     //오픈채팅 불러오기
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun getOpenChatList(@Field("sql") sql: String): Call<ArrayList<Room>>
-    fun signUp(@Field("sql") sql : String) : Call<ResultModel>
 
     //로그인
     @FormUrlEncoded
