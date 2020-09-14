@@ -1,24 +1,20 @@
 package com.uniting.android.Singleton
 
 import android.util.Log
-import android.widget.Toast
 import com.uniting.android.Cafeteria.CafeteriaItem
-import com.uniting.android.Chat.ChatItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.CountModel
+import com.uniting.android.DataModel.IdModel
 import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
-import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Room.RoomItem
-import kotlinx.android.synthetic.main.activity_write_review.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,10 +37,10 @@ object Retrofit {
         return curDate
     }
 
-    fun insertChat(roomId: String, userId: String, userNickname: String, content: String, current: String, unreadCount: Int, systemChat: Int, callback: (ResultModel) -> Unit) {
+    fun insertChat(chat: Chat, callback: (ResultModel) -> Unit) {
 
-        val sql = "INSERT INTO chat(room_id,user_id,user_nickname,chat_content,chat_time,unread_count,system_chat) " +
-                "VALUES('${roomId}','${userId}','${userNickname}','${content}','${current}',${unreadCount},${systemChat})"
+        val sql = "INSERT INTO chat " +
+                "VALUES('${chat.chat_id}','${chat.room_id}','${chat.user_id}','${chat.user_nickname}','${chat.chat_content}','${chat.chat_time}','${chat.unread_member}',${chat.system_chat})"
 
         service.insert(sql).enqueue(object: Callback<ResultModel> {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
@@ -58,9 +54,9 @@ object Retrofit {
 
     fun getMyRoom(userId: String, callback: (ArrayList<Room>) -> Unit) {
 
-        val sql = "SELECT room.room_id AS room_id, room_title, category, room_date , room_introduce, univ_name, maker" +
-                "FROM room, joined" +
-                "WHERE 'room.room_id' = 'joined.room_id' AND user_id = '${userId}'"
+        val sql = "SELECT room.room_id AS room_id, room_title, category, room_date , room_introduce, univ_name, maker " +
+                "FROM room, joined " +
+                "WHERE room.room_id = joined.room_id AND user_id = '${userId}'"
 
         service.getMyRoom(sql).enqueue(object: Callback<ArrayList<Room>>{
             override fun onResponse(
@@ -152,8 +148,23 @@ object Retrofit {
     fun getOpenChatList(
         univName: String,
         category: String?,
-        callback: (ArrayList<RoomItem>) -> Unit
+        callback: (ArrayList<Room>) -> Unit
     ) {
+        val sql = "SELECT * FROM room WHERE univ_name = '${univName}' AND category = '${category}'"
+
+        service.getOpenChatList(sql).enqueue(object: Callback<ArrayList<Room>>{
+            override fun onFailure(call: Call<ArrayList<Room>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<Room>>,
+                response: Response<ArrayList<Room>>
+            ) {
+                callback(response.body()!!)
+            }
+
+        })
+
 
     }
 
@@ -223,6 +234,23 @@ object Retrofit {
         })
     }
 
+
+    fun joinRoom(roomId: String, userId: String,date: String, callback: (ResultModel) -> Unit) {
+        var sql = "INSERT INTO joined " +
+                "VALUES('${roomId}','${userId}','${date}',1)"
+
+        service.joinRoom(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+
+        })
+    }
+
     fun idCheck(userId: String, callback: (CountModel) -> Unit) {
         var sql = "SELECT count(user_id) as count FROM user WHERE user_id='${userId}'"
 
@@ -280,4 +308,22 @@ object Retrofit {
         })
     }
 
+    fun getMembers(roomId: String, callback: (ArrayList<IdModel>) -> Unit) {
+
+        val sql = "SELECT user_id FROM joined WHERE room_id = '${roomId}'"
+
+
+        service.getMembers(sql).enqueue(object: Callback<ArrayList<IdModel>> {
+            override fun onFailure(call: Call<ArrayList<IdModel>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<ArrayList<IdModel>>,
+                response: Response<ArrayList<IdModel>>
+            ) {
+                callback(response.body()!!)
+            }
+
+        })
+    }
 }

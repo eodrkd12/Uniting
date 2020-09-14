@@ -21,7 +21,7 @@ class ConditionAdapter(val context: Context, val conditionList: ArrayList<String
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return conditionList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConditionAdapter.ViewHolder {

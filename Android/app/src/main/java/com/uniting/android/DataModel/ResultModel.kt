@@ -11,3 +11,8 @@ data class CountModel (
     @SerializedName("count")
     var count : Int
 )
+
+data class IdModel (
+    @SerializedName("user_id")
+    var id : String
+)

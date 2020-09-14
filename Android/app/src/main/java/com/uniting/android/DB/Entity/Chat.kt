@@ -3,12 +3,13 @@ package com.uniting.android.DB.Entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "chat")
 data class Chat(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @SerializedName("chat_id")
-    val chat_id : Int,
+    val chat_id : String,
     @SerializedName("room_id")
     val room_id : String,
     @SerializedName("user_id")
@@ -19,8 +20,8 @@ data class Chat(
     val chat_content : String,
     @SerializedName("chat_time")
     val chat_time : String,
-    @SerializedName("unread_count")
-    val unread_count : Int,
+    @SerializedName("unread_member")
+    val unread_member : String,
     @SerializedName("system_chat")
     val system_chat : Int
-)
+) : Serializable

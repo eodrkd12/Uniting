@@ -22,7 +22,6 @@ import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
-import com.uniting.android.Login.DepartmentAdapter
 import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
 import com.uniting.android.Room.MakeRoomActivity
@@ -167,15 +166,6 @@ class PSDialog(activity: Activity) {
                 MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
                 MakeRoomActivity.textNext!!.isEnabled=true
                 textView.text = "스터디"
-                textView.setTextColor(Color.WHITE)
-                dismiss()
-            }
-
-            view?.findViewById<TextView>(R.id.text_recruit)?.setOnClickListener {
-                MakeRoomActivity.category="취/창업"
-                MakeRoomActivity.textNext!!.setTextColor(Color.WHITE)
-                MakeRoomActivity.textNext!!.isEnabled=true
-                textView.text = "취/창업"
                 textView.setTextColor(Color.WHITE)
                 dismiss()
             }

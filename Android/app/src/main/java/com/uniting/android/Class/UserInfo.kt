@@ -9,6 +9,7 @@ class UserInfo : Application() {
         var NICKNAME: String = "test"
         var BIRTHDAY : String = ""
         var GENDER: String = "F"
+        var UNIV : String ="계명대학교"
         var DEPT : String = ""
         var BLOCKINGDEPT : Int = 0
     }
