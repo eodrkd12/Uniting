@@ -122,4 +122,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select/single")
     fun getModifyUserInfo(@Field("sql") sql : String) : Call<UserItem.ModifyUser>
+
+    //회원정보수정 업데이트
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun updateModifyUserInfo(@Field("sql") sql : String) : Call<ResultModel>
 }

@@ -83,9 +83,9 @@ class MatchingFragment : Fragment() {
                         var hobby = textHobby.text.toString()
                         var personality = textPersonality.text.toString()
 
-                        Retrofit.smartMatching(height,age,department,hobby,personality) {
+                        /*Retrofit.smartMatching(height,age,department,hobby,personality) {
 
-                        }
+                        }*/
                     }
                 }
             }
