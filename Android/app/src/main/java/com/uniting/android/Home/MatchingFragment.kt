@@ -72,7 +72,18 @@ class MatchingFragment : Fragment() {
                 }
                 1 -> {
                     if(textHeight.text == "" || textAge.text == "") {
-                        Toast.makeText(activity, "매칭조건 확인바람", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "매칭조건을 확인해주세요", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        var height = textHeight.text.toString()
+                        var age = textAge.text.toString()
+                        var department = textDepartment.text.toString()
+                        var hobby = textHobby.text.toString()
+                        var personality = textPersonality.text.toString()
+
+                        Retrofit.smartMatching(height,age,department,hobby,personality) {
+
+                        }
                     }
                 }
             }

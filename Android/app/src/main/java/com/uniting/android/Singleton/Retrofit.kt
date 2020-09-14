@@ -11,6 +11,7 @@ import com.uniting.android.DataModel.ProfileModel
 import com.uniting.android.DataModel.ResultModel
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Login.UniversityItem
+import com.uniting.android.Login.UserItem
 import com.uniting.android.Room.RoomItem
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -143,6 +144,56 @@ object Retrofit {
                 }
             })
         }
+    }
+
+    fun smartMatching(
+        height: String,
+        age: String,
+        department: String,
+        hobby: String,
+        personality: String,
+        callback: (ProfileModel.Profile) -> Void
+    ) {
+        var minHeight = height.split(" ~ ")[0]
+        var maxHeight = height.split(" ~ ")[1]
+
+        var minAge = age.split(" ~ ")[0]
+        var maxAge = age.split(" ~ ")[1]
+
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var curDate = simpleDateFormat.format(System.currentTimeMillis())
+        var year = curDate.split("-")[0]
+
+        var minYear = year.toInt() - minAge.toInt() + 1
+        var maxYear = year.toInt() - maxAge.toInt() + 1
+
+        var sql = "SELECT * FROM user " +
+                "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id='${UserInfo.ID}')) " +
+                "AND (user_id NOT IN (SELECT partner_id FROM chathistory WHERE user_id='${UserInfo.ID}')) " +
+                "AND (user_gender <> '${UserInfo.GENDER}' " +
+                "AND (user_id <> '${UserInfo.ID}' " +
+                "AND (user_height >= '${minHeight}' " +
+                "AND (user_height <= '${maxHeight}' " +
+                "AND (user_birthday >= '${minYear}' " +
+                "AND (user_birthday < '${maxYear+1}' " +
+                "AND ("
+
+        var departmentList = department.split(", ")
+        departmentList.forEach {
+            sql += "OR (user_department LIKE '%${it}%') "
+        }
+
+        
+        var hobbyList = hobby.split(", ")
+        hobbyList.forEach{
+            sql += "OR (user_hobby LIKE '%${it}%' "
+        }
+
+        var personalityList = personality.split(", ")
+        personalityList.forEach{
+            sql += "OR (user_personality LIKE '%${it}%' "
+        }
+
     }
 
     fun getOpenChatList(
@@ -326,4 +377,39 @@ object Retrofit {
 
         })
     }
+    fun login(userId: String, userPw: String, callback: (Int) -> Unit) {
+        val sql = "SELECT user_pw as result FROM user WHERE user_id='${userId}'"
+
+        service.login(sql).enqueue(object: Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+                if(t is java.io.EOFException){
+                }
+
+                callback(0)
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                if(response.body()!!.result == userPw) {
+                    callback(1)
+                } else {
+                    callback(2)
+                }
+            }
+        })
+    }
+
+    fun getModifyUserInfo(userId: String, callback: (UserItem.ModifyUser) -> Unit) {
+        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_signdate"
+
+        service.getModifyUserInfo(sql).enqueue(object: Callback<UserItem.ModifyUser> {
+            override fun onFailure(call: Call<UserItem.ModifyUser>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<UserItem.ModifyUser>, response: Response<UserItem.ModifyUser>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
 }
