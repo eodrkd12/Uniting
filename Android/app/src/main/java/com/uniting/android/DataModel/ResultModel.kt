@@ -12,6 +12,11 @@ data class CountModel (
     var count : Int
 )
 
+data class PointModel(
+    @SerializedName("avg")
+    var avg : Double
+)
+
 data class MemberModel (
     @SerializedName("user_id")
     var id : String,

@@ -20,10 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Option.ModifyActivity"></activity>
-        <activity android:name=".Login.Signup3Activity"></activity>
+        <activity android:name=".Option.AlarmActivity"></activity>
+        <activity android:name=".Option.ModifyActivity" />
+        <activity android:name=".Login.Signup3Activity" />
         <activity android:name=".Login.Signup2Activity" />
-        <activity android:name=".Login.Signup1Activity"></activity>
+        <activity android:name=".Login.Signup1Activity" />
         <activity android:name=".Profile.ProfileActivity" /> <!-- meta-data -->
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -37,10 +38,9 @@
         <activity android:name=".Cafeteria.WriteReviewActivity" />
         <activity android:name=".Room.RoomListActivity" />
         <activity android:name=".Chat.ChatActivity" />
-        <activity android:name=".Login.LoginActivity">
-        </activity>
+        <activity android:name=".Login.LoginActivity"></activity>
         <activity android:name=".Main.SplashActivity" />
-        <activity android:name=".Main.MainActivity" >
+        <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

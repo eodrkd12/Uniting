@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,14 +26,12 @@ import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
 import com.uniting.android.Room.MakeRoomActivity
+import com.uniting.android.Singleton.Retrofit
 
 class PSDialog(activity: Activity) {
 
     var context : Activity? = null
     var dialog : Dialog? = null
-
-    var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    var curDate = simpleDateFormat.format(System.currentTimeMillis())
 
     init {
         dialog = Dialog(activity)
@@ -61,6 +60,13 @@ class PSDialog(activity: Activity) {
 
     fun setSaveBtnClickListener(saveBtnClickListener: SaveBtnClickListener) {
         this.saveBtnClickListener = saveBtnClickListener
+    }
+
+    fun curDate() : String {
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var curDate = simpleDateFormat.format(System.currentTimeMillis())
+
+        return curDate
     }
 
     fun setUserOption(title : String, userOptionList: ArrayList<UserItem.UserOption>) {
@@ -208,13 +214,13 @@ class PSDialog(activity: Activity) {
     fun setCheckSave() {
         dialog!!.setContentView(R.layout.dialog_check_save)
 
-        val title : TextView = dialog!!.findViewById(R.id.text_dialogtitle)
-        val content : TextView = dialog!!.findViewById(R.id.text_dialogcontent)
+        val titleText : TextView = dialog!!.findViewById(R.id.text_dialogtitle)
+        val contentText : TextView = dialog!!.findViewById(R.id.text_dialogcontent)
         val btnCancel : Button = dialog!!.findViewById(R.id.btn_dialogcancel)
         val btnAccept : Button = dialog!!.findViewById(R.id.btn_dialogaccept)
 
-        title.text = "경고"
-        content.text = "변경사항이 저장되지 않습니다.\n진행하시겠습니까?"
+        titleText.text = "경고"
+        contentText.text = "변경사항이 저장되지 않습니다.\n진행하시겠습니까?"
 
         btnCancel.setOnClickListener {
             dismiss()
@@ -223,6 +229,38 @@ class PSDialog(activity: Activity) {
         btnAccept.setOnClickListener {
             dismiss()
             context?.finish()
+        }
+    }
+
+    fun setBlocking(blockingSwitch : Switch) {
+        dialog!!.setContentView(R.layout.dialog_check_save)
+
+        val titleText : TextView = dialog!!.findViewById(R.id.text_dialogtitle)
+        val contentText : TextView = dialog!!.findViewById(R.id.text_dialogcontent)
+        val btnCancel : Button = dialog!!.findViewById(R.id.btn_dialogcancel)
+        val btnAccept : Button = dialog!!.findViewById(R.id.btn_dialogaccept)
+
+        titleText.text = "같은 학과 차단"
+        contentText.text = "같은 학과 유저가 매칭되지않습니다.\n(오픈채팅제외)\n진행하시겠습니까?"
+
+        btnCancel.setOnClickListener {
+            blockingSwitch.isChecked = false
+            dismiss()
+        }
+
+        btnAccept.setOnClickListener {
+            blockingSwitch.isChecked = true
+            dismiss()
+            Retrofit.updateBlocking(UserInfo.ID, UserInfo.DEPT, curDate(), "insert") {
+                if(it.result != "success") {
+                    Log.d("test", "학과차단오류")
+                    blockingSwitch.isChecked = false
+                }
+                else {
+                    UserInfo.BLOCKINGDEPT = 1
+                    Log.d("test", "학과차단완료")
+                }
+            }
         }
     }
 
