@@ -39,9 +39,20 @@ struct MatchingView: View {
                     EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, title: "성격")
                 }
                 
+                
                 Image("big_main_connect_button")
                     .resizable()
                     .frame(width: 270, height: 40)
+                    .onTapGesture {
+                        if self.index == 0 {
+                            AlamofireService.shared.randomMatching(){(profileList) in
+                                
+                            }
+                        }
+                        else {
+                            
+                        }
+                }
             }
             
             if changeAlertVisible {

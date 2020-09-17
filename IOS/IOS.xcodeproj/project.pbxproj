@@ -23,6 +23,9 @@
 		547D5C6A2507642200AAF43A /* ReviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C692507642200AAF43A /* ReviewItem.swift */; };
 		547D5C6C250765AA00AAF43A /* ReviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C6B250765AA00AAF43A /* ReviewData.swift */; };
 		547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C6D2507681400AAF43A /* ImageManager.swift */; };
+		54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57AFE250F4EA000EAE750 /* ProfileView.swift */; };
+		54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57B00250F50A000EAE750 /* ProfileData.swift */; };
+		54A57B03250F53DF00EAE750 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57B02250F53DF00EAE750 /* UserInfo.swift */; };
 		54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */; };
 		54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */; };
 		54BA650424FDE1EA007C6B32 /* IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650224FDE1EA007C6B32 /* IOS.xcdatamodeld */; };
@@ -66,6 +69,9 @@
 		547D5C692507642200AAF43A /* ReviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewItem.swift; sourceTree = "<group>"; };
 		547D5C6B250765AA00AAF43A /* ReviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewData.swift; sourceTree = "<group>"; };
 		547D5C6D2507681400AAF43A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		54A57AFE250F4EA000EAE750 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		54A57B00250F50A000EAE750 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
+		54A57B02250F53DF00EAE750 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		54BA64FB24FDE1EA007C6B32 /* IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +127,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54A57AFD250F4E8E00EAE750 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				54A57AFE250F4EA000EAE750 /* ProfileView.swift */,
+				54A57B00250F50A000EAE750 /* ProfileData.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		54BA64F224FDE1EA007C6B32 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +157,7 @@
 		54BA64FD24FDE1EA007C6B32 /* IOS */ = {
 			isa = PBXGroup;
 			children = (
+				54A57AFD250F4E8E00EAE750 /* Profile */,
 				54BA652E24FE083E007C6B32 /* Common */,
 				54BA652724FDEA80007C6B32 /* CustomUI */,
 				54BA651E24FDE888007C6B32 /* Option */,
@@ -252,6 +268,7 @@
 				542AC6A424FF567D00726F04 /* AlamofireService.swift */,
 				54BA652F24FE084F007C6B32 /* Colors.swift */,
 				547D5C6D2507681400AAF43A /* ImageManager.swift */,
+				54A57B02250F53DF00EAE750 /* UserInfo.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -382,7 +399,9 @@
 				547D5C68250759E900AAF43A /* Extension.swift in Sources */,
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
+				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
+				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
 				542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */,
 				54BA653A24FE1B28007C6B32 /* ConditionRow.swift in Sources */,
 				547D5C6A2507642200AAF43A /* ReviewItem.swift in Sources */,
@@ -400,6 +419,7 @@
 				54BA652424FDE8C5007C6B32 /* OptionView.swift in Sources */,
 				54BA652924FDEAA9007C6B32 /* PagingView.swift in Sources */,
 				547D5C622507576B00AAF43A /* WriteReviewView.swift in Sources */,
+				54A57B03250F53DF00EAE750 /* UserInfo.swift in Sources */,
 				54BA653424FE0BF8007C6B32 /* OpenChatView.swift in Sources */,
 				547D5C64250757AF00AAF43A /* MultilineTextField.swift in Sources */,
 				547D5C66250759B900AAF43A /* ImagePicker.swift in Sources */,
