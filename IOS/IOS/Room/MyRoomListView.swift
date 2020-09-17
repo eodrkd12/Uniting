@@ -9,15 +9,26 @@
 import SwiftUI
 
 struct MyRoomListView: View {
+    
+    @State var roomList : [MyRoomItem] = []
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView{
+            if roomList.count > 0 {
+                ForEach(roomList, id: \.room.room_id){ (room) in
+                    room
+                }
+            }
+        }
+        .onAppear(){
+            AlamofireService.shared.getMyRoom(userId: UserInfo.shared.ID){ (myRoomList) in
+                self.roomList.removeAll()
+                myRoomList.forEach { (myRoom) in
+                    self.roomList.append(MyRoomItem(room: myRoom))
+                }
+            }
+        }
         .navigationBarTitle("")
         .navigationBarHidden(true)
-    }
-}
-
-struct MyRoomListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyRoomListView()
     }
 }

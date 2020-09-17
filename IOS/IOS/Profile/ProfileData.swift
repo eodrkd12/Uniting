@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProfileData {
+struct ProfileData : Codable {
     var user_id : String
     var user_nickname : String
     var user_birthday : String
@@ -16,8 +16,8 @@ struct ProfileData {
     var user_gender : String
     var enter_year : String
     var user_city : String
-    var user_hobby : String
-    var user_personality : String
-    var user_introduce : String
-    var user_height : String
+    var user_hobby : String?
+    var user_personality : String?
+    var user_introduce : String?
+    var user_height : String?
 }

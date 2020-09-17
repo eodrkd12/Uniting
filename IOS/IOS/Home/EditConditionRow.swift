@@ -12,9 +12,10 @@ struct EditConditionRow: View {
     
     @Binding var index : Int
     @Binding var changeAlertVisible : Bool
+    @Binding var value : String
     
     @State var title : String
-    @State var value = ""
+   
     
     @State var conditionVisible = false
     

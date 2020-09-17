@@ -26,6 +26,8 @@
 		54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57AFE250F4EA000EAE750 /* ProfileView.swift */; };
 		54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57B00250F50A000EAE750 /* ProfileData.swift */; };
 		54A57B03250F53DF00EAE750 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57B02250F53DF00EAE750 /* UserInfo.swift */; };
+		54A6CB1B25130C7600BC37D3 /* MyRoomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */; };
+		54A6CB1D2513251400BC37D3 /* MyRoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */; };
 		54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */; };
 		54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */; };
 		54BA650424FDE1EA007C6B32 /* IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650224FDE1EA007C6B32 /* IOS.xcdatamodeld */; };
@@ -47,6 +49,10 @@
 		54BA653824FE1667007C6B32 /* ConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653724FE1667007C6B32 /* ConditionView.swift */; };
 		54BA653A24FE1B28007C6B32 /* ConditionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653924FE1B28007C6B32 /* ConditionRow.swift */; };
 		54BA653C24FE2F97007C6B32 /* ChangeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */; };
+		54CE0F85251330300028A98A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54CE0F84251330300028A98A /* GoogleService-Info.plist */; };
+		54CE0F87251337F70028A98A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F86251337F70028A98A /* ChatView.swift */; };
+		54CE0F89251344B20028A98A /* ChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F88251344B20028A98A /* ChatItem.swift */; };
+		54CE0F8B251344CC0028A98A /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F8A251344CC0028A98A /* ChatData.swift */; };
 		D104DE223417978AB13CBE91 /* Pods_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCF6332974C4FF75DF6C1F1 /* Pods_IOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +78,8 @@
 		54A57AFE250F4EA000EAE750 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		54A57B00250F50A000EAE750 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		54A57B02250F53DF00EAE750 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomData.swift; sourceTree = "<group>"; };
+		54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomItem.swift; sourceTree = "<group>"; };
 		54BA64FB24FDE1EA007C6B32 /* IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +103,10 @@
 		54BA653724FE1667007C6B32 /* ConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionView.swift; sourceTree = "<group>"; };
 		54BA653924FE1B28007C6B32 /* ConditionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionRow.swift; sourceTree = "<group>"; };
 		54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAlert.swift; sourceTree = "<group>"; };
+		54CE0F84251330300028A98A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		54CE0F86251337F70028A98A /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		54CE0F88251344B20028A98A /* ChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItem.swift; sourceTree = "<group>"; };
+		54CE0F8A251344CC0028A98A /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		CCFF1BEC5045C4A765AA568C /* Pods-IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOS.debug.xcconfig"; path = "Target Support Files/Pods-IOS/Pods-IOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +169,7 @@
 		54BA64FD24FDE1EA007C6B32 /* IOS */ = {
 			isa = PBXGroup;
 			children = (
+				54CE0F84251330300028A98A /* GoogleService-Info.plist */,
 				54A57AFD250F4E8E00EAE750 /* Profile */,
 				54BA652E24FE083E007C6B32 /* Common */,
 				54BA652724FDEA80007C6B32 /* CustomUI */,
@@ -213,6 +226,9 @@
 		54BA651B24FDE85C007C6B32 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				54CE0F86251337F70028A98A /* ChatView.swift */,
+				54CE0F88251344B20028A98A /* ChatItem.swift */,
+				54CE0F8A251344CC0028A98A /* ChatData.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -221,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				54BA651F24FDE8A9007C6B32 /* MyRoomListView.swift */,
+				54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */,
+				54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -334,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54BA650E24FDE1ED007C6B32 /* LaunchScreen.storyboard in Resources */,
+				54CE0F85251330300028A98A /* GoogleService-Info.plist in Resources */,
 				54BA650B24FDE1ED007C6B32 /* Preview Assets.xcassets in Resources */,
 				54BA650824FDE1ED007C6B32 /* Assets.xcassets in Resources */,
 			);
@@ -392,6 +411,7 @@
 				547D5C6C250765AA00AAF43A /* ReviewData.swift in Sources */,
 				541ACBE72500B58A00C1C079 /* MapView.swift in Sources */,
 				542AC6AB24FF6DEE00726F04 /* CafeteriaList.swift in Sources */,
+				54CE0F89251344B20028A98A /* ChatItem.swift in Sources */,
 				54BA653224FE0BE4007C6B32 /* MatchingView.swift in Sources */,
 				54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */,
 				547D5C602507431700AAF43A /* ReviewStarPoint.swift in Sources */,
@@ -400,6 +420,7 @@
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
+				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
 				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
 				542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */,
@@ -407,6 +428,7 @@
 				547D5C6A2507642200AAF43A /* ReviewItem.swift in Sources */,
 				54BA650424FDE1EA007C6B32 /* IOS.xcdatamodeld in Sources */,
 				54BA652B24FDEDE3007C6B32 /* EditConditionRow.swift in Sources */,
+				54CE0F8B251344CC0028A98A /* ChatData.swift in Sources */,
 				54BA650624FDE1EA007C6B32 /* ContentView.swift in Sources */,
 				542AC6A524FF567D00726F04 /* AlamofireService.swift in Sources */,
 				54BA651A24FDE856007C6B32 /* HomeView.swift in Sources */,
@@ -414,6 +436,7 @@
 				54BA652224FDE8B9007C6B32 /* CafeteriaView.swift in Sources */,
 				54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */,
 				54BA653624FE1440007C6B32 /* PageView.swift in Sources */,
+				54A6CB1D2513251400BC37D3 /* MyRoomItem.swift in Sources */,
 				547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */,
 				541ACBE52500B1C900C1C079 /* DetailView.swift in Sources */,
 				54BA652424FDE8C5007C6B32 /* OptionView.swift in Sources */,
@@ -424,6 +447,7 @@
 				547D5C64250757AF00AAF43A /* MultilineTextField.swift in Sources */,
 				547D5C66250759B900AAF43A /* ImagePicker.swift in Sources */,
 				54BA653C24FE2F97007C6B32 /* ChangeAlert.swift in Sources */,
+				54A6CB1B25130C7600BC37D3 /* MyRoomData.swift in Sources */,
 				54BA652024FDE8A9007C6B32 /* MyRoomListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

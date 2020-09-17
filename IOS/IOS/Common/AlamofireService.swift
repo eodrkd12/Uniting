@@ -38,10 +38,20 @@ class AlamofireService : ObservableObject {
             url,
             method: .post,
             parameters: body
-        ).responseData { (data) in
-            do {
-                let json = try! JSON(data: data.data!)
-                print(json)
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let profile = try JSONDecoder().decode([ProfileData].self, from: json)
+                    
+                    callback(profile)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
             }
         }
     }
@@ -52,7 +62,7 @@ class AlamofireService : ObservableObject {
         var minHeight = height.split(separator: "~")[0]
         minHeight.removeLast()
         var maxHeight = height.split(separator: "~")[1]
-        minHeight.removeFirst()
+        maxHeight.removeFirst()
         
         var minAge = age.split(separator: "~")[0]
         minAge.removeLast()
@@ -63,13 +73,14 @@ class AlamofireService : ObservableObject {
         formatter.dateFormat = "yyyy"
         var year = formatter.string(from: Date())
         
-        var minYear = Int(year)! - Int(String(minAge))!
-        var maxYear = Int(year)! - Int(String(maxAge))!
+        var minYear = Int(year)! - Int(String(minAge))! + 1
+        var maxYear = Int(year)! - Int(String(maxAge))! + 1
         
         var sql = "SELECT * FROM user "
         sql += "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id = '\(UserInfo.shared.ID)')) "
         sql += "AND (user_id NOT IN (SELECT partner_id FROM chathistory WHERE user_id = '\(UserInfo.shared.ID)')) "
         sql += "AND (user_gender <> '\(UserInfo.shared.GENDER)') "
+        sql += "AND (univ_name = '\(UserInfo.shared.UNIV)') "
         sql += "AND (user_id <> '\(UserInfo.shared.ID)') "
         sql += "AND (user_height >= '\(minHeight)') "
         sql += "AND (user_height <= '\(maxHeight)') "
@@ -80,8 +91,109 @@ class AlamofireService : ObservableObject {
             sql += "AND ("
             var departmentList = department.split(separator: ",")
             departmentList.forEach { (subStr) in
-                
+                if subStr == departmentList[0] {
+                    sql += "dept_name LIKE '\(subStr)' "
+                }
+                else {
+                    var str = subStr
+                    str.removeFirst()
+                    sql += "OR dept_name LIKE '\(str)' "
+                }
             }
+            sql += ")"
+        }
+        
+        if hobby != "" {
+            sql += "AND ("
+            var hobbyList = hobby.split(separator: ",")
+            hobbyList.forEach{ (subStr) in
+                if subStr == hobbyList[0] {
+                    sql += "user_hobby LIKE '\(subStr)' "
+                }
+                else {
+                    var str = subStr
+                    str.removeFirst()
+                    sql += "OR dept_name LIKE '\(str)' "
+                }
+            }
+            sql += ")"
+        }
+        
+        if personality != "" {
+            sql += "AND ("
+            var personalityList = personality.split(separator: ",")
+            personalityList.forEach{ (subStr) in
+                if subStr == personalityList[0] {
+                    sql += "user_personality LIKE '\(subStr)' "
+                }
+                else {
+                    var str = subStr
+                    str.removeFirst()
+                    sql += "OR user_personality LIKE '\(str)' "
+                }
+            }
+            sql += ")"
+        }
+        sql += "ORDER BY RAND() LIMIT 1"
+        
+        
+        var body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let profile = try JSONDecoder().decode([ProfileData].self, from: json)
+                    
+                    callback(profile)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    // 채팅방
+    func getMyRoom(userId: String, callback: @escaping ([MyRoomData]) -> Void){
+        let url = "\(serverUrl)/common/sql/select"
+        
+        var sql = "SELECT room.room_id AS room_id, room_title, category, room_date, room_introduce, univ_name, maker "
+        sql += "FROM room, joined "
+        sql += "WHERE room.room_id = joined.room_id AND user_id = '\(userId)'"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+           url,
+           method: .post,
+           parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let myRoomList = try JSONDecoder().decode([MyRoomData].self, from: json)
+                    
+                    callback(myRoomList)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+            
         }
     }
     
@@ -144,6 +256,4 @@ class AlamofireService : ObservableObject {
             callback(reviewList)
         }
     }
-    
-    
 }

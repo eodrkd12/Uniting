@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    
+    @State var profile : ProfileData
     
     var body: some View {
         VStack{
