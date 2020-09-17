@@ -15,7 +15,7 @@ var upload = multer({storage: multer.diskStorage({
 }),
 });
 
-router.post('/upload/profile', upload.single('img'), (req, res) => {
+router.post('/review/insert', upload.single('img'), (req, res) => {
 
     var user_id = req.body.user_id
     var user_nickname = req.body.user_nickname
@@ -56,6 +56,52 @@ router.post('/review/insert/noimage', function(req, res) {
         }
     })
 })
+
+router.post('/review/delete', function(req, res) {
+    var review_id = req.body.review_id
+    var image_path = req.body.image_path
+
+    if(image_path == "noimage") {
+        db_image.delete_review(review_id, function(err, result) {
+            if(err) console.log(err)
+            else {
+                var object = new Object();
+                object.result = "success"
+                res.send(object)
+            }
+        })
+    }
+    else {
+        db_image.delete_review(review_id, function(err, result) {
+            if(err) console.log(err)
+            else {
+                fs.unlink("uploads/"+image_path, (err) => {
+                    if(err) console.log(err)
+                    else {
+                      var object = new Object()
+                      object.result = "success"
+                      res.send(object)
+                    }
+                })
+            }
+        })
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post('/upload/story', upload.single('img'), (req, res) => {
 

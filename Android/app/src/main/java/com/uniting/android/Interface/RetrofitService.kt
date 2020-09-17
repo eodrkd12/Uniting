@@ -3,10 +3,7 @@ package com.uniting.android.Interface
 import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
-import com.uniting.android.DataModel.CountModel
-import com.uniting.android.DataModel.MemberModel
-import com.uniting.android.DataModel.ProfileModel
-import com.uniting.android.DataModel.ResultModel
+import com.uniting.android.DataModel.*
 import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
@@ -154,4 +151,30 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun updateModifyUserInfo(@Field("sql") sql : String) : Call<ResultModel>
+
+    //같은 학과 차단
+    @FormUrlEncoded
+    @POST("/blocking/insert")
+    fun insertBlocking(
+        @Field("user_id") userId: String,
+        @Field("dept_name") deptName: String,
+        @Field("blocking_date") blockingDate: String,
+        @Field("update_value") updateValue: Int
+    ): Call<ResultModel>
+
+    //같은 학과 차단 해제
+    @FormUrlEncoded
+    @POST("/blocking/delete")
+    fun deleteBlocking(
+        @Field("user_id") userId: String,
+        @Field("update_value") updateValue: Int
+    ) : Call<ResultModel>
+
+    //별점 평균
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getPointAvg(
+        @Field("sql") sql : String
+    ) : Call<PointModel>
+
 }

@@ -5,16 +5,14 @@ import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
-import com.uniting.android.DataModel.CountModel
-import com.uniting.android.DataModel.MemberModel
-import com.uniting.android.DataModel.ProfileModel
-import com.uniting.android.DataModel.ResultModel
+import com.uniting.android.DataModel.*
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -120,8 +118,8 @@ object Retrofit {
     }
 
     fun randomMatching(callback : (ArrayList<ProfileModel.Profile>) -> Unit) {
-        val sql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and (user_id not in (select user_id from blocking where blocking = '${UserInfo.DEPT}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' order by rand() limit 1;"
-        val blockingSql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' and dept_name <> '${UserInfo.DEPT}' order by rand() limit 1;"
+        val sql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and (user_id not in (select user_id from blocking where blocking = '${UserInfo.DEPT}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' and univ_name = '${UserInfo.UNIV}' order by rand() limit 1;"
+        val blockingSql = "select * from user where (user_id not in (select user_id from chathistory where partner_id='${UserInfo.ID}')) and (user_id not in (select partner_id from chathistory where user_id='${UserInfo.ID}')) and user_id <> '${UserInfo.ID}' and user_gender <> '${UserInfo.GENDER}' and dept_name <> '${UserInfo.DEPT}' and univ_name = '${UserInfo.UNIV}' order by rand() limit 1;"
 
 
         if(UserInfo.BLOCKINGDEPT == 0) {
@@ -473,5 +471,57 @@ object Retrofit {
             }
         })
     }
+
+    fun updateBlocking(userId: String, deptName: String?, blockingDate : String?,updateType: String, callback: (ResultModel) -> Unit) {
+        when(updateType) {
+            "insert" -> {
+                service.insertBlocking(userId, deptName!!, blockingDate!!, 1).enqueue(object: Callback<ResultModel> {
+                    override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResultModel>,
+                        response: Response<ResultModel>
+                    ) {
+                        callback(response.body()!!)
+                    }
+                })
+            }
+            "delete" -> {
+                service.deleteBlocking(userId, 0).enqueue(object: Callback<ResultModel> {
+                    override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResultModel>,
+                        response: Response<ResultModel>
+                    ) {
+                        callback(response.body()!!)
+                    }
+                })
+            }
+        }
+    }
+
+    fun getPointAvg(cafeName: String, callback: (PointModel) -> Unit) {
+        val sql = "SELECT AVG(review_point) as avg FROM review WHERE cafe_name='${cafeName}'"
+
+        service.getPointAvg(sql).enqueue(object: Callback<PointModel> {
+            override fun onFailure(call: Call<PointModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<PointModel>, response: Response<PointModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+
+
+
+
+
 
 }

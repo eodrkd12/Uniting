@@ -266,6 +266,7 @@
         android:layout_height="46dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/big_main_connect_button"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_condition" />

@@ -10,10 +10,24 @@
         android:id="@+id/rv_verticalcafeteria"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="56dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_cafeteria_univ_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="학교이름"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_verticalcafeteria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

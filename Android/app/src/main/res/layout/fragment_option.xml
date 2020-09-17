@@ -50,6 +50,7 @@
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
         android:text="알림설정"
+        android:foreground="?attr/selectableItemBackground"
         android:textColor="@color/colorMdGrey_900"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,21 +93,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view24" />
 
-    <TextView
-        android:id="@+id/text_option_logout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:text="로그아웃"
-        android:textColor="@color/colorMdGrey_900"
-        android:background="?attr/selectableItemBackground"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view22" />
+            <TextView
+                android:id="@+id/text_option_logout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="로그아웃"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <TextView
         android:id="@+id/text_option_modify"
@@ -277,6 +278,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view28" />
+
+            <TextView
+                android:id="@+id/text_option_blocking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="같은 학과 만나지 않기"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/switch_blocking"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view22" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/colorMdGrey_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_option_blocking" />
+
+            <Switch
+                android:id="@+id/switch_blocking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/text_option_blocking"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_option_blocking" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

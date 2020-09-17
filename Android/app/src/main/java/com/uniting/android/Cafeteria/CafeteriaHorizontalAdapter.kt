@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.item_horizontalcafeteria.view.*
 
 class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: ArrayList<CafeteriaItem.Cafeteria>) : RecyclerView.Adapter<CafeteriaHorizontalAdapter.ViewHolder>() {
@@ -33,6 +34,10 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
         holder.cafeteriaImage.clipToOutline = true
 
         holder.cafeteriaTitle.text = cafeteriaList.get(position).name.replace(" ", "")
+
+        Retrofit.getPointAvg(cafeteriaList.get(position).name) {
+            holder.cafeteriaStarPoint.text = it.avg.toString()
+        }
 
         holder.itemView.setOnClickListener {
             var intent = Intent(activity, CafeteriaInformActivity::class.java)

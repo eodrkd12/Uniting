@@ -17,6 +17,7 @@ abstract class PSAppCompatActivity : AppCompatActivity(){
 
         return curDate
     }
+
     inner class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
         RecyclerView.ItemDecoration() {
 
