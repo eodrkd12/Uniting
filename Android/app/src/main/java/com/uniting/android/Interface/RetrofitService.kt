@@ -134,7 +134,7 @@ interface RetrofitService {
 
     //중복 회원가입 확인
     @FormUrlEncoded
-    @POST("/common/sql/single")
+    @POST("/common/sql/select/single")
     fun accountCheck(@Field("sql") sql : String) : Call<CountModel>
 
     //로그인
@@ -176,5 +176,18 @@ interface RetrofitService {
     fun getPointAvg(
         @Field("sql") sql : String
     ) : Call<PointModel>
+
+    //입장할 방에 자기가 있는지 체크
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun joinCheck(
+        @Field("sql") sql: String
+    ): Call<CountModel>
+
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun addUnreadMember(
+        @Field("sql") sql: String
+    ): Call<ResultModel>
 
 }
