@@ -64,9 +64,22 @@ class ChatActivity : PSAppCompatActivity() {
 
         Retrofit.getMembers(room.room_id){
             numOfMembers = it.size
+            memberList = ArrayList<MemberItem>()
             it.forEach {
                 memberList.add(MemberItem(it))
             }
+
+
+            //drawer layout
+            text_me.text = UserInfo.NICKNAME
+
+            rv_member.setHasFixedSize(true)
+            rv_member.layoutManager =
+                LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+            memberAdapter = MemberAdapter(this, memberList)
+            rv_member.adapter = memberAdapter
+            memberAdapter.notifyDataSetChanged()
         }
 
         rv_chat.setHasFixedSize(true)
@@ -123,17 +136,6 @@ class ChatActivity : PSAppCompatActivity() {
                 }
             }
         }
-
-        //drawer layout
-        text_me.text = UserInfo.NICKNAME
-
-        rv_member.setHasFixedSize(true)
-        rv_member.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-        memberAdapter = MemberAdapter(this, memberList)
-        rv_member.adapter = memberAdapter
-        memberAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {

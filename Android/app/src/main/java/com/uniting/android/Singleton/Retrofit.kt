@@ -458,6 +458,22 @@ object Retrofit {
         })
     }
 
+    fun addUnreadMember(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
+
+        val sql = "UPDATE chat SET unread_member=CONCAT(unread_member,'${userId}|' WHERE room_id = '${roomId}'"
+
+        service.addUnreadMember(sql).enqueue(object : Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+
+        })
+    }
+
     fun updateModifyUserInfo(userId: String, userNickname: String, userBirthday: String, userCity: String, callback : (ResultModel) -> Unit) {
         val sql = "UPDATE user SET user_nickname='${userNickname}', user_birthday = '${userBirthday}', user_city = '${userCity}' WHERE user_id='${userId}'"
 
@@ -524,6 +540,18 @@ object Retrofit {
         service.updateToken(sql).enqueue(object: Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+
+            }
+        })
+    }
+
+    fun joinCheck(roomId: String, userId: String, callback: (CountModel) -> Unit) {
+
+        val sql = "SELECT COUNT(*) AS count FROM joined WHERE room_id = '${roomId}' AND user_id = '${userId}'"
+
+        service.joinCheck(sql).enqueue(object: Callback<CountModel> {
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
             }
@@ -534,11 +562,10 @@ object Retrofit {
     fun sendFcm(topic: String, title: String, content: String) {
         service.sendFcm(topic,title,content).enqueue(object: Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
-
             }
 
-            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
-
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
             }
 
         })
