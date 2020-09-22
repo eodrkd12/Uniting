@@ -460,7 +460,7 @@ object Retrofit {
 
     fun addUnreadMember(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
 
-        val sql = "UPDATE chat SET unread_member=CONCAT(unread_member,'${userId}|' WHERE room_id = '${roomId}'"
+        val sql = "UPDATE chat SET unread_member=CONCAT(unread_member,'${userId}|') WHERE room_id = '${roomId}'"
 
         service.addUnreadMember(sql).enqueue(object : Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
@@ -553,7 +553,9 @@ object Retrofit {
         service.joinCheck(sql).enqueue(object: Callback<CountModel> {
             override fun onFailure(call: Call<CountModel>, t: Throwable) {
 
-            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
             }
 
         })
@@ -564,8 +566,7 @@ object Retrofit {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
-            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
-                callback(response.body()!!)
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
             }
 
         })
