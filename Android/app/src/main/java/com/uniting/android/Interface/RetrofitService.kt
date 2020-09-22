@@ -200,5 +200,4 @@ interface RetrofitService {
     fun addUnreadMember(
         @Field("sql") sql: String
     ): Call<ResultModel>
-
 }

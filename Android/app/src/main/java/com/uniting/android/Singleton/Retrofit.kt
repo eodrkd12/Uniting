@@ -552,8 +552,9 @@ object Retrofit {
 
         service.joinCheck(sql).enqueue(object: Callback<CountModel> {
             override fun onFailure(call: Call<CountModel>, t: Throwable) {
-
-            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
             }
 
         })
@@ -564,11 +565,11 @@ object Retrofit {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
-            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
-                callback(response.body()!!)
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
             }
 
         })
     }
+
 
 }
