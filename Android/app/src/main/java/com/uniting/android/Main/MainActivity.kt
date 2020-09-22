@@ -4,23 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.iid.FirebaseInstanceId
 import com.uniting.android.Cafeteria.CafeteriaFragment
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.Room.MyRoomFragment
 import com.uniting.android.Home.HomeFragment
-import com.uniting.android.Item.Test
 import com.uniting.android.Option.OptionFragment
 import com.uniting.android.R
-import com.uniting.android.Interface.RetrofitService
+import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,43 +32,15 @@ class MainActivity : AppCompatActivity() {
 
         bnv_main.setOnNavigationItemSelectedListener(navListener)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://52.78.27.41:1901")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        //임시로 유저데이터 불러오기
+        Retrofit.getModifyUserInfo(intent.getStringExtra("id")!!) {
+            UserInfo.ID = intent.getStringExtra("id")!!
+            UserInfo.UNIV = it.univName
+            UserInfo.DEPT = it.deptName
+            UserInfo.NICKNAME = it.userNickname
+        }
 
-        val service = retrofit.create(RetrofitService::class.java)
 
-        service.getData().enqueue(object: Callback<ArrayList<Test.User>> {
-            override fun onResponse(call: Call<ArrayList<Test.User>>, response: Response<ArrayList<Test.User>>) {
-                if(response.isSuccessful) {
-                    var array = response.body()
-
-                    for(i in array!!) {
-                        Log.d("test", i.toString()+"\n")
-                        Log.d("test", i.userId +", " + i.userPw)
-                    }
-
-                }
-            }
-            override fun onFailure(call: Call<ArrayList<Test.User>>, t: Throwable) {
-            }
-
-        })
-
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("test", "getInstanceId failed", task.exception)
-                    return@OnCompleteListener
-                }
-                else {
-                    // Get new Instance ID token
-                    val token = task.result?.token
-                    Log.d("test",token!!)
-                    com.uniting.android.Singleton.Retrofit.updateToken(UserInfo.ID,token!!)
-                }
-            })
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
