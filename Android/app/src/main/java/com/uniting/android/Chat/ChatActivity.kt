@@ -1,6 +1,7 @@
 package com.uniting.android.Chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
@@ -45,6 +47,7 @@ class ChatActivity : PSAppCompatActivity() {
 
         var numOfMembers = 1
 
+        memberList = ArrayList<MemberItem>()
         room = intent.getSerializableExtra("room") as Room
         lastChatTime = intent.getStringExtra("last_chat_time")!!
 
@@ -52,6 +55,12 @@ class ChatActivity : PSAppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.title = room.room_title
+
+        FirebaseMessaging.getInstance().subscribeToTopic(room.room_id).addOnCompleteListener {
+            if(it.isSuccessful){
+                Log.d("test","구독")
+            }
+        }
 
         Retrofit.getMembers(room.room_id){
             numOfMembers = it.size
@@ -101,6 +110,13 @@ class ChatActivity : PSAppCompatActivity() {
                 if(it.result == "success"){
 
                     writeFirebase(chat)
+
+                    var topic = room.room_id
+                    var title = room.room_title
+                    var content = "${UserInfo.NICKNAME}\n${edit_chat.text}"
+
+                    Retrofit.sendFcm(topic,title,content)
+
                     chatViewModel.insert(chat){
                         edit_chat.setText("")
                     }

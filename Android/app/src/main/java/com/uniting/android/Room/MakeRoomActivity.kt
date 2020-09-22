@@ -14,6 +14,8 @@ import com.uniting.android.DB.Entity.Room
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_make_room.*
+import java.util.*
+import kotlin.random.Random.Default.nextInt
 
 class MakeRoomActivity : PSAppCompatActivity() {
 
@@ -79,7 +81,10 @@ class MakeRoomActivity : PSAppCompatActivity() {
 
                     var date = this.getCurDate()
 
-                    var roomId = "${UserInfo.ID}_${date}"
+                    var roomId = ""
+                    for(i in 0..11){
+                        roomId += Random().nextInt(10).toString()
+                    }
 
                     Retrofit.createRoom(roomId,MakeRoomActivity.title, category, date, introduce,"${UserInfo.UNIV}","${UserInfo.ID}"){
                         if(it.result=="success"){

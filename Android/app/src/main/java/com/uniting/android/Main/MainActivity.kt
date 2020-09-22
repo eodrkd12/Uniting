@@ -3,9 +3,12 @@ package com.uniting.android.Main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import com.uniting.android.Cafeteria.CafeteriaFragment
+import com.uniting.android.Class.UserInfo
 import com.uniting.android.Room.MyRoomFragment
 import com.uniting.android.Home.HomeFragment
 import com.uniting.android.Item.Test
@@ -60,6 +63,20 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("test", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                else {
+                    // Get new Instance ID token
+                    val token = task.result?.token
+                    Log.d("test",token!!)
+                    com.uniting.android.Singleton.Retrofit.updateToken(UserInfo.ID,token!!)
+                }
+            })
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

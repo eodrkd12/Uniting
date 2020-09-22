@@ -177,4 +177,15 @@ interface RetrofitService {
         @Field("sql") sql : String
     ) : Call<PointModel>
 
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun updateToken(@Field("sql") sql: String): Call<ResultModel>
+
+    @FormUrlEncoded
+    @POST("/common/fcm")
+    fun sendFcm(
+        @Field("topic") topic: String,
+        @Field("title") title: String,
+        @Field("content") content: String
+    ): Call<ResultModel>
 }

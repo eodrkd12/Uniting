@@ -518,10 +518,30 @@ object Retrofit {
         })
     }
 
+    fun updateToken(userId: String, token: String?) {
+        val sql = "UPDATE user SET token='${token!!}' WHERE user_id = '${userId}'"
 
+        service.updateToken(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
 
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
 
+        })
+    }
 
+    fun sendFcm(topic: String, title: String, content: String) {
+        service.sendFcm(topic,title,content).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
 
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+
+            }
+
+        })
+    }
 
 }
