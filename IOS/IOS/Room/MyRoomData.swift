@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MyRoomData : Codable{
+struct RoomData : Codable{
     var room_id : String
     var room_title : String
     var maker : String

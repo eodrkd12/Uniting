@@ -77,42 +77,11 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
                         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         var curDate = simpleDateFormat.format(System.currentTimeMillis())
                         Retrofit.joinRoom(roomItem.room.room_id, UserInfo.ID, curDate) {
-                            if(it.result == "success"){
-                                Retrofit.addUnreadMember(roomItem.room.room_id, UserInfo.ID){
-                                    if(it.result == "success") {
-
-                                        var ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomItem.room.room_id)
-                                        var query = ref.orderByChild("chat_time")
-                                        query!!.addChildEventListener(object : ChildEventListener {
-                                            override fun onCancelled(error: DatabaseError) {
-                                            }
-
-                                            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                                            }
-
-                                            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                                            }
-
-                                            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                                                var key = snapshot.key
-                                                var value = snapshot.value as HashMap<String,Any>
-                                                val hashMap = HashMap<String,Any>()
-
-                                                hashMap.put("${key}/unread_member",value["unread_member"].toString() + "${UserInfo.ID}|")
-                                                ref.updateChildren(hashMap)
-                                            }
-
-                                            override fun onChildRemoved(snapshot: DataSnapshot) {
-                                            }
-                                        })
-
-
-                                        var intent = Intent(context, ChatActivity::class.java)
-                                        intent.putExtra("room", roomItem.room)
-                                        intent.putExtra("last_chat_time", lastChatTime)
-                                        context.startActivity(intent)
-                                    }
-                                }
+                            if (it.result == "success") {
+                                var intent = Intent(context, ChatActivity::class.java)
+                                intent.putExtra("room", roomItem.room)
+                                intent.putExtra("last_chat_time", lastChatTime)
+                                context.startActivity(intent)
                             }
                         }
                     } else {

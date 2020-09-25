@@ -164,7 +164,7 @@ class AlamofireService : ObservableObject {
     }
     
     // 채팅방
-    func getMyRoom(userId: String, callback: @escaping ([MyRoomData]) -> Void){
+    func getMyRoom(userId: String, callback: @escaping ([RoomData]) -> Void){
         let url = "\(serverUrl)/common/sql/select"
         
         var sql = "SELECT room.room_id AS room_id, room_title, category, room_date, room_introduce, univ_name, maker "
@@ -184,7 +184,7 @@ class AlamofireService : ObservableObject {
             case .success(let data):
                 do {
                     let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-                    let myRoomList = try JSONDecoder().decode([MyRoomData].self, from: json)
+                    let myRoomList = try JSONDecoder().decode([RoomData].self, from: json)
                     
                     callback(myRoomList)
                 } catch {
@@ -196,6 +196,38 @@ class AlamofireService : ObservableObject {
             
         }
     }
+    
+    func getOpenRoom(univName: String, category: String, callback: @escaping ([RoomData]) -> Void){
+        let url = "\(serverUrl)/common/sql/select"
+        
+        let sql = "SELECT * FROM room WHERE univ_name = '\(univName)' AND category = '\(category)'"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+           url,
+           method: .post,
+           parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let roomList = try JSONDecoder().decode([RoomData].self, from: json)
+                    
+                    callback(roomList)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+            
+        }
+    }
+    
     
     // 식당
     func getCafeteriaList(start: Int, display: Int, query: String, sortingOrder: String, callback: @escaping ([CafeteriaData]) -> Void){

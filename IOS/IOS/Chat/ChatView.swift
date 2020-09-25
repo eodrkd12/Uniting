@@ -13,7 +13,7 @@ struct ChatView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var room: MyRoomData
+    @State var room: RoomData
     
     @State var ref : DatabaseReference?
     @State var query : DatabaseQuery?

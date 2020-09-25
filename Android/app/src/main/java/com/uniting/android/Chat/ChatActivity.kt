@@ -101,37 +101,36 @@ class ChatActivity : PSAppCompatActivity() {
 
         btn_send.setOnClickListener {
             if(edit_chat.text.toString()=="") return@setOnClickListener
+            Retrofit.getMembers(room.room_id){
+                var content = edit_chat.text.toString()
+                edit_chat.setText("")
+                var date = this.getCurDate()
 
-            var content = edit_chat.text.toString()
-            edit_chat.setText("")
-            var date = this.getCurDate()
+                var unreadMember = ""
+                it.forEach {
+                    unreadMember += "${it.id}|"
+                }
 
-            var unreadMember = ""
-            memberList.forEach {
-                unreadMember += "${it.member.id}|"
-            }
+                unreadMember = unreadMember.replace("${UserInfo.ID}|","")
 
-            unreadMember = unreadMember.replace("${UserInfo.ID}|","")
+                var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
 
-            Toast.makeText(this,unreadMember,Toast.LENGTH_LONG).show()
+                var chat = Chat(chatId,room.room_id,UserInfo.ID,UserInfo.NICKNAME,content,date,unreadMember,0)
 
-            var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
+                Retrofit.insertChat(chat){
+                    if(it.result == "success"){
 
-            var chat = Chat(chatId,room.room_id,UserInfo.ID,UserInfo.NICKNAME,content,date,unreadMember,0)
+                        writeFirebase(chat)
 
-            Retrofit.insertChat(chat){
-                if(it.result == "success"){
+                        var topic = room.room_id
+                        var title = room.room_title
+                        var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
 
-                    writeFirebase(chat)
+                        Retrofit.sendFcm(topic, title, content)
 
-                    var topic = room.room_id
-                    var title = room.room_title
-                    var content = "${UserInfo.NICKNAME}\n${edit_chat.text}"
-
-                    Retrofit.sendFcm(topic,title,content)
-
-                    chatViewModel.insert(chat){
-                        edit_chat.setText("")
+                        chatViewModel.insert(chat){
+                            edit_chat.setText("")
+                        }
                     }
                 }
             }
@@ -196,14 +195,14 @@ class ChatActivity : PSAppCompatActivity() {
         var key=snapshot.key
         var value=snapshot.value as HashMap<String,Any>
 
-        if(value.get("user_id").toString() != UserInfo.ID){
-            val hashMap=HashMap<String,Any>()
+        if(value.get("user_id").toString() != UserInfo.ID) {
+            val hashMap = HashMap<String, Any>()
 
             var unreadMember = value.get("unread_member") as String
 
-            unreadMember = unreadMember.replace(UserInfo.ID, "")
+            unreadMember = unreadMember.replace("${UserInfo.ID}|", "")
 
-            hashMap.put("${key}/unread_member",unreadMember)
+            hashMap.put("${key}/unread_member", unreadMember)
             ref!!.updateChildren(hashMap)
         }
         var i = snapshot.children.iterator()
@@ -220,6 +219,7 @@ class ChatActivity : PSAppCompatActivity() {
 
             chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
         }
+        Log.d("test",chat.toString())
         chatViewModel.insert(chat!!){
         }
     }
@@ -228,14 +228,14 @@ class ChatActivity : PSAppCompatActivity() {
         var i = snapshot.children.iterator()
         var chat : Chat? = null
         while (i.hasNext()) {
-            var chatContent = i.next() as String
-            var chatId = i.next() as String
-            var chatTime = i.next() as String
-            var roomId = i.next() as String
+            var chatContent = i.next().value as String
+            var chatId = i.next().value as String
+            var chatTime = i.next().value as String
+            var roomId = i.next().value as String
             var systemChat = (i.next().value as Long).toInt()
-            var unreadMember = i.next() as String
-            var userId = i.next() as String
-            var userNickname = i.next() as String
+            var unreadMember = i.next().value as String
+            var userId = i.next().value as String
+            var userNickname = i.next().value as String
 
             chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
         }

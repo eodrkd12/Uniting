@@ -11,7 +11,7 @@ import SwiftUI
 struct RoomMenu : View {
     
     @Binding var showing : PresentationMode
-    var room: MyRoomData
+    var room: RoomData
     
     var body: some View {
         

@@ -13,6 +13,7 @@
 		542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6A824FF627100726F04 /* CafeteriaData.swift */; };
 		542AC6AB24FF6DEE00726F04 /* CafeteriaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */; };
 		542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */; };
+		544DD342251C752200B59FB7 /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544DD341251C752200B59FB7 /* RoomListView.swift */; };
 		547D5C5C2506151A00AAF43A /* CafeteriaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C5B2506151A00AAF43A /* CafeteriaImageCell.swift */; };
 		547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C5D25061C7D00AAF43A /* MenuRow.swift */; };
 		547D5C602507431700AAF43A /* ReviewStarPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C5F2507431700AAF43A /* ReviewStarPoint.swift */; };
@@ -66,6 +67,7 @@
 		542AC6A824FF627100726F04 /* CafeteriaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaData.swift; sourceTree = "<group>"; };
 		542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaList.swift; sourceTree = "<group>"; };
 		542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCafeteriaView.swift; sourceTree = "<group>"; };
+		544DD341251C752200B59FB7 /* RoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListView.swift; sourceTree = "<group>"; };
 		547D5C5B2506151A00AAF43A /* CafeteriaImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaImageCell.swift; sourceTree = "<group>"; };
 		547D5C5D25061C7D00AAF43A /* MenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRow.swift; sourceTree = "<group>"; };
 		547D5C5F2507431700AAF43A /* ReviewStarPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewStarPoint.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				54BA651F24FDE8A9007C6B32 /* MyRoomListView.swift */,
 				54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */,
 				54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */,
+				544DD341251C752200B59FB7 /* RoomListView.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
 				54C53503251492390045E702 /* Menu.swift in Sources */,
+				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,

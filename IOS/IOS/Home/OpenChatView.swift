@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct OpenChatView: View {
+    
     @State var index = 0
+    @State var categoryList = ["취미","스터디","고민상담","잡담"]
     
     var body: some View {
         VStack(spacing: 20){
@@ -24,7 +26,11 @@ struct OpenChatView: View {
             .frame(width: UIScreen.main.bounds.width, height: 280)
             
             HStack(spacing: 15){
-                Image("main_connect_button")
+                NavigationLink(destination: RoomListView(title: categoryList[index]), label:{
+                    Image("main_connect_button")
+                } )
+                .foregroundColor(Color.clear)
+                
                 Image("openchat_make_icon")
             }
         }

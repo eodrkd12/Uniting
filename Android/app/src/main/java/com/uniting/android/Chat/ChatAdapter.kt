@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
+import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.R
 import kotlinx.android.synthetic.main.item_chat.view.*
@@ -53,7 +54,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
         if (item.chat.system_chat == 1)
             holder.setSystemChat(item.chat.chat_content)
         else {
-            if (item.chat.user_id == "test")
+            if (item.chat.user_id == UserInfo.ID)
 
                 holder.setMyChat(
                     item.chat.chat_content,

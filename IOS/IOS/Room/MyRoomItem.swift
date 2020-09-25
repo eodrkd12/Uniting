@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 struct MyRoomItem : View {
     
-    @State var room : MyRoomData
+    @State var room : RoomData
     
     @State var ref : DatabaseReference?
     @State var query : DatabaseQuery?
