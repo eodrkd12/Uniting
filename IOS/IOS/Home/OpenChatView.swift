@@ -10,6 +10,8 @@ import SwiftUI
 
 struct OpenChatView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @State var index = 0
     @State var categoryList = ["취미","스터디","고민상담","잡담"]
     
@@ -30,8 +32,10 @@ struct OpenChatView: View {
                     Image("main_connect_button")
                 } )
                 .foregroundColor(Color.clear)
-                
-                Image("openchat_make_icon")
+                NavigationLink(destination: MakeRoomView(), label:{
+                    Image("openchat_make_icon")
+                } )
+                .foregroundColor(Color.clear)
             }
         }
     }

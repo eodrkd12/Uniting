@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCE7251DABEC00CA7FC8 /* RoomItem.swift */; };
+		540FDCEC251DB2DB00CA7FC8 /* MemberData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCEB251DB2DB00CA7FC8 /* MemberData.swift */; };
+		540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCEE251DC92D00CA7FC8 /* MakeRoomView.swift */; };
 		541ACBE52500B1C900C1C079 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541ACBE42500B1C900C1C079 /* DetailView.swift */; };
 		541ACBE72500B58A00C1C079 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541ACBE62500B58A00C1C079 /* MapView.swift */; };
 		542AC6A524FF567D00726F04 /* AlamofireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6A424FF567D00726F04 /* AlamofireService.swift */; };
@@ -55,12 +58,16 @@
 		54CE0F87251337F70028A98A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F86251337F70028A98A /* ChatView.swift */; };
 		54CE0F89251344B20028A98A /* ChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F88251344B20028A98A /* ChatItem.swift */; };
 		54CE0F8B251344CC0028A98A /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F8A251344CC0028A98A /* ChatData.swift */; };
+		54EC70262521C5EF0061D27F /* CommonDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EC70252521C5EF0061D27F /* CommonDataModel.swift */; };
 		D104DE223417978AB13CBE91 /* Pods_IOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCF6332974C4FF75DF6C1F1 /* Pods_IOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06F863F01901176A5CAEFEF5 /* Pods-IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOS.release.xcconfig"; path = "Target Support Files/Pods-IOS/Pods-IOS.release.xcconfig"; sourceTree = "<group>"; };
 		2BCF6332974C4FF75DF6C1F1 /* Pods_IOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		540FDCE7251DABEC00CA7FC8 /* RoomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomItem.swift; sourceTree = "<group>"; };
+		540FDCEB251DB2DB00CA7FC8 /* MemberData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberData.swift; sourceTree = "<group>"; };
+		540FDCEE251DC92D00CA7FC8 /* MakeRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRoomView.swift; sourceTree = "<group>"; };
 		541ACBE42500B1C900C1C079 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		541ACBE62500B58A00C1C079 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		542AC6A424FF567D00726F04 /* AlamofireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireService.swift; sourceTree = "<group>"; };
@@ -111,6 +118,7 @@
 		54CE0F86251337F70028A98A /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		54CE0F88251344B20028A98A /* ChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItem.swift; sourceTree = "<group>"; };
 		54CE0F8A251344CC0028A98A /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
+		54EC70252521C5EF0061D27F /* CommonDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDataModel.swift; sourceTree = "<group>"; };
 		CCFF1BEC5045C4A765AA568C /* Pods-IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOS.debug.xcconfig"; path = "Target Support Files/Pods-IOS/Pods-IOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +253,9 @@
 				54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */,
 				54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */,
 				544DD341251C752200B59FB7 /* RoomListView.swift */,
+				540FDCE7251DABEC00CA7FC8 /* RoomItem.swift */,
+				540FDCEB251DB2DB00CA7FC8 /* MemberData.swift */,
+				540FDCEE251DC92D00CA7FC8 /* MakeRoomView.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -293,6 +304,7 @@
 				54BA652F24FE084F007C6B32 /* Colors.swift */,
 				547D5C6D2507681400AAF43A /* ImageManager.swift */,
 				54A57B02250F53DF00EAE750 /* UserInfo.swift */,
+				54EC70252521C5EF0061D27F /* CommonDataModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -422,8 +434,10 @@
 				54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */,
 				547D5C602507431700AAF43A /* ReviewStarPoint.swift in Sources */,
 				547D5C5C2506151A00AAF43A /* CafeteriaImageCell.swift in Sources */,
+				540FDCEC251DB2DB00CA7FC8 /* MemberData.swift in Sources */,
 				547D5C68250759E900AAF43A /* Extension.swift in Sources */,
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
+				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
 				54C53503251492390045E702 /* Menu.swift in Sources */,
 				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,
@@ -431,6 +445,7 @@
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
 				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
+				540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */,
 				542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */,
 				54BA653A24FE1B28007C6B32 /* ConditionRow.swift in Sources */,
 				547D5C6A2507642200AAF43A /* ReviewItem.swift in Sources */,
@@ -446,6 +461,7 @@
 				54BA653624FE1440007C6B32 /* PageView.swift in Sources */,
 				54A6CB1D2513251400BC37D3 /* MyRoomItem.swift in Sources */,
 				547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */,
+				54EC70262521C5EF0061D27F /* CommonDataModel.swift in Sources */,
 				541ACBE52500B1C900C1C079 /* DetailView.swift in Sources */,
 				54BA652424FDE8C5007C6B32 /* OptionView.swift in Sources */,
 				54BA652924FDEAA9007C6B32 /* PagingView.swift in Sources */,
@@ -524,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -578,7 +594,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

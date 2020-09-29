@@ -164,6 +164,37 @@ class AlamofireService : ObservableObject {
     }
     
     // 채팅방
+    func createRoom(roomId: String, title: String, category: String, date: String, introduce: String, univName: String, userId: String, callback: @escaping (ResultModel) -> Void){
+        
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        var sql = "INSERT INTO room "
+        sql += "VALUES('\(roomId)','\(title)','\(category)','\(date)','\(introduce)','\(univName)','\(userId)')"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+           url,
+           method: .post,
+           parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     func getMyRoom(userId: String, callback: @escaping ([RoomData]) -> Void){
         let url = "\(serverUrl)/common/sql/select"
         
@@ -184,9 +215,8 @@ class AlamofireService : ObservableObject {
             case .success(let data):
                 do {
                     let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-                    let myRoomList = try JSONDecoder().decode([RoomData].self, from: json)
-                    
-                    callback(myRoomList)
+                    let roomList = try JSONDecoder().decode([RoomData].self, from: json)
+                    callback(roomList)
                 } catch {
                     print(error)
                 }
@@ -216,7 +246,7 @@ class AlamofireService : ObservableObject {
                 do {
                     let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
                     let roomList = try JSONDecoder().decode([RoomData].self, from: json)
-                    
+                    print(roomList)
                     callback(roomList)
                 } catch {
                     print(error)
@@ -228,7 +258,35 @@ class AlamofireService : ObservableObject {
         }
     }
     
-    
+    func getMembers(roomId: String, callback: @escaping ([MemberData]) -> Void){
+        let url = "\(serverUrl)/common/sql/select"
+        
+        let sql = "SELECT joined.user_id AS user_id, user_nickname FROM joined, user WHERE room_id = '\(roomId)' AND joined.user_id = user.user_id"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let memberList = try JSONDecoder().decode([MemberData].self, from: json)
+                    
+                    callback(memberList)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
     // 식당
     func getCafeteriaList(start: Int, display: Int, query: String, sortingOrder: String, callback: @escaping ([CafeteriaData]) -> Void){
         
