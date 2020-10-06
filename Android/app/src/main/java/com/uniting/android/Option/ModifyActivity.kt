@@ -29,7 +29,7 @@ class ModifyActivity : AppCompatActivity() {
             text_modify_birthday.text = it.userBirthday
             text_modify_city.text = it.userCity
             text_modify_department_name.text = it.deptName
-            text_modify_sign_date.text = it.userSignDate
+            text_modify_sign_date.text = it.userSignDate.substring(0, 10)
             text_modify_university_name.text = it.univName
             text_modify_web_mail.text = it.userEmail
             edit_modify_nickname.setText(it.userNickname)
@@ -81,5 +81,11 @@ class ModifyActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onBackPressed() {
+        val psDialog = PSDialog(this)
+        psDialog.setCheckSave()
+        psDialog.show()
     }
 }

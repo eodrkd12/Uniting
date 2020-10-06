@@ -1,5 +1,6 @@
 package com.uniting.android.Profile
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.uniting.android.R
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.text.SimpleDateFormat
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -30,6 +32,13 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var curDate = simpleDateFormat.format(System.currentTimeMillis())
+
+        var age = curDate.substring(0, 4).toInt() - intent.getStringExtra("userAge")!!.substring(0, 4).toInt() + 1
+
+        this.window.statusBarColor = Color.parseColor("#00BFFF")
+
         var displayMetrics: DisplayMetrics = DisplayMetrics()
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
         width = displayMetrics.widthPixels
@@ -42,16 +51,19 @@ class ProfileActivity : AppCompatActivity() {
         val userId = intent.getStringExtra("userId")
         text_profile_city.text = intent.getStringExtra("userCity")
         text_profile_dept.text = intent.getStringExtra("deptName")
-        text_profile_gender.text = intent.getStringExtra("userGender")
         text_profile_nickname.text = intent.getStringExtra("userNickname")
         text_profile_height.text = intent.getStringExtra("userHeight")
-        text_profile_age.text = intent.getStringExtra("userAge")
+        text_profile_age.text = age.toString() + "세"
 
         var hobby : List<String> = intent.getStringExtra("userHobby")!!.split(",")
         setLayout(layout_hobby, hobby)
 
         var personality : List<String> = intent.getStringExtra("userPersonality")!!.split(",")
         setLayout(layout_personality, personality)
+
+        image_profile_back.setOnClickListener {
+            finish()
+        }
 
         /*Retrofit.randomMatching {
             text_profile_city.text = it.get(0).userCity

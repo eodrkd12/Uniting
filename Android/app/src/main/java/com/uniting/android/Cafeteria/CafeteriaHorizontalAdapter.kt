@@ -25,21 +25,21 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var tags = ""
 
-        Glide.with(holder.itemView)
+        /*Glide.with(holder.itemView)
             .load(cafeteriaList.get(position).imageSrc)
             .transition(DrawableTransitionOptions().crossFade())
             .override(300, 300)
-            .into(holder.cafeteriaImage)
+            .into(holder.cafeteriaImage)*/
 
         holder.cafeteriaImage.clipToOutline = true
 
-        holder.cafeteriaTitle.text = cafeteriaList.get(position).name.replace(" ", "")
+        holder.cafeteriaTitle.text = cafeteriaList.get(position).title.replace(" ", "")
 
-        Retrofit.getPointAvg(cafeteriaList.get(position).name) {
+        Retrofit.getPointAvg(cafeteriaList.get(position).title) {
             holder.cafeteriaStarPoint.text = it.avg.toString()
         }
 
-        holder.itemView.setOnClickListener {
+        /*holder.itemView.setOnClickListener {
             var intent = Intent(activity, CafeteriaInformActivity::class.java)
             intent.putExtra("name",cafeteriaList.get(position).name)
             intent.putExtra("x", cafeteriaList.get(position).x)
@@ -62,7 +62,7 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
                 intent.putExtra("tags", tags)
             }
             activity.startActivity(intent)
-        }
+        }*/
 
     }
 

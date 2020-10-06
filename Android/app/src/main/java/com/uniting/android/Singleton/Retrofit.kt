@@ -9,6 +9,7 @@ import com.uniting.android.DataModel.*
 import com.uniting.android.Interface.RetrofitService
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
+import com.uniting.android.Option.InquireItem
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -391,7 +392,7 @@ object Retrofit {
     }
 
     fun accountCheck(webMail: String, callback: (CountModel) -> Unit) {
-        var sql = "SELECT count(univ_mail) as count FROM user WHERE univ_mail='${webMail}'"
+        var sql = "SELECT count(user_email) as count FROM user WHERE user_email='${webMail}'"
 
         service.accountCheck(sql).enqueue(object:Callback<CountModel> {
             override fun onFailure(call: Call<CountModel>, t: Throwable) {
@@ -459,7 +460,6 @@ object Retrofit {
     }
 
     fun addUnreadMember(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
-
         val sql = "UPDATE chat SET unread_member=CONCAT(unread_member,'${userId}|') WHERE room_id = '${roomId}'"
 
         service.addUnreadMember(sql).enqueue(object : Callback<ResultModel>{
@@ -569,6 +569,48 @@ object Retrofit {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
             }
 
+        })
+    }
+
+    fun getUserInfo(userId : String, callback: (UserModel.User) -> Unit) {
+        val sql = "SELECT * FROM user WHERE user_id='${userId}'"
+
+        service.getUserInfo(sql).enqueue(object : Callback<UserModel.User> {
+            override fun onFailure(call: Call<UserModel.User>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<UserModel.User>, response: Response<UserModel.User>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun sendInquire(userId : String, inquireDate: String, inquireTitle: String, inquireContent: String, inquireType: String, callback : (ResultModel) -> Unit) {
+        val sql = "INSERT INTO inquire(user_id, inquire_date, inquire_title, inquire_content, inquire_type) values('${userId}', '${inquireDate}', '${inquireTitle}', '${inquireContent}', '${inquireType}')"
+
+        service.sendInquire(sql).enqueue(object : Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun getInquireList(userId: String, callback : (ArrayList<InquireItem.Inquire>) -> Unit) {
+        val sql = "SELECT * FROM inquire WHERE user_id='${userId}' ORDER BY inquire_date DESC"
+
+        service.getInquireList(sql).enqueue(object : Callback<ArrayList<InquireItem.Inquire>> {
+            override fun onFailure(call: Call<ArrayList<InquireItem.Inquire>>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ArrayList<InquireItem.Inquire>>, response: Response<ArrayList<InquireItem.Inquire>>) {
+                callback(response.body()!!)
+            }
         })
     }
 

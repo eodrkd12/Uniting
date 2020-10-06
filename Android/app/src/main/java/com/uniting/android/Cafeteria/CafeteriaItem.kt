@@ -10,26 +10,22 @@ class CafeteriaItem {
     )
 
     data class Cafeteria(
-        @SerializedName("id")
-        val id: String,
-        @SerializedName("name")
-        val name: String,
-        @SerializedName("x")
-        val x: String,
-        @SerializedName("y")
-        val y: String,
-        @SerializedName("phone")
-        val phone: String,
-        @SerializedName("imageSrc")
-        val imageSrc: String,
-        @SerializedName("roadAddr")
-        val roadAddr: String,
-        @SerializedName("tags")
-        val tags: ArrayList<String>,
-        @SerializedName("options")
-        val options: String,
-        @SerializedName("bizHourInfo")
-        val bizHourInfo: String,
+        @SerializedName("title")
+        val title : String,
+        @SerializedName("link")
+        val link : String,
+        @SerializedName("description")
+        val description : String,
+        @SerializedName("telephone")
+        val telephone : String,
+        @SerializedName("address")
+        val address : String,
+        @SerializedName("roadAddress")
+        val roadAddress : String,
+        @SerializedName("mapx")
+        val mapx : Int,
+        @SerializedName("mapy")
+        val mapy : Int,
         var starPoint:String
     )
 
