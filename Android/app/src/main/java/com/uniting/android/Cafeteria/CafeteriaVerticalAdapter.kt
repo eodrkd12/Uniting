@@ -30,13 +30,13 @@ class CafeteriaVerticalAdapter(val activity: Activity, val cafeteriaType: ArrayL
         holder.cafeteriaType.text = cafeteriaType.get(position)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://store.naver.com/sogum/api/")
+            .baseUrl("https://openapi.naver.com/v1/search/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val api = retrofit.create(NaverAPI::class.java)
 
-        api.getCafeteriaList(1, 10, "성서계명대${cafeteriaType.get(position)}", "reviewCount").enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
+        api.getCafeteriaList(1, 10, "성서계명대${cafeteriaType.get(position)}", "zjmsxbzZatZyy90LhgRy", "4F6vgTA6CE").enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
             override fun onResponse(call: Call<CafeteriaItem.CafeteriaList>, response: Response<CafeteriaItem.CafeteriaList>) {
                 if(response.isSuccessful) {
                     val success = response.body()

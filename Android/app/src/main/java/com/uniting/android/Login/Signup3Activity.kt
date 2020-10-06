@@ -18,6 +18,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.uniting.android.Class.KeyboardVisibilityUtils
 import com.uniting.android.Class.PSDialog
 import com.uniting.android.Class.UserInfo
@@ -298,13 +300,31 @@ class Signup3Activity : AppCompatActivity() {
                         var intent = Intent(this, MainActivity::class.java)
                         var userPref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                         var editor = userPref.edit()
-                        editor.putString("ID", id).apply()
+                        editor.putString("ID", id).putString("PW", pw).apply()
+                        UserInfo.NICKNAME = nickname
+                        UserInfo.UNIV = univName
+                        UserInfo.DEPT = deptName
+                        UserInfo.GENDER = gender
                         UserInfo.ID = id
+                        UserInfo.PW = pw
                         startActivity(intent)
+
+                        FirebaseInstanceId.getInstance().instanceId
+                            .addOnCompleteListener(OnCompleteListener { task ->
+                                if (!task.isSuccessful) {
+                                    Log.w("test", "getInstanceId failed", task.exception)
+                                    return@OnCompleteListener
+                                }
+                                else {
+                                    // Get new Instance ID token
+                                    val token = task.result?.token
+
+                                    Retrofit.updateToken(UserInfo.ID, token!!)
+                                }
+                            })
                     }
                 }
             }
-
         }
     }
 

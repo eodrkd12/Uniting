@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
 import com.uniting.android.Class.PSDialog
@@ -24,10 +25,11 @@ class OptionFragment : Fragment() {
 
         val psDialog = PSDialog(activity!!)
 
-        val modifyUserBtn : TextView = rootView.findViewById(R.id.text_option_modify)
+        val modifyBtn : Button = rootView.findViewById(R.id.btn_option_modify)
         val logoutBtn : TextView = rootView.findViewById(R.id.text_option_logout)
         val blockingBtn : Switch = rootView.findViewById(R.id.switch_blocking)
         val alarmBtn : TextView = rootView.findViewById(R.id.text_option_alarm)
+        val inquireBtn : TextView = rootView.findViewById(R.id.text_option_inquire)
 
         if(UserInfo.BLOCKINGDEPT == 1) {
             blockingBtn.isChecked = true
@@ -36,7 +38,7 @@ class OptionFragment : Fragment() {
             blockingBtn.isChecked = false
         }
 
-        modifyUserBtn.setOnClickListener {
+        modifyBtn.setOnClickListener {
             var intent = Intent(activity, ModifyActivity::class.java)
             startActivity(intent)
         }
@@ -45,7 +47,8 @@ class OptionFragment : Fragment() {
             var userPref = activity!!.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
             var editor = userPref.edit()
             editor.clear()
-            UserInfo.ID= ""
+            UserInfo.ID = ""
+            UserInfo.PW = ""
             var intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
             activity!!.finish()
@@ -73,7 +76,12 @@ class OptionFragment : Fragment() {
         }
 
         alarmBtn.setOnClickListener {
-            var intent = Intent(activity, AlarmActivity::class.java)
+            val intent = Intent(activity, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
+        inquireBtn.setOnClickListener {
+            val intent = Intent(activity, InquireActivity::class.java)
             startActivity(intent)
         }
 

@@ -44,10 +44,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/rounded_corner_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view29">
 
@@ -89,28 +90,29 @@
             android:id="@+id/edit_modify_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:ems="10"
+            android:maxLength="10"
+            android:drawableRight="@drawable/down"
             android:gravity="center"
             android:inputType="textPersonName|textNoSuggestions"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView16"
-            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
+            app:layout_constraintStart_toStartOf="@+id/view31"
             app:layout_constraintTop_toBottomOf="@+id/view30" />
 
         <View
             android:id="@+id/view31"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="@+id/view32"
-            app:layout_constraintStart_toStartOf="@+id/edit_modify_nickname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/edit_modify_nickname" />
 
         <TextView
@@ -139,12 +141,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="5dp"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="생년월일"
-            android:textSize="15dp"
+            android:drawableRight="@drawable/down"
             android:textColor="@color/colorMdGrey_900"
-            app:layout_constraintEnd_toStartOf="@+id/imageView16"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view31" />
 
@@ -154,19 +157,9 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="@+id/imageView16"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toStartOf="@+id/text_modify_birthday"
             app:layout_constraintTop_toBottomOf="@+id/text_modify_birthday" />
-
-        <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_modify_birthday"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_modify_birthday"
-            app:srcCompat="@drawable/more_icon" />
 
         <TextView
             android:id="@+id/text_modify_city"
@@ -174,16 +167,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableRight="@drawable/down"
             android:gravity="center"
             android:text="거주지"
-            android:textSize="15dp"
             android:textColor="@color/colorMdGrey_900"
-            app:layout_constraintEnd_toStartOf="@+id/imageView17"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view32" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/imageView17"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -191,7 +185,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/text_modify_city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_modify_city"
-            app:srcCompat="@drawable/more_icon" />
+            app:srcCompat="@drawable/more_icon" />-->
 
         <View
             android:id="@+id/view33"
@@ -201,7 +195,7 @@
             android:layout_marginBottom="70dp"
             android:background="@color/colorMdGrey_300"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView17"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toStartOf="@+id/text_modify_city"
             app:layout_constraintTop_toBottomOf="@+id/text_modify_city" />
 
@@ -221,13 +215,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="가입일자"
             android:textColor="@color/colorMdGrey_700"
             android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_modify_city"
-            app:layout_constraintEnd_toStartOf="@+id/imageView17"
+            app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view33" />
     </androidx.constraintlayout.widget.ConstraintLayout>

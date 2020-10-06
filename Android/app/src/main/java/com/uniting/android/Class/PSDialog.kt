@@ -27,6 +27,7 @@ import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
 import com.uniting.android.Room.MakeRoomActivity
 import com.uniting.android.Singleton.Retrofit
+import kotlinx.android.synthetic.main.dialog_inquire.*
 
 class PSDialog(activity: Activity) {
 
@@ -260,6 +261,56 @@ class PSDialog(activity: Activity) {
                     UserInfo.BLOCKINGDEPT = 1
                     Log.d("test", "학과차단완료")
                 }
+            }
+        }
+    }
+
+    fun setInquireClickDialog(title: String, content: String, answer: String, date:String, answerDate: String) {
+        dialog = Dialog(context!!, R.style.popCasterDlgTheme)
+        val dialogView = context!!.layoutInflater.inflate(R.layout.dialog_inquire_click, null)
+        val titleText : TextView = dialogView.findViewById(R.id.text_inquireclicktitle)
+        val contentText : TextView = dialogView.findViewById(R.id.text_inquireclickcontent)
+        val answerText : TextView = dialogView.findViewById(R.id.text_inquireclickanswer)
+        val cancelBtn : ImageView = dialogView.findViewById(R.id.image_inquireclickcancel)
+        val dateText : TextView = dialogView.findViewById(R.id.text_inquireclickdate)
+        val answerDateText: TextView = dialogView.findViewById(R.id.text_inquireclickanswerdate)
+
+        dateText.text = date
+        answerDateText.text = answerDate
+        titleText.text = title
+        contentText.text = content
+        answerText.text = answer
+
+        dialog!!.getWindow()!!.getAttributes().windowAnimations = R.style.DialogSlideRight
+        dialog!!.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
+
+        cancelBtn.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    class InquireBottomSheetDialog(categoryText : TextView) : BottomSheetDialogFragment() {
+        var categoryText = categoryText
+
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            super.onCreateView(inflater, container, savedInstanceState)
+            return inflater.inflate(R.layout.dialog_inquire, container, false)
+        }
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+            view?.findViewById<TextView>(R.id.text_inquirepurchase)?.setOnClickListener {
+                categoryText.text = text_inquirepurchase.text
+                dismiss()
+            }
+
+            view?.findViewById<TextView>(R.id.text_inquireservice)?.setOnClickListener {
+                categoryText.text = text_inquireservice.text
+                dismiss()
             }
         }
     }

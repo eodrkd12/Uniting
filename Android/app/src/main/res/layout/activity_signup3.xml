@@ -226,15 +226,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="left"
                 android:text="선택"
+                android:drawableRight="@drawable/down"
                 android:textColor="@color/colorMdGrey_500"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                app:layout_constraintEnd_toEndOf="@+id/view15"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -262,29 +263,21 @@
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/text_birthday" />
 
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_birthday"
-                app:layout_constraintEnd_toEndOf="@+id/view15"
-                app:layout_constraintTop_toTopOf="@+id/text_birthday"
-                app:srcCompat="@drawable/more_icon" />
-
             <TextView
                 android:id="@+id/text_user_city"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:fontFamily="sans-serif"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="left"
                 android:text="선택"
+                android:drawableRight="@drawable/down"
                 android:textColor="@color/colorMdGrey_500"
                 android:textSize="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView14"
+                app:layout_constraintEnd_toEndOf="@+id/view16"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -310,15 +303,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/textView10"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/text_user_city" />
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_user_city"
-                app:layout_constraintEnd_toEndOf="@+id/view16"
-                app:layout_constraintTop_toTopOf="@+id/text_user_city"
-                app:srcCompat="@drawable/more_icon" />
 
 
             <Button

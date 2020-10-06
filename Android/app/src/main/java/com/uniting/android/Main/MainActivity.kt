@@ -32,27 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         bnv_main.setOnNavigationItemSelectedListener(navListener)
-
-        //임시로 유저데이터 불러오기
-        Retrofit.getModifyUserInfo(intent.getStringExtra("id")!!) {
-            UserInfo.ID = intent.getStringExtra("id")!!
-            UserInfo.UNIV = it.univName
-            UserInfo.DEPT = it.deptName
-            UserInfo.NICKNAME = it.userNickname
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Log.w("test", "getInstanceId failed", task.exception)
-                        return@OnCompleteListener
-                    }
-                    else {
-                        // Get new Instance ID token
-                        val token = task.result?.token
-
-                        Retrofit.updateToken(UserInfo.ID, token!!)
-                    }
-                })
-        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

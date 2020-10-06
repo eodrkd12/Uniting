@@ -7,6 +7,7 @@ import com.uniting.android.DataModel.*
 import com.uniting.android.Item.Test
 import com.uniting.android.Login.UniversityItem
 import com.uniting.android.Login.UserItem
+import com.uniting.android.Option.InquireItem
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -188,6 +189,8 @@ interface RetrofitService {
         @Field("title") title: String,
         @Field("content") content: String
     ): Call<ResultModel>
+
+
     //입장할 방에 자기가 있는지 체크
     @FormUrlEncoded
     @POST("/common/sql/select/single")
@@ -200,4 +203,19 @@ interface RetrofitService {
     fun addUnreadMember(
         @Field("sql") sql: String
     ): Call<ResultModel>
+
+    //유저 정보 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getUserInfo(@Field("sql") sql : String) : Call<UserModel.User>
+
+    //문의사항 보내기
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun sendInquire(@Field("sql") sql : String) : Call<ResultModel>
+
+    //문의사항 답변 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select")
+    fun getInquireList(@Field("sql") sql : String) : Call<ArrayList<InquireItem.Inquire>>
 }

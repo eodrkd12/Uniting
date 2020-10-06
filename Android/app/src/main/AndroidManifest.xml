@@ -20,9 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-        <activity android:name=".Option.AlarmActivity"></activity>
+        <activity android:name=".Option.InquireActivity"></activity>
+        <activity android:name=".Option.AlarmActivity" />
         <activity android:name=".Option.ModifyActivity" />
         <activity android:name=".Login.Signup3Activity" />
         <activity android:name=".Login.Signup2Activity" />
@@ -40,16 +39,15 @@
         <activity android:name=".Cafeteria.WriteReviewActivity" />
         <activity android:name=".Room.RoomListActivity" />
         <activity android:name=".Chat.ChatActivity" />
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".Login.LoginActivity"></activity>
+        <activity android:name=".Main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.SplashActivity" />
-        <activity android:name=".Main.MainActivity">
-        </activity>
+        <activity android:name=".Main.MainActivity"></activity>
 
         <service
             android:name=".Class.MyFirebaseMessagingService"
