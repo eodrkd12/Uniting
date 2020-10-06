@@ -19,7 +19,9 @@ struct MatchingView: View {
     @State var personality = ""
     @State var alertVisible = false
     @State var profileVisible = false
-    @State var profile : ProfileData? = nil
+    @State var noMatching = false
+    
+    @State var profile = ProfileData(user_id: "", user_nickname: "", user_birthday: "", dept_name: "", user_gender: "", enter_year: "", user_city: "", user_hobby: "", user_personality: "", user_introduce: "", user_height: "")
     
     var body: some View {
         ZStack{
@@ -47,52 +49,56 @@ struct MatchingView: View {
                     EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$personality, title: "성격")
                 }
                 
-                
-                Image("big_main_connect_button")
-                    .resizable()
-                    .frame(width: 270, height: 40)
-                    .onTapGesture {
-                        if self.index == 0 {
-                            AlamofireService.shared.randomMatching(){(profileList) in
+                NavigationLink(destination: ProfileView(profile: $profile), isActive: $profileVisible, label: {
+                    
+                })
+                Button(action: {
+                    if self.index == 0 {
+                        AlamofireService.shared.randomMatching(){(profileList) in
+                            if profileList.count == 0 {
+                                noMatching = true
+                            }
+                            else {
                                 self.profile = profileList[0]
                                 self.profileVisible = true
                             }
                         }
+                    }
+                    else {
+                        if self.height == "" || self.age == ""  {
+                            self.alertVisible = true
+                        }
                         else {
-                            if self.height == "" || self.age == ""  {
-                                self.alertVisible = true
-                            }
-                            else {
-                                AlamofireService.shared.smartMatching(height: self.height, age: self.age, department: self.department, hobby: self.hobby, personality: self.personality){ (profileList) in
-                                    
+                            AlamofireService.shared.smartMatching(height: self.height, age: self.age, department: self.department, hobby: self.hobby, personality: self.personality){ (profileList) in
+                                if profileList.count == 0 {
+                                    noMatching = true
+                                }
+                                else {
                                     self.profile = profileList[0]
                                     self.profileVisible = true
                                 }
                             }
                         }
+                    }
+                }, label: {
+                    Image("big_main_connect_button")
+                        .resizable()
+                        .frame(width: 270, height: 40)
+                        .alert(isPresented: self.$alertVisible){
+                            Alert(title: Text("키와 나이는 필수항목입니다."))
+                        }
+                        .alert(isPresented: self.$noMatching){
+                            Alert(title: Text("매칭할 수 있는 사람이 없습니다."))
+                        }
+                })
+                
+                
+                if changeAlertVisible {
+                    GeometryReader{_ in
+                        ChangeAlert(showing: self.$changeAlertVisible, index: self.$index)
+                    }.background(Color.black.opacity(0.5).edgesIgnoringSafeArea(.all))
                 }
-                .alert(isPresented: self.$alertVisible){
-                    Alert(title: Text("키와 나이는 필수항목입니다."))
-                }
-                .sheet(isPresented: self.$profileVisible){
-                    ProfileView(profile: self.profile!)
-                }
-            }
-            
-            if changeAlertVisible {
-                GeometryReader{_ in
-                    ChangeAlert(showing: self.$changeAlertVisible, index: self.$index)
-                }.background(Color.black.opacity(0.5).edgesIgnoringSafeArea(.all))
             }
         }
-        
-        
     }
 }
-
-struct MatchingView_Previews: PreviewProvider {
-    static var previews: some View {
-        MatchingView()
-    }
-}
-

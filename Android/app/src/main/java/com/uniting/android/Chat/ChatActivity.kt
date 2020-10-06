@@ -89,7 +89,7 @@ class ChatActivity : PSAppCompatActivity() {
         chatAdapter = ChatAdapter(this,chatList)
         rv_chat.adapter = chatAdapter
 
-        chatViewModel= ChatViewModel(application)
+        chatViewModel= ChatViewModel(application, room.room_id)
 
         chatViewModel.getAllElement().observe(this, Observer {
             chatList.clear()

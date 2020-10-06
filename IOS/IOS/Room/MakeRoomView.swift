@@ -12,11 +12,7 @@ struct MakeRoomView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State static var title = ""
-    @State static var category = ""
-    @State static var introduce = ""
-    
-    @State var content = ""
+    @State var title = ""
     @State var isActive = false
     
     init() {
@@ -48,12 +44,16 @@ struct MakeRoomView: View {
                 
                 HStack{
                     Spacer()
-                    NavigationLink(destination: SecondStep(), label: {
+                    NavigationLink(destination: SecondStep(title: $title),isActive: $isActive, label: {
+                    })
+                    Button(action: {
+                        isActive = true
+                    }, label: {
                         Text("다음")
                             .font(.system(size: 20))
-                            .foregroundColor(content.count == 0 ? Colors.grey500 : Color.white)
+                            .foregroundColor(title.count == 0 ? Colors.grey500 : Color.white)
                     })
-                    .disabled(content.count == 0 ? true : false)
+                    .disabled(title.count == 0 ? true : false)
                     .padding(.trailing, 20)
                 }
                 .frame(width: UIScreen.main.bounds.width/3, height: 40)
@@ -66,14 +66,11 @@ struct MakeRoomView: View {
                     .foregroundColor(Color.white)
                 
                 VStack(spacing: 2){
-                    TextEditor(text: $content)
+                    TextEditor(text: $title)
                         .font(.system(size: 20))
                         .foregroundColor(Color.white)
                         .frame(width: UIScreen.main.bounds.width * 0.85, height: 20)
                         .multilineTextAlignment(.center)
-                        .onChange(of: content){ value in
-                            MakeRoomView.title = content
-                        }
                     Text("")
                         .frame(width: UIScreen.main.bounds.width * 0.85, height: 1)
                         .background(Color.white)
@@ -92,11 +89,17 @@ struct MakeRoomView: View {
 
 struct SecondStep: View {
     
-    @State var selected = false
+    @Binding var title : String
     @State var category = "선택하기"
+    
+    @State var selected = false
     @State var actionSheetVisible = false
-    init() {
+    @State var isActive = false
+    
+    init(title: Binding<String>) {
         UITextView.appearance().backgroundColor = .clear
+        
+        self._title = title
     }
     
     var body: some View {
@@ -122,7 +125,11 @@ struct SecondStep: View {
                 
                 HStack{
                     Spacer()
-                    NavigationLink(destination: ThirdStep(), label: {
+                    NavigationLink(destination: ThirdStep(title: $title, category: $category),isActive: $isActive, label: {
+                    })
+                    Button(action: {
+                        isActive = true
+                    }, label: {
                         Text("다음")
                             .font(.system(size: 20))
                             .foregroundColor(selected == false ? Colors.grey500 : Color.white)
@@ -156,19 +163,15 @@ struct SecondStep: View {
                             ActionSheet(title: Text("카테고리를 선택해주세요.")
                                         , buttons: [.default(Text("취미")){
                                             category = "취미"
-                                            MakeRoomView.category = "취미"
                                             selected = true
                                         }, .default(Text("스터디")){
                                             category = "스터디"
-                                            MakeRoomView.category = "스터디"
                                             selected = true
                                         }, .default(Text("고민상담")){
                                             category = "고민상담"
-                                            MakeRoomView.category = "고민상담"
                                             selected = true
                                         }, .default(Text("잡담")){
                                             category = "잡담"
-                                            MakeRoomView.category = "잡담"
                                             selected = true
                                         }])
                         }
@@ -186,17 +189,26 @@ struct SecondStep: View {
 
 struct ThirdStep: View {
     
+    @Binding var title : String
+    @Binding var category : String
     @State var introduce = ""
     
-    init() {
+    
+    @State var isActive = false
+    @State var room = RoomData(room_id: "", room_title: "", maker: "", category: "", room_date: "'", room_introduce: "", univ_name: "")
+    
+    init(title: Binding<String>, category: Binding<String>) {
         UITextView.appearance().backgroundColor = .clear
+        
+        self._title = title
+        self._category = category
     }
     
     var body: some View {
         VStack{
             HStack{
                 HStack{
-                    NavigationLink(destination: SecondStep(), label: {
+                    NavigationLink(destination: SecondStep(title: $title), label: {
                         Text("뒤로")
                             .font(.system(size: 20))
                             .foregroundColor(Color.white)
@@ -215,7 +227,26 @@ struct ThirdStep: View {
                 
                 HStack{
                     Spacer()
-                    NavigationLink(destination: ThirdStep(), label: {
+                    NavigationLink(destination: ChatView(room: room),isActive: $isActive, label: {
+                    })
+                    Button(action: {
+                        var roomId = ""
+                        for i in 0..<12 {
+                            roomId += "\(Int.random(in: 0..<10))"
+                        }
+                        
+                        let now = Date()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                        let date=dateFormatter.string(from: now)
+                        
+                        AlamofireService.shared.createRoom(roomId: roomId, title: title, category: category, date: date, introduce: introduce, univName: UserInfo.shared.UNIV, userId: UserInfo.shared.ID){ result in
+                            
+                            room = RoomData(room_id: roomId, room_title: title, maker: UserInfo.shared.ID, category: category, room_date: date, room_introduce: introduce, univ_name: UserInfo.shared.UNIV)
+                            
+                            isActive = true
+                        }
+                    }, label: {
                         Text("만들기")
                             .font(.system(size: 20))
                             .foregroundColor(introduce.count == 0 ? Colors.grey500 : Color.white)
@@ -238,9 +269,6 @@ struct ThirdStep: View {
                         .foregroundColor(Color.white)
                         .frame(width: UIScreen.main.bounds.width * 0.85, height: 20)
                         .multilineTextAlignment(.center)
-                        .onChange(of: introduce){ value in
-                            MakeRoomView.introduce = introduce
-                        }
                     Text("")
                         .frame(width: UIScreen.main.bounds.width * 0.85, height: 1)
                         .background(Color.white)

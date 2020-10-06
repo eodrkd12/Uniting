@@ -9,12 +9,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ChatViewModel(app: Application): AndroidViewModel(app) {
+class ChatViewModel(app: Application, roomId: String): AndroidViewModel(app) {
 
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     private val repository: ChatRepository by lazy {
-        ChatRepository(app)
+        ChatRepository(app,roomId)
     }
 
     private val elements: LiveData<List<Chat>> by lazy {

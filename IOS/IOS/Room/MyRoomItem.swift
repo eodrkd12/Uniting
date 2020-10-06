@@ -31,14 +31,14 @@ struct MyRoomItem : View {
                         .font(.system(size: 20))
                         .foregroundColor(Colors.grey700)
                     Text(lastChat)
-                        .font(.system(size: 15))
+                        .font(.system(size: 18))
                         .foregroundColor(Colors.grey500)
                     Spacer()
                 }
                 Spacer()
                 VStack{
                     Text(lastChatTime)
-                        .font(.system(size: 15))
+                        .font(.system(size: 18))
                         .foregroundColor(Colors.grey500)
                     Spacer()
                 }

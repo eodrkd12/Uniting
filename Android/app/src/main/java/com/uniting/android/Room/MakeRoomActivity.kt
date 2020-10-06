@@ -102,6 +102,7 @@ class MakeRoomActivity : PSAppCompatActivity() {
 
                                     var intent = Intent(this, ChatActivity::class.java)
                                     intent.putExtra("room",room)
+                                    intent.putExtra("last_chat_time","0000-00-00")
                                     startActivity(intent)
                                     finish()
                                 }

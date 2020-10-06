@@ -54,6 +54,8 @@
 		54BA653A24FE1B28007C6B32 /* ConditionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653924FE1B28007C6B32 /* ConditionRow.swift */; };
 		54BA653C24FE2F97007C6B32 /* ChangeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */; };
 		54C53503251492390045E702 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C53502251492390045E702 /* Menu.swift */; };
+		54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */; };
+		54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C5D088252AE6180066EFB7 /* DynamicHeightHStack.swift */; };
 		54CE0F85251330300028A98A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54CE0F84251330300028A98A /* GoogleService-Info.plist */; };
 		54CE0F87251337F70028A98A /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F86251337F70028A98A /* ChatView.swift */; };
 		54CE0F89251344B20028A98A /* ChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CE0F88251344B20028A98A /* ChatItem.swift */; };
@@ -114,6 +116,8 @@
 		54BA653924FE1B28007C6B32 /* ConditionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionRow.swift; sourceTree = "<group>"; };
 		54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAlert.swift; sourceTree = "<group>"; };
 		54C53502251492390045E702 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRow.swift; sourceTree = "<group>"; };
+		54C5D088252AE6180066EFB7 /* DynamicHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightHStack.swift; sourceTree = "<group>"; };
 		54CE0F84251330300028A98A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54CE0F86251337F70028A98A /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		54CE0F88251344B20028A98A /* ChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItem.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			children = (
 				54A57AFE250F4EA000EAE750 /* ProfileView.swift */,
 				54A57B00250F50A000EAE750 /* ProfileData.swift */,
+				54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				541ACBE62500B58A00C1C079 /* MapView.swift */,
 				547D5C63250757AF00AAF43A /* MultilineTextField.swift */,
 				547D5C65250759B900AAF43A /* ImagePicker.swift */,
+				54C5D088252AE6180066EFB7 /* DynamicHeightHStack.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -438,12 +444,14 @@
 				547D5C68250759E900AAF43A /* Extension.swift in Sources */,
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
 				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
+				54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
 				54C53503251492390045E702 /* Menu.swift in Sources */,
 				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
+				54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */,
 				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
 				540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */,
 				542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */,

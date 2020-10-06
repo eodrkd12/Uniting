@@ -164,6 +164,36 @@ class AlamofireService : ObservableObject {
     }
     
     // 채팅방
+    func insertChatHistory(userId: String, partnerId: String, date: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        var sql = "INSERT INTO chathistory"
+        sql += "VALUES('\(userId)', '\(partnerId)', '\(date)')"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON{ (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     func createRoom(roomId: String, title: String, category: String, date: String, introduce: String, univName: String, userId: String, callback: @escaping (ResultModel) -> Void){
         
         let url = "\(serverUrl)/common/sql/insert"
@@ -289,7 +319,7 @@ class AlamofireService : ObservableObject {
     }
     // 식당
     func getCafeteriaList(start: Int, display: Int, query: String, sortingOrder: String, callback: @escaping ([CafeteriaData]) -> Void){
-        
+        /*
         let url = "https://store.naver.com/sogum/api/businesses"
         
         let body = [
@@ -328,6 +358,7 @@ class AlamofireService : ObservableObject {
                 self.getCafeteriaList(start: start, display: display, query: query, sortingOrder: sortingOrder, callback: callback)
             }
         }
+ */
     }
     
     func getReview(cafeteriaName: String, callback: @escaping ([ReviewData]) -> Void){

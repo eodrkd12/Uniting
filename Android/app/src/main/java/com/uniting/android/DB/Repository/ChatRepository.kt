@@ -7,7 +7,7 @@ import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.UnitingDB
 import io.reactivex.Observable
 
-class ChatRepository(app : Application) {
+class ChatRepository(app : Application, roomId: String) {
 
     val dao: ChatDao by lazy{
         val db = UnitingDB.getInstance(app)!!
@@ -15,7 +15,7 @@ class ChatRepository(app : Application) {
     }
 
     val elements: LiveData<List<Chat>> by lazy{
-        dao.getAllElement()
+        dao.getAllElement(roomId)
     }
 
     fun getAllElement() : LiveData<List<Chat>> {

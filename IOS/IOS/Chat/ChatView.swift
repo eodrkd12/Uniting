@@ -18,6 +18,7 @@ struct ChatView: View {
     @State var ref : DatabaseReference?
     @State var query : DatabaseQuery?
     
+    @State var chatDataList : [ChatData] = []
     @State var chatList : [ChatItem] = []
     
     @State var menuVisible = false
@@ -28,12 +29,14 @@ struct ChatView: View {
         ZStack{
             VStack{
                 HStack{
-                    Image("black_back_icon")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .onTapGesture {
-                            self.presentationMode.wrappedValue.dismiss()
-                    }
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image("black_back_icon")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    })
+                    
                     Spacer()
                     Text(room.room_title)
                         .font(.system(size: 20))
@@ -44,15 +47,12 @@ struct ChatView: View {
                         .frame(width: 20, height: 20)
                         .onTapGesture {
                             self.menuVisible.toggle()
-                    }
+                        }
                 }
-                List{
+                ScrollView{
                     ForEach(chatList, id:\.chat.chat_id){ chat in
                         chat
                     }
-                }
-                .onAppear(){
-                    UITableView.appearance().separatorStyle = .none
                 }
                 Spacer()
                 HStack{
@@ -78,7 +78,7 @@ struct ChatView: View {
                         .animation(.easeIn(duration: 0.2))
                 }
             }.background(Color.black.opacity(self.menuVisible ? 0.3 : 0))
-                .padding(.top,50)
+            .padding(.top,50)
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
@@ -96,24 +96,41 @@ struct ChatView: View {
             }
             
             self.ref = Database.database().reference().child("chat").child(self.room.room_id)
-            self.query = self.ref!.queryOrderedByKey()
+            self.query = self.ref!.queryOrdered(byChild: "chat_time")
             
             self.query?.observe(.childAdded, with: {(snapshot) in
                 var key = snapshot.key
                 var value = snapshot.value as! [String : Any?]
                 
-                self.chatList.append(ChatItem(
-                    chat: ChatData(
-                        chat_id: value["chat_id"].unsafelyUnwrapped as! String,
-                        room_id: value["room_id"].unsafelyUnwrapped as! String,
-                        user_id: value["user_id"].unsafelyUnwrapped as! String,
-                        user_nickname: value["user_nickname"].unsafelyUnwrapped as! String,
-                        chat_content: value["chat_content"].unsafelyUnwrapped as! String,
-                        chat_time: value["chat_time"].unsafelyUnwrapped as! String,
-                        unread_member: value["unread_member"].unsafelyUnwrapped as! String,
-                        system_chat: value["system_chat"].unsafelyUnwrapped as! Int
-                    )
+                self.chatDataList.append(ChatData(
+                    chat_id: value["chat_id"].unsafelyUnwrapped as! String,
+                    room_id: value["room_id"].unsafelyUnwrapped as! String,
+                    user_id: value["user_id"].unsafelyUnwrapped as! String,
+                    user_nickname: value["user_nickname"].unsafelyUnwrapped as! String,
+                    chat_content: value["chat_content"].unsafelyUnwrapped as! String,
+                    chat_time: value["chat_time"].unsafelyUnwrapped as! String,
+                    unread_member: value["unread_member"].unsafelyUnwrapped as! String,
+                    system_chat: value["system_chat"].unsafelyUnwrapped as! Int
                 ))
+                
+                
+                if self.chatDataList.count==1 || self.chatDataList[chatDataList.count-1].user_id != self.chatDataList[chatDataList.count-2].user_id {
+                    self.chatList.append(ChatItem(
+                                            chat: self.chatDataList[chatDataList.count-1],
+                                            nicknameVisible: true,
+                                            timeVisible: true))
+                }
+                else {
+                    if self.chatDataList[chatDataList.count-1].user_id == self.chatDataList[chatDataList.count-2].user_id {
+                        self.chatList[chatList.count-1] = ChatItem(chat: self.chatDataList[chatDataList.count-2],
+                                                                   nicknameVisible: self.chatList[chatList.count-1].nicknameVisible,
+                                                                   timeVisible: false)
+                        self.chatList.append(ChatItem(
+                                                chat: self.chatDataList[chatDataList.count-1],
+                                                nicknameVisible: false,
+                                                timeVisible: true))
+                    }
+                }
             })
         }
     }
@@ -128,26 +145,26 @@ struct ChatView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date=dateFormatter.string(from: now)
         /*
-        var chatPartner=""
-        if UserInfo.shared.ID == self.room!.room_maker {
-            chatPartner=self.room!.room_partner
-        }
-        else {
-            chatPartner=self.room!.room_maker
-        }
-        
-        HttpService.shared.insertChatReq(roomId: self.room!.room_id, userId: UserInfo.shared.ID, userNickname: UserInfo.shared.NICKNAME, chatPartner: chatPartner, chatContent: self.content, currentDate: date){ resultModel -> Void in
-            
-            self.ref!.childByAutoId().setValue([
-                "room_id" : self.room!.room_id,
-                "chat_speaker" : UserInfo.shared.ID,
-                "chat_speaker_nickname" : UserInfo.shared.NICKNAME,
-                "chat_content" : self.content,
-                "chat_time" : date,
-                "unread_count" : 1
-            ])
-            self.content=""
-        }
+         var chatPartner=""
+         if UserInfo.shared.ID == self.room!.room_maker {
+         chatPartner=self.room!.room_partner
+         }
+         else {
+         chatPartner=self.room!.room_maker
+         }
+         
+         HttpService.shared.insertChatReq(roomId: self.room!.room_id, userId: UserInfo.shared.ID, userNickname: UserInfo.shared.NICKNAME, chatPartner: chatPartner, chatContent: self.content, currentDate: date){ resultModel -> Void in
+         
+         self.ref!.childByAutoId().setValue([
+         "room_id" : self.room!.room_id,
+         "chat_speaker" : UserInfo.shared.ID,
+         "chat_speaker_nickname" : UserInfo.shared.NICKNAME,
+         "chat_content" : self.content,
+         "chat_time" : date,
+         "unread_count" : 1
+         ])
+         self.content=""
+         }
          */
     }
 }
