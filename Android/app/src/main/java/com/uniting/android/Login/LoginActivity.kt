@@ -30,30 +30,38 @@ class LoginActivity : AppCompatActivity() {
                     0 -> {
                     }
                     1 -> {
-                        var intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra("id", edit_login_id.text.toString())
-                        val pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-                        val editor = pref.edit()
-                        editor.putString("ID", edit_login_id.text.toString())
-                        editor.putString("PW", edit_login_pw.text.toString())
-                            .apply()
-                        UserInfo.ID = edit_login_id.text.toString()
-                        UserInfo.PW = edit_login_pw.text.toString()
-                        startActivity(intent)
+                        Retrofit.getUserInfo(edit_login_id.text.toString()) {
+                            UserInfo.ID = it.userId
+                            UserInfo.PW = it.userPw
+                            UserInfo.GENDER = it.userGender
+                            UserInfo.NICKNAME = it.userNickname
+                            UserInfo.BLOCKINGDEPT = it.blockingDept
+                            UserInfo.UNIV = it.univName
+                            UserInfo.DEPT = it.deptName
 
-                        FirebaseInstanceId.getInstance().instanceId
-                            .addOnCompleteListener(OnCompleteListener { task ->
-                                if (!task.isSuccessful) {
-                                    Log.w("test", "getInstanceId failed", task.exception)
-                                    return@OnCompleteListener
-                                }
-                                else {
-                                    // Get new Instance ID token
-                                    val token = task.result?.token
+                            val pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                            val editor = pref.edit()
+                            editor.putString("ID", UserInfo.ID)
+                            editor.putString("PW", UserInfo.PW)
+                                .apply()
 
-                                    Retrofit.updateToken(UserInfo.ID, token!!)
-                                }
-                            })
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+
+                            FirebaseInstanceId.getInstance().instanceId
+                                .addOnCompleteListener(OnCompleteListener { task ->
+                                    if (!task.isSuccessful) {
+                                        Log.w("test", "getInstanceId failed", task.exception)
+                                        return@OnCompleteListener
+                                    }
+                                    else {
+                                        // Get new Instance ID token
+                                        val token = task.result?.token
+
+                                        Retrofit.updateToken(UserInfo.ID, token!!)
+                                    }
+                                })
+                        }
                     }
                     2 -> {
                         Toast.makeText(this, "비밀번호가 틀림", Toast.LENGTH_SHORT).show()

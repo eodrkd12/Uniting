@@ -7,267 +7,353 @@
     tools:context=".Home.MatchingFragment"
     android:layout_gravity="center">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_matchingtype"
-        android:layout_width="295dp"
-        android:layout_height="277dp"
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:overScrollMode="never"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_condition"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vp_matchingtype">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="매칭조건"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/text_age_tag"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="나이"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_height_tag"
-            app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_condition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vp_matchingtype">
 
-        <TextView
-            android:id="@+id/text_height_tag"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="키"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="5dp"
+                    android:text="매칭조건"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_department_tag"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="학과"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_age_tag"
-            app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_matching_age"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/rounded_corner_solid_grey_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <TextView
-            android:id="@+id/text_hobby_tag"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="취미"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_department_tag"
-            app:layout_constraintTop_toBottomOf="@+id/text_department_tag" />
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/down"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_matching_age"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_matching_age" />
 
-        <TextView
-            android:id="@+id/text_personality_tag"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="16dp"
-            android:text="성격"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="@+id/text_hobby_tag"
-            app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="나이"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_age_tag" />
+                    <TextView
+                        android:id="@+id/text_matching_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView38"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                        app:layout_constraintStart_toEndOf="@+id/textView38"
+                        app:layout_constraintStart_toStartOf="@+id/guideline4"
+                        app:layout_constraintTop_toTopOf="@+id/textView38" />
 
-        <View
-            android:id="@+id/view9"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_height_tag" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="55dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/view5"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_department_tag" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_matching_dept"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/rounded_corner_solid_grey_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_matching_age">
 
-        <View
-            android:id="@+id/view6"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_personality_tag" />
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/down"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_matching_dept"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_matching_dept" />
 
-        <View
-            android:id="@+id/view7"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="50dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_hobby_tag" />
+                    <TextView
+                        android:id="@+id/textView39"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="학과"
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_age"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_age_tag"
-            app:layout_constraintEnd_toStartOf="@+id/imageView9"
-            app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+                    <TextView
+                        android:id="@+id/text_matching_dept"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorMdGrey_900"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView39"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView14"
+                        app:layout_constraintStart_toStartOf="@+id/guideline5"
+                        app:layout_constraintTop_toTopOf="@+id/textView39" />
 
-        <TextView
-            android:id="@+id/text_height"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_height_tag"
-            app:layout_constraintEnd_toStartOf="@+id/imageView8"
-            app:layout_constraintStart_toEndOf="@+id/text_height_tag" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="55dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/text_department"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_department_tag"
-            app:layout_constraintEnd_toStartOf="@+id/imageView10"
-            app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_matching_hobby"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/rounded_corner_solid_grey_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_matching_dept">
 
-        <TextView
-            android:id="@+id/text_hobby"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_hobby_tag"
-            app:layout_constraintEnd_toStartOf="@+id/imageView11"
-            app:layout_constraintStart_toEndOf="@+id/text_age_tag" />
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/down"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_matching_hobby"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_matching_hobby" />
 
-        <TextView
-            android:id="@+id/text_personality"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="15dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_personality_tag"
-            app:layout_constraintEnd_toStartOf="@+id/imageView12"
-            app:layout_constraintStart_toEndOf="@+id/text_personality_tag" />
+                    <TextView
+                        android:id="@+id/textView40"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="취미"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_height_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view9"
-            app:layout_constraintTop_toTopOf="@+id/text_height_tag" />
+                    <TextView
+                        android:id="@+id/text_matching_hobby"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView40"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView15"
+                        app:layout_constraintStart_toStartOf="@+id/guideline6"
+                        app:layout_constraintTop_toTopOf="@+id/textView40" />
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_age_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/text_age_tag" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="55dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_department_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view5"
-            app:layout_constraintTop_toTopOf="@+id/text_department_tag" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_matching_personality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/rounded_corner_solid_grey_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_matching_hobby">
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_hobby_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view7"
-            app:layout_constraintTop_toTopOf="@+id/text_hobby_tag" />
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/down"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_matching_personality"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_matching_personality" />
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/more_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/text_personality_tag"
-            app:layout_constraintEnd_toEndOf="@+id/view6"
-            app:layout_constraintTop_toTopOf="@+id/text_personality_tag" />
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="성격"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/text_matching_personality"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView41"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView16"
+                        app:layout_constraintStart_toStartOf="@+id/guideline7"
+                        app:layout_constraintTop_toTopOf="@+id/textView41" />
 
-    <Button
-        android:id="@+id/btn_matching"
-        android:layout_width="300dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/big_main_connect_button"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_condition" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="55dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_matching_height"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/rounded_corner_solid_grey_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_matching_personality">
+
+                    <ImageView
+                        android:id="@+id/imageView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/down"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_matching_height"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_matching_height" />
+
+                    <TextView
+                        android:id="@+id/textView42"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="키"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_matching_height"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView42"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView17"
+                        app:layout_constraintStart_toStartOf="@+id/guideline9"
+                        app:layout_constraintTop_toTopOf="@+id/textView42" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="55dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btn_matching"
+                android:layout_width="300dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/big_main_connect_button"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_condition" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_matchingtype"
+                android:layout_width="295dp"
+                android:layout_height="277dp"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toTopOf="@+id/layout_condition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

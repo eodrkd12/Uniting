@@ -46,7 +46,7 @@ class OptionFragment : Fragment() {
         logoutBtn.setOnClickListener {
             var userPref = activity!!.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
             var editor = userPref.edit()
-            editor.clear()
+            editor.clear().apply()
             UserInfo.ID = ""
             UserInfo.PW = ""
             var intent = Intent(activity, LoginActivity::class.java)

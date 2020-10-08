@@ -8,20 +8,26 @@
 
     <EditText
         android:id="@+id/edit_login_id"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:ems="10"
+        android:hint="아이디"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <EditText
         android:id="@+id/edit_login_pw"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="비밀번호"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/edit_login_id"
         app:layout_constraintStart_toStartOf="@+id/edit_login_id"
@@ -29,9 +35,16 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/enable_rounded_button"
         android:text="로그인"
+        android:textSize="20dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:textColor="@color/colorMdWhite_1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_login_pw" />

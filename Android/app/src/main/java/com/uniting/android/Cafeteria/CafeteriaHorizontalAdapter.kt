@@ -39,9 +39,11 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
             holder.cafeteriaStarPoint.text = it.avg.toString()
         }
 
-        /*holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
             var intent = Intent(activity, CafeteriaInformActivity::class.java)
-            intent.putExtra("name",cafeteriaList.get(position).name)
+            intent.putExtra("mapx", cafeteriaList.get(position).mapx)
+            intent.putExtra("mapy", cafeteriaList.get(position).mapy)
+            /*intent.putExtra("name",cafeteriaList.get(position).name)
             intent.putExtra("x", cafeteriaList.get(position).x)
             intent.putExtra("y", cafeteriaList.get(position).y)
             intent.putExtra("phone", cafeteriaList.get(position).phone)
@@ -60,9 +62,10 @@ class CafeteriaHorizontalAdapter(val activity: Activity, val cafeteriaList: Arra
                     tags += "#" + cafeteriaList.get(position).tags!!.get(i) + " "
                 }
                 intent.putExtra("tags", tags)
-            }
+            }*/
+
             activity.startActivity(intent)
-        }*/
+        }
 
     }
 

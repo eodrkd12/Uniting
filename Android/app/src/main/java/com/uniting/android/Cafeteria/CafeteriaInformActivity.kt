@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.geometry.Tm128
+import com.naver.maps.geometry.Utmk
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -54,10 +56,13 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
         var check = true
 
         val intent=intent
-        val name =intent.getStringExtra("name")
-        mapx = intent.getStringExtra("x")!!.toDouble()
-        mapy = intent.getStringExtra("y")!!.toDouble()
-        var phone = intent.getStringExtra("phone")
+
+        mapx = intent.getIntExtra("x", 0).toDouble()
+        mapy = intent.getIntExtra("y", 0).toDouble()
+        //val name =intent.getStringExtra("name")
+        //mapx = intent.getStringExtra("x")!!.toDouble()
+        //mapy = intent.getStringExtra("y")!!.toDouble()
+        /*var phone = intent.getStringExtra("phone")
         id = intent.getStringExtra("id").toString()
         val roadAddr = intent.getStringExtra("roadAddr")
         var options = intent.getStringExtra("options")
@@ -66,7 +71,7 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
 
 
         //네이버 메뉴 파싱
-        BackgroundTask()
+        BackgroundTask()*/
 
 
         //지도 생성
@@ -81,7 +86,7 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
         //리뷰 불러오기
         val spaceDecoration = VerticalSpaceItemDecoration(20) // RecyclerView 간격
 
-        Retrofit.getReview(name!!) {
+        /*Retrofit.getReview(name!!) {
             reviewList.clear()
             if(it.size != 0) {
                 reviewList = it
@@ -108,9 +113,9 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
             } else {
                 text_no_review.visibility = View.VISIBLE
             }
-        }
+        }*/
 
-        //리뷰 더보기
+        /*//리뷰 더보기
 
 
 
@@ -191,18 +196,22 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
                 startActivity(intent)
                 rating_inform.rating = 0.0f
             }
-        }
+        }*/
 
     }
 
     override fun onMapReady(naverMap: NaverMap) {
-        val cameraUpdate = CameraUpdate.scrollTo(LatLng(mapy!!,mapx!!))
+        val test = Tm128(mapx, mapy)
+
+        //val cameraUpdate = CameraUpdate.scrollTo(LatLng(mapy!!,mapx!!))
+        val cameraUpdate = CameraUpdate.scrollTo(test.toLatLng())
         val zoomUpdate = CameraUpdate.zoomTo(18.0)
         naverMap.moveCamera(cameraUpdate)
         naverMap.moveCamera(zoomUpdate)
 
         val marker = Marker()
-        marker.position = LatLng(mapy!!, mapx!!)
+        //marker.position = LatLng(mapy!!, mapx!!)
+        marker.position = test.toLatLng()
         marker.map = naverMap
     }
 

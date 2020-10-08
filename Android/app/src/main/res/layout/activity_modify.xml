@@ -39,43 +39,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_user_info"
-        android:layout_width="0dp"
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_corner_stroke_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:text="프로필 정보"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view29">
+        app:layout_constraintTop_toBottomOf="@+id/view29" />
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="사용자 정보"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/view30"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-        <TextView
+    <TextView
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,22 +64,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edit_modify_nickname" />
 
-        <EditText
-            android:id="@+id/edit_modify_nickname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:maxLength="10"
-            android:drawableRight="@drawable/down"
-            android:gravity="center"
-            android:inputType="textPersonName|textNoSuggestions"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/view31"
-            app:layout_constraintStart_toStartOf="@+id/view31"
-            app:layout_constraintTop_toBottomOf="@+id/view30" />
+    <EditText
+        android:id="@+id/edit_modify_nickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:drawableRight="@drawable/down"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName|textNoSuggestions"
+        android:maxLength="10"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/view31"
+        app:layout_constraintStart_toStartOf="@+id/view31"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <View
             android:id="@+id/view31"
@@ -121,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="생년월일"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/view32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_modify_birthday" />
@@ -131,6 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="거주지"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/view33"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_modify_city" />
@@ -142,9 +122,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
             android:background="?attr/selectableItemBackground"
+            android:drawableRight="@drawable/down"
             android:gravity="center"
             android:text="생년월일"
-            android:drawableRight="@drawable/down"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="@+id/view31"
@@ -192,9 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="70dp"
             android:background="@color/colorMdGrey_300"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toStartOf="@+id/text_modify_city"
             app:layout_constraintTop_toBottomOf="@+id/text_modify_city" />
@@ -221,8 +199,197 @@
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="@+id/view31"
             app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="취미"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_modify_hobby" />
+
+        <TextView
+            android:id="@+id/text_modify_hobby"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:drawableRight="@drawable/down"
+            android:gravity="center"
+            android:text="선택"
+            android:textColor="@color/colorMdGrey_900"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/edit_modify_nickname"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view33" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorMdGrey_300"
+            app:layout_constraintEnd_toEndOf="@+id/text_modify_hobby"
+            app:layout_constraintStart_toStartOf="@+id/text_modify_hobby"
+            app:layout_constraintTop_toBottomOf="@+id/text_modify_hobby" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="성격"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_modify_personality" />
+
+        <TextView
+            android:id="@+id/text_modify_personality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:drawableRight="@drawable/down"
+            android:gravity="center"
+            android:text="선택"
+            android:textColor="@color/colorMdGrey_900"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/edit_modify_nickname"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorMdGrey_300"
+        app:layout_constraintEnd_toEndOf="@+id/text_modify_personality"
+        app:layout_constraintStart_toStartOf="@+id/text_modify_personality"
+        app:layout_constraintTop_toBottomOf="@+id/text_modify_personality" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="소개"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView47" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="소개글을 입력해주세요"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_modify_personality"
+        app:layout_constraintStart_toStartOf="@+id/text_modify_personality"
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorMdGrey_300"
+        app:layout_constraintEnd_toEndOf="@+id/textView47"
+        app:layout_constraintStart_toStartOf="@+id/textView47"
+        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="학교"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_modify_university_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_modify_university_name" />
+
+    <TextView
+        android:id="@+id/text_modify_web_mail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="웹메일"
+        android:textColor="@color/colorMdGrey_700"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_modify_department_name"
+        app:layout_constraintStart_toStartOf="@+id/text_modify_department_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_modify_department_name" />
+
+        <TextView
+            android:id="@+id/text_modify_university_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="학교이름"
+            android:textColor="@color/colorMdGrey_700"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_modify_sign_date"
+            app:layout_constraintStart_toStartOf="@+id/text_modify_sign_date"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="웹메일"
+            app:layout_constraintBottom_toBottomOf="@+id/text_modify_web_mail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_modify_web_mail" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="학과"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_modify_department_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_modify_department_name" />
+
+        <TextView
+            android:id="@+id/text_modify_department_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="학과이름"
+            android:textColor="@color/colorMdGrey_700"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_modify_university_name"
+            app:layout_constraintStart_toStartOf="@+id/text_modify_university_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_modify_university_name" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:text="학교 정보"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view22" />
 
     <TextView
         android:id="@+id/text_modify_update"
@@ -237,116 +404,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_university_info"
+    <View
+        android:id="@+id/view22"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_corner_stroke_color"
+        android:layout_height="1dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/colorMdGrey_300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_user_info">
-
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="학교 정보"
-            android:textColor="@color/colorMdGrey_900"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/view34"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorMdGrey_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="학교"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_modify_university_name" />
-
-        <TextView
-            android:id="@+id/text_modify_university_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center"
-            android:text="학교이름"
-            android:textColor="@color/colorMdGrey_700"
-            android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/view34" />
-
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="학과"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_modify_department_name" />
-
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="웹메일"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_modify_web_mail" />
-
-        <TextView
-            android:id="@+id/text_modify_department_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center"
-            android:text="학과이름"
-            android:textColor="@color/colorMdGrey_700"
-            android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/text_modify_university_name" />
-
-        <TextView
-            android:id="@+id/text_modify_web_mail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="웹메일"
-            android:textColor="@color/colorMdGrey_700"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/text_modify_department_name" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/text_modify_sign_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

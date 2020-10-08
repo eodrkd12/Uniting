@@ -218,4 +218,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select")
     fun getInquireList(@Field("sql") sql : String) : Call<ArrayList<InquireItem.Inquire>>
+
+    //회원탈퇴
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun signOut(@Field("sql") sql : String) : Call<ResultModel>
 }

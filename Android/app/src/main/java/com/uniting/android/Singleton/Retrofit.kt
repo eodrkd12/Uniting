@@ -614,5 +614,19 @@ object Retrofit {
         })
     }
 
+    fun signOut(userId: String, callback : (ResultModel) -> Unit) {
+        val sql = "DELETE FROM user WHERE user_id='${userId}'"
+
+        service.signOut(sql).enqueue(object : Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
 
 }
