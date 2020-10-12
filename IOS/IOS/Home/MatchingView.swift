@@ -21,7 +21,7 @@ struct MatchingView: View {
     @State var profileVisible = false
     @State var noMatching = false
     
-    @State var profile = ProfileData(user_id: "", user_nickname: "", user_birthday: "", dept_name: "", user_gender: "", enter_year: "", user_city: "", user_hobby: "", user_personality: "", user_introduce: "", user_height: "")
+    @State var profile = ProfileData(user_id: "", user_nickname: "", user_birthday: "", dept_name: "", user_gender: "", enter_year: "", user_city: "", user_hobby: "", user_personality: "", user_introduce: "", user_height: "", user_signdate: "", univ_name: "", user_email: "")
     
     var body: some View {
         ZStack{
@@ -33,22 +33,22 @@ struct MatchingView: View {
                 .aspectRatio(4/4, contentMode: .fit)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .frame(width: UIScreen.main.bounds.width, height: 280)
-                
-                VStack(spacing: 10){
-                    HStack{
-                        Text("매칭조건")
-                            .font(.system(size: 17))
-                            .foregroundColor(Colors.grey700)
-                            .padding(.leading,30)
-                        Spacer()
+                //if index == 1 {
+                    VStack(spacing: 10){
+                        HStack{
+                            Text("매칭조건")
+                                .font(.system(size: 17))
+                                .foregroundColor(Colors.grey700)
+                                .padding(.leading,30)
+                            Spacer()
+                        }
+                        EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$height, title: "키")
+                        EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$age, title: "나이")
+                        EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$department, title: "학과")
+                        EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$hobby, title: "취미")
+                        EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$personality, title: "성격")
                     }
-                    EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$height, title: "키")
-                    EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$age, title: "나이")
-                    EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$department, title: "학과")
-                    EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$hobby, title: "취미")
-                    EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$personality, title: "성격")
-                }
-                
+                //}
                 NavigationLink(destination: ProfileView(profile: $profile), isActive: $profileVisible, label: {
                     
                 })

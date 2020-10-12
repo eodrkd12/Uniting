@@ -44,18 +44,19 @@ class MyRoomFragment : Fragment() {
         rvRoom.adapter = roomAdapter
 
         roomViewModel= RoomViewModel(activity!!.application)
-        chatViewModel= ChatViewModel(activity!!.application,"")
-        joinedViewModel= JoinedViewModel(activity!!.application)
+        //chatViewModel= ChatViewModel(activity!!.application,"")
+        //joinedViewModel= JoinedViewModel(activity!!.application)
 
         roomViewModel.getAllElement().observe(this, Observer {
             roomList.clear()
             it.forEach{
                 roomList.add(
                     MyRoomItem(
-                        it
+                        it,"",""
                     )
                 )
             }
+            roomAdapter.sortByLastChat()
             roomAdapter.notifyDataSetChanged()
         })
 

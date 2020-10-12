@@ -38,6 +38,8 @@ class MatchingFragment : Fragment() {
         vpMatching.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         vpMatching.currentItem=0
 
+        val conditionLayout : ConstraintLayout = rootView.findViewById(R.id.layout_condition)
+
         val matchingHeight : ConstraintLayout = rootView.findViewById(R.id.layout_matching_height)
         val matchingAge : ConstraintLayout = rootView.findViewById(R.id.layout_matching_age)
         val matchingDept : ConstraintLayout = rootView.findViewById(R.id.layout_matching_dept)
@@ -55,6 +57,20 @@ class MatchingFragment : Fragment() {
         matchingDept.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching, deptText))
         matchingHobby.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching, hobbyText))
         matchingPersonality.setOnClickListener(EditConditionOnClickListener(activity!!,vpMatching, personalityText))
+
+        vpMatching.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when(position){
+                    0 -> {
+                        conditionLayout.visibility = View.GONE
+                    }
+                    1 -> {
+                        conditionLayout.visibility = View.VISIBLE
+                    }
+                }
+
+            }
+        })
 
         btnMatching.setOnClickListener {
             when(vpMatching.currentItem) {
@@ -111,7 +127,7 @@ class MatchingFragment : Fragment() {
                 }
             }
         }
-
+        conditionLayout.visibility = View.GONE
         return rootView
     }
 

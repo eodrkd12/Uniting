@@ -16,6 +16,7 @@
 		542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6A824FF627100726F04 /* CafeteriaData.swift */; };
 		542AC6AB24FF6DEE00726F04 /* CafeteriaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */; };
 		542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */; };
+		544A7A8D252D960400525286 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544A7A8C252D960400525286 /* EditProfileView.swift */; };
 		544DD342251C752200B59FB7 /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544DD341251C752200B59FB7 /* RoomListView.swift */; };
 		547D5C5C2506151A00AAF43A /* CafeteriaImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C5B2506151A00AAF43A /* CafeteriaImageCell.swift */; };
 		547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D5C5D25061C7D00AAF43A /* MenuRow.swift */; };
@@ -76,6 +77,7 @@
 		542AC6A824FF627100726F04 /* CafeteriaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaData.swift; sourceTree = "<group>"; };
 		542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaList.swift; sourceTree = "<group>"; };
 		542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCafeteriaView.swift; sourceTree = "<group>"; };
+		544A7A8C252D960400525286 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		544DD341251C752200B59FB7 /* RoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListView.swift; sourceTree = "<group>"; };
 		547D5C5B2506151A00AAF43A /* CafeteriaImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaImageCell.swift; sourceTree = "<group>"; };
 		547D5C5D25061C7D00AAF43A /* MenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRow.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				54A57AFE250F4EA000EAE750 /* ProfileView.swift */,
 				54A57B00250F50A000EAE750 /* ProfileData.swift */,
 				54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */,
+				544A7A8C252D960400525286 /* EditProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				54C53503251492390045E702 /* Menu.swift in Sources */,
 				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
+				544A7A8D252D960400525286 /* EditProfileView.swift in Sources */,
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
 				54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */,

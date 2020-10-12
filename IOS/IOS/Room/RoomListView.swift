@@ -24,12 +24,13 @@ struct RoomListView: View {
                         Image("black_back_icon")
                             .resizable()
                             .frame(width: 20, height: 20)
+                            .padding()
                             .onTapGesture {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
+                        Spacer()
                     }
                     .frame(width: UIScreen.main.bounds.width/3, height: 40, alignment: .leading)
-                    .padding(.leading,20)
                     HStack{
                         Text(title)
                             .font(.system(size: 20))

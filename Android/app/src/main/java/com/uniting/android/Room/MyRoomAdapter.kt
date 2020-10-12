@@ -15,9 +15,6 @@ import com.uniting.android.R
 class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
     RecyclerView.Adapter<MyRoomAdapter.ViewHolder>() {
 
-    var ref : DatabaseReference? = null
-    var query : Query? = null
-
     override fun getItemCount(): Int {
         return roomList.size
     }
@@ -31,51 +28,7 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.roomTitle.text = roomList[position].room.room_title
-
-        var lastChatTime = ""
-        var lastChat = ""
-
-        ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomList[position].room.room_id)
-        query = ref!!.orderByChild("chat_time").limitToLast(1)
-        query!!.addChildEventListener(object : ChildEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-            }
-
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                var value = p0.value as HashMap<String, Any>
-
-                lastChatTime = value["chat_time"] as String
-                lastChat = value["chat_content"] as String
-
-                var time = lastChatTime.split(" ")[1]
-                var hour = time.split(":")[0]
-
-                if(time != "") {
-                    if (hour.toInt() > 12) hour = "오후 ${hour.toInt() - 12}:${time.split(":")[1]}"
-                    else hour = "오전 ${hour}:${time.split(":")[1]}"
-
-                    holder.lastChatTime.text = hour
-                    holder.lastChat.text = lastChat
-                }
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-            }
-        })
-
-        holder.view.setOnClickListener {
-            var intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("room",roomList[position].room)
-            intent.putExtra("last_chat_time",lastChatTime)
-            context.startActivity(intent)
-        }
+        holder.bind(roomList[position], context)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -83,5 +36,58 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
         var lastChat = view.findViewById<TextView>(R.id.text_last_chat)
         var lastChatTime = view.findViewById<TextView>(R.id.text_last_chat_time)
 
+        fun bind(myRoom: MyRoomItem, context: Context) {
+            roomTitle.text = myRoom.room.room_title
+            lastChat.text = ""
+            lastChatTime.text = ""
+            Log.d("test","${position}, ${myRoom.room.room_id}")
+            var ref = FirebaseDatabase.getInstance().reference.child("chat").child(myRoom.room.room_id)
+            var query = ref!!.orderByChild("chat_time").limitToLast(1)
+            query!!.addChildEventListener(object : ChildEventListener{
+                override fun onCancelled(p0: DatabaseError) {
+                }
+
+                override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                }
+
+                override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                }
+
+                override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                    var value = p0.value as HashMap<String, Any>
+
+                    myRoom.lastChatTime = value["chat_time"] as String
+                    myRoom.lastChat = value["chat_content"] as String
+
+                    var time = myRoom.lastChatTime.split(" ")[1]
+                    var hour = time.split(":")[0]
+
+                    if(time != "") {
+                        if (hour.toInt() > 12) hour = "오후 ${hour.toInt() - 12}:${time.split(":")[1]}"
+                        else hour = "오전 ${hour}:${time.split(":")[1]}"
+
+                        lastChatTime.text = hour
+                        lastChat.text = myRoom.lastChat
+                    }
+                }
+
+                override fun onChildRemoved(p0: DataSnapshot) {
+                }
+            })
+
+            view.setOnClickListener {
+                var intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra("room",myRoom.room)
+                intent.putExtra("last_chat_time",myRoom.lastChatTime)
+                context.startActivity(intent)
+            }
+        }
+
     }
+
+    fun sortByLastChat() {
+        roomList.sortByDescending { selector(it) }
+    }
+
+    fun selector(room: MyRoomItem): String = room.lastChatTime
 }

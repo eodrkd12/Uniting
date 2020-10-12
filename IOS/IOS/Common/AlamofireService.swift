@@ -377,4 +377,35 @@ class AlamofireService : ObservableObject {
             callback(reviewList)
         }
     }
+    
+    //프로필
+    func getProfile(userId: String, callback: @escaping (ProfileData) -> Void){
+        
+        let url = "\(serverUrl)/common/sql/select/single"
+        
+        let sql = "SELECT * FROM user WHERE user_id='\(userId)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql" : sql
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let profile = try JSONDecoder().decode(ProfileData.self, from: json)
+                    
+                    callback(profile)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
 }

@@ -20,4 +20,7 @@ struct ProfileData : Codable {
     var user_personality : String?
     var user_introduce : String?
     var user_height : String?
+    var user_signdate : String
+    var univ_name : String
+    var user_email : String
 }

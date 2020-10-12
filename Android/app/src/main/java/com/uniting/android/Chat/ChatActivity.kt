@@ -1,6 +1,8 @@
 package com.uniting.android.Chat
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -18,12 +20,17 @@ import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.ViewModel.ChatViewModel
 import com.uniting.android.DataModel.MemberModel
+import com.uniting.android.Login.LoginActivity
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_mainchat.*
 
 class ChatActivity : PSAppCompatActivity() {
+
+    companion object{
+        var chatRV : RecyclerView? = null
+    }
 
     lateinit var room : Room
     lateinit var chatViewModel : ChatViewModel
@@ -45,7 +52,7 @@ class ChatActivity : PSAppCompatActivity() {
         setContentView(R.layout.activity_mainchat)
         setSupportActionBar(toolbar_chat)
 
-        var numOfMembers = 1
+        chatRV = rv_chat
 
         memberList = ArrayList<MemberItem>()
         room = intent.getSerializableExtra("room") as Room
@@ -63,7 +70,6 @@ class ChatActivity : PSAppCompatActivity() {
         }
 
         Retrofit.getMembers(room.room_id){
-            numOfMembers = it.size
             memberList = ArrayList<MemberItem>()
             it.forEach {
                 memberList.add(MemberItem(it))
@@ -97,6 +103,7 @@ class ChatActivity : PSAppCompatActivity() {
                 chatList.add(ChatItem(it))
             }
             chatAdapter.notifyDataSetChanged()
+
         })
 
         btn_send.setOnClickListener {
@@ -129,12 +136,16 @@ class ChatActivity : PSAppCompatActivity() {
                         Retrofit.sendFcm(topic, title, content)
 
                         chatViewModel.insert(chat){
-                            edit_chat.setText("")
+                            rv_chat.scrollToPosition(chatAdapter.itemCount-1)
                         }
                     }
                 }
             }
         }
+
+        Handler().postDelayed({
+            rv_chat.scrollToPosition(chatAdapter.itemCount-1)
+        },50)
     }
 
     override fun onResume() {
@@ -219,7 +230,6 @@ class ChatActivity : PSAppCompatActivity() {
 
             chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
         }
-        Log.d("test",chat.toString())
         chatViewModel.insert(chat!!){
         }
     }

@@ -87,7 +87,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
         var textTime = view.text_time
         var textUnreadCount = view.text_unread_count
 
-        var imagePartner = view.image_partner
         var textPartner = view.text_partner
         var textPartnerContent = view.text_partner_content
         var textPartnerTime = view.text_partner_time
@@ -100,7 +99,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             textTime.visibility = View.VISIBLE
             textUnreadCount.visibility = View.VISIBLE
 
-            imagePartner.visibility = View.GONE
             textPartner.visibility = View.GONE
             textPartnerContent.visibility = View.GONE
             textPartnerTime.visibility = View.GONE
@@ -127,7 +125,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             textUnreadCount.visibility = View.GONE
 
             if(hideImageAndNickname) {
-                imagePartner.visibility = View.GONE
                 textPartner.visibility = View.GONE
                 var constraintSet = ConstraintSet()
                 constraintSet.clone(view.findViewById<ConstraintLayout>(R.id.layout_chat))
@@ -141,7 +138,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
                 constraintSet.applyTo(view.findViewById(R.id.layout_chat))
             }
             else {
-                imagePartner.visibility = View.VISIBLE
                 textPartner.visibility = View.VISIBLE
             }
             textPartnerContent.visibility = View.VISIBLE
@@ -169,7 +165,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             textTime.visibility = View.GONE
             textUnreadCount.visibility = View.GONE
 
-            imagePartner.visibility = View.GONE
             textPartner.visibility = View.GONE
             textPartnerContent.visibility = View.GONE
             textPartnerTime.visibility = View.GONE
