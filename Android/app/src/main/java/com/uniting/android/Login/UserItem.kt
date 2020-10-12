@@ -25,6 +25,12 @@ class UserItem {
         val enterYear : String,
         @SerializedName("user_city")
         val userCity : String,
+        @SerializedName("user_introduce")
+        val userIntroduce : String,
+        @SerializedName("user_hobby")
+        val userHobby : String,
+        @SerializedName("user_personality")
+        val userPersonality : String,
         @SerializedName("user_signdate")
         val userSignDate : String
     )
