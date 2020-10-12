@@ -25,9 +25,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
+import com.uniting.android.Option.PersonalityAdapter
 import com.uniting.android.Room.MakeRoomActivity
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.dialog_inquire.*
+import java.util.concurrent.locks.Condition
 
 class PSDialog(activity: Activity) {
 
@@ -86,14 +88,20 @@ class PSDialog(activity: Activity) {
         ssb.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleText.text = ssb
 
-        userOptionRV.setHasFixedSize(true)
-        userOptionRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        userOptionRV.adapter = UserOptionAdapter(context!!, userOptionList)
+        if(title == "성격" || title == "취미") {
+            userOptionRV.setHasFixedSize(true)
+            userOptionRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            userOptionRV.adapter = PersonalityAdapter(context!!, userOptionList)
+        } else {
+            userOptionRV.setHasFixedSize(true)
+            userOptionRV.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            userOptionRV.adapter = UserOptionAdapter(context!!, userOptionList)
+        }
 
         saveBtn.setOnClickListener {
             for(i in userOptionList) {
                 if(i.isSelected) {
-                    selectedOption = i.title
+                    selectedOption += i.title + ","
                 }
             }
 
@@ -313,6 +321,31 @@ class PSDialog(activity: Activity) {
                 dismiss()
             }
         }
+    }
+
+    fun setIntroduce() {
+        dialog = Dialog(context!!, R.style.popCasterDlgTheme)
+        val dialogView = context!!.layoutInflater.inflate(R.layout.dialog_introduce, null)
+        val acceptBtn : Button = dialogView.findViewById(R.id.btn_introduce_accept)
+        val backBtn : ImageButton = dialogView.findViewById(R.id.btn_introduce_back)
+        val introduceEdit : EditText = dialogView.findViewById(R.id.edit_introduce)
+
+        dialog!!.getWindow()!!.getAttributes().windowAnimations = R.style.DialogSlideRight
+        dialog!!.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
+
+        acceptBtn.setOnClickListener {
+            if(introduceEdit.text.length < 10) {
+                Toast.makeText(context, "10자 이상 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                saveBtnClickListener.onClick(introduceEdit.text.toString())
+                dismiss()
+            }
+        }
+
+        backBtn.setOnClickListener {
+            dismiss()
+        }
+
     }
 
 

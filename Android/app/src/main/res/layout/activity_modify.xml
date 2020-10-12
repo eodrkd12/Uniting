@@ -223,6 +223,9 @@
             android:text="선택"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/edit_modify_nickname"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view33" />
@@ -259,6 +262,9 @@
             android:text="선택"
             android:textColor="@color/colorMdGrey_900"
             android:textSize="15dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/edit_modify_nickname"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toBottomOf="@+id/view6" />
@@ -282,10 +288,10 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/view9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView47" />
+            app:layout_constraintTop_toTopOf="@+id/text_modify_introduce" />
 
     <TextView
-        android:id="@+id/textView47"
+        android:id="@+id/text_modify_introduce"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -293,6 +299,9 @@
         android:text="소개글을 입력해주세요"
         android:textColor="@color/colorMdGrey_900"
         android:textSize="15dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="@+id/text_modify_personality"
         app:layout_constraintStart_toStartOf="@+id/text_modify_personality"
         app:layout_constraintTop_toBottomOf="@+id/view7" />
@@ -303,9 +312,9 @@
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
         android:background="@color/colorMdGrey_300"
-        app:layout_constraintEnd_toEndOf="@+id/textView47"
-        app:layout_constraintStart_toStartOf="@+id/textView47"
-        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+        app:layout_constraintEnd_toEndOf="@+id/text_modify_introduce"
+        app:layout_constraintStart_toStartOf="@+id/text_modify_introduce"
+        app:layout_constraintTop_toBottomOf="@+id/text_modify_introduce" />
 
         <TextView
             android:id="@+id/textView29"
@@ -396,10 +405,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="저장"
         android:background="?attr/selectableItemBackground"
+        android:text="저장"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/view29"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

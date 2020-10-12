@@ -1,6 +1,7 @@
 package com.uniting.android.Option
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.uniting.android.Class.PSDialog
@@ -19,6 +20,10 @@ class ModifyActivity : AppCompatActivity() {
         UserItem.UserOption("서울"), UserItem.UserOption("경기"), UserItem.UserOption("인천"), UserItem.UserOption("대전"), UserItem.UserOption("대구"), UserItem.UserOption("부산"), UserItem.UserOption("울산"), UserItem.UserOption("광주"), UserItem.UserOption("강원"), UserItem.UserOption("세종"), UserItem.UserOption("충북"),
         UserItem.UserOption("충남"), UserItem.UserOption("경북"), UserItem.UserOption("전남"), UserItem.UserOption("제주"), UserItem.UserOption("해외"))
 
+    private val personalityList = arrayListOf(UserItem.UserOption("엉뚱"), UserItem.UserOption("활발"), UserItem.UserOption("도도"), UserItem.UserOption("엉뚱"), UserItem.UserOption("친절"), UserItem.UserOption("애교"), UserItem.UserOption("털털"), UserItem.UserOption("성실"), UserItem.UserOption("착한"), UserItem.UserOption("순수"), UserItem.UserOption("귀여운"), UserItem.UserOption("다정다감"))
+    private val hobbyList = arrayListOf(UserItem.UserOption("영화보기"), UserItem.UserOption("카페가기"), UserItem.UserOption("코인노래방"), UserItem.UserOption("편맥하기"), UserItem.UserOption("수다떨기"), UserItem.UserOption("맛집찾기"), UserItem.UserOption("야구보기"), UserItem.UserOption("축구보기"), UserItem.UserOption("여행가기"), UserItem.UserOption("등산하기"), UserItem.UserOption("춤추기"), UserItem.UserOption("독서하기"))
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify)
@@ -34,15 +39,59 @@ class ModifyActivity : AppCompatActivity() {
             text_modify_web_mail.text = it.userEmail
             edit_modify_nickname.setText(it.userNickname)
 
+            if(it.userIntroduce == null) {
+                text_modify_introduce.setTextColor(Color.parseColor("#00BFFF"))
+            } else {
+                text_modify_introduce.text = it.userIntroduce
+            }
+
+            if(it.userHobby == null) {
+                text_modify_hobby.setTextColor(Color.parseColor("#00BFFF"))
+            } else {
+                text_modify_hobby.text = it.userHobby
+            }
+
+            if(it.userPersonality == null) {
+                text_modify_personality.setTextColor(Color.parseColor("#00BFFF"))
+            } else {
+                text_modify_personality.text = it.userPersonality
+            }
+
+
             text_modify_update.setOnClickListener {
                 Retrofit.updateModifyUserInfo(
                     UserInfo.ID,
                     edit_modify_nickname.text.toString(),
                     text_modify_birthday.text.toString(),
-                    text_modify_city.text.toString()
+                    text_modify_city.text.toString(),
+                    text_modify_introduce.text.toString(),
+                    text_modify_hobby.text.toString(),
+                    text_modify_personality.text.toString()
                 ) {
                     finish()
                 }
+            }
+
+            text_modify_personality.setOnClickListener {
+                psDialog.setUserOption("성격", personalityList)
+                psDialog.setSaveBtnClickListener(object : PSDialog.SaveBtnClickListener {
+                    override fun onClick(userOption: String) {
+                        text_modify_personality.text = userOption.substring(0, userOption.length-1)
+                        text_modify_personality.setTextColor(Color.parseColor("#212121"))
+                    }
+                })
+                psDialog.show()
+            }
+
+            text_modify_hobby.setOnClickListener {
+                psDialog.setUserOption("취미", hobbyList)
+                psDialog.setSaveBtnClickListener(object : PSDialog.SaveBtnClickListener {
+                    override fun onClick(userOption: String) {
+                        text_modify_hobby.text = userOption.substring(0, userOption.length-1)
+                        text_modify_hobby.setTextColor(Color.parseColor("#212121"))
+                    }
+                })
+                psDialog.show()
             }
 
             text_modify_city.setOnClickListener {
@@ -50,6 +99,17 @@ class ModifyActivity : AppCompatActivity() {
                 psDialog.setSaveBtnClickListener(object: PSDialog.SaveBtnClickListener {
                     override fun onClick(userOption: String) {
                         text_modify_city.text = userOption
+                    }
+                })
+                psDialog.show()
+            }
+
+            text_modify_introduce.setOnClickListener {
+                psDialog.setIntroduce()
+                psDialog.setSaveBtnClickListener(object : PSDialog.SaveBtnClickListener {
+                    override fun onClick(userOption: String) {
+                        text_modify_introduce.text = userOption
+                        text_modify_introduce.setTextColor(Color.parseColor("#212121"))
                     }
                 })
                 psDialog.show()
@@ -76,8 +136,9 @@ class ModifyActivity : AppCompatActivity() {
             }
 
             btn_modify_back.setOnClickListener {
-                psDialog.setCheckSave()
-                psDialog.show()
+                val saveDialog = PSDialog(this)
+                saveDialog.setCheckSave()
+                saveDialog.show()
             }
 
         }

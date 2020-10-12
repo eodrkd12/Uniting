@@ -446,7 +446,7 @@ object Retrofit {
     }
 
     fun getModifyUserInfo(userId: String, callback: (UserItem.ModifyUser) -> Unit) {
-        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_signdate FROM user WHERE user_id='${userId}'"
+        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_hobby, user_personality, user_introduce, user_signdate FROM user WHERE user_id='${userId}'"
 
         service.getModifyUserInfo(sql).enqueue(object: Callback<UserItem.ModifyUser> {
             override fun onFailure(call: Call<UserItem.ModifyUser>, t: Throwable) {
@@ -474,8 +474,8 @@ object Retrofit {
         })
     }
 
-    fun updateModifyUserInfo(userId: String, userNickname: String, userBirthday: String, userCity: String, callback : (ResultModel) -> Unit) {
-        val sql = "UPDATE user SET user_nickname='${userNickname}', user_birthday = '${userBirthday}', user_city = '${userCity}' WHERE user_id='${userId}'"
+    fun updateModifyUserInfo(userId: String, userNickname: String, userBirthday: String, userCity: String, userIntroduce: String, userHobby: String, userPersonality : String, callback : (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET user_nickname='${userNickname}', user_birthday = '${userBirthday}', user_city = '${userCity}', user_introduce = '${userIntroduce}', user_hobby = '${userHobby}', user_personality = '${userPersonality}' WHERE user_id='${userId}'"
 
         service.updateModifyUserInfo(sql).enqueue(object: Callback<ResultModel> {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
