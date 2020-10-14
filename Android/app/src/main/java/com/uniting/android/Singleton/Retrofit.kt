@@ -4,6 +4,7 @@ import android.util.Log
 import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
+import com.uniting.android.DB.Entity.Joined
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.*
 import com.uniting.android.Interface.RetrofitService
@@ -13,7 +14,6 @@ import com.uniting.android.Option.InquireItem
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -184,7 +184,7 @@ object Retrofit {
                 else
                     sql += "OR dept_name LIKE '%${it}%' "
             }
-            sql += ")"
+            sql += ") "
         }
 
         if(hobby != "") {
@@ -194,21 +194,21 @@ object Retrofit {
                 if (it == hobbyList[0])
                     sql += "user_hobby LIKE '%${it}%' "
                 else
-                    sql += "OR (user_hobby LIKE '%${it}%' "
+                    sql += "OR user_hobby LIKE '%${it}%' "
             }
-            sql += ")"
+            sql += ") "
         }
 
         if(personality != "") {
-            sql += "AND ("
+            sql += " AND ("
             var personalityList = personality.split(", ")
             personalityList.forEach {
                 if (it == personalityList[0])
-                    sql += "(user_personality LIKE '%${it}%' "
+                    sql += "user_personality LIKE '%${it}%' "
                 else
-                    sql += "OR (user_personality LIKE '%${it}%' "
+                    sql += "OR user_personality LIKE '%${it}%' "
             }
-            sql += ")"
+            sql += ") "
         }
 
         sql += "ORDER BY RAND() LIMIT 1"
@@ -620,6 +620,32 @@ object Retrofit {
         service.signOut(sql).enqueue(object : Callback<ResultModel> {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
 
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun getEnterDate(roomId: String, userId: String, callback: (Joined) -> Unit) {
+        val sql = "SELECT * FROM joined WHERE room_id = '${roomId}' AND user_id = '${userId}'"
+
+        service.getEnterDate(sql).enqueue(object : Callback<Joined>{
+            override fun onFailure(call: Call<Joined>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<Joined>, response: Response<Joined>) {
+                callback(response.body()!!)
+            }
+
+        })
+    }
+
+    fun deleteRoom(roomId: String,userId: String, callback: (ResultModel) -> Unit) {
+        service.deleteRoom(roomId, userId).enqueue(object : Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {

@@ -31,7 +31,6 @@ class MemberAdapter(val context: Context, val memberList: ArrayList<MemberItem>)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var imageMember = view.findViewById<ImageView>(R.id.image_member)
         var textMember = view.findViewById<TextView>(R.id.text_member)
     }
 }

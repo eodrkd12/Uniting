@@ -1,6 +1,7 @@
 package com.uniting.android.Chat
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.R
+import com.uniting.android.Room.MyRoomItem
 import kotlinx.android.synthetic.main.item_chat.view.*
 
 class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
     RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
-
-    lateinit var beforeChatView : View
-    lateinit var beforeChat : ChatItem
 
     override fun getItemCount(): Int {
         return chatList.size
@@ -30,6 +29,7 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
     }
 
     override fun onBindViewHolder(holder: ChatAdapter.ViewHolder, position: Int) {
+
         var item = chatList[position]
 
         var hideImageAndNickname = false
@@ -72,14 +72,6 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
                 )
             }
         }
-
-        if(position > 0 && beforeChat.chat.user_id==item.chat.user_id){
-            beforeChatView.text_time.visibility=View.GONE
-            beforeChatView.text_partner_time.visibility=View.GONE
-        }
-
-        beforeChatView=holder.view
-        beforeChat=item
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -175,4 +167,10 @@ class ChatAdapter(val context: Context, val chatList: ArrayList<ChatItem>) :
             textSystem.text = content
         }
     }
+
+    fun sortByChatTime() {
+        chatList.sortBy { selector(it) }
+    }
+
+    fun selector(chat: ChatItem): String = chat.chat.chat_time
 }
