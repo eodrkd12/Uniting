@@ -1,29 +1,26 @@
 package com.uniting.android.Home
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.R
 
-class MatchingTypeAdapter(val context: Context, val matchingTypeList: ArrayList<String>) :
-    RecyclerView.Adapter<MatchingTypeAdapter.ViewHolder>() {
-
+class MatchingTypeAdapter(val context: Activity, val matchingTypeList: ArrayList<String>, val fm : FragmentManager) : RecyclerView.Adapter<MatchingTypeAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchingTypeAdapter.ViewHolder {
-        var itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_matching, parent, false)
-
+        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_matching, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MatchingTypeAdapter.ViewHolder, position: Int) {
-
         holder.setItem(matchingTypeList[position])
     }
 

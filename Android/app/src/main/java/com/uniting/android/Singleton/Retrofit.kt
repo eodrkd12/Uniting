@@ -2,6 +2,7 @@ package com.uniting.android.Singleton
 
 import android.util.Log
 import com.uniting.android.Cafeteria.CafeteriaItem
+import com.uniting.android.Class.MatchingCondition
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
@@ -37,7 +38,6 @@ object Retrofit {
     }
 
     fun insertChat(chat: Chat, callback: (ResultModel) -> Unit) {
-
         val sql = "INSERT INTO chat " +
                 "VALUES('${chat.chat_id}','${chat.room_id}','${chat.user_id}','${chat.user_nickname}','${chat.chat_content}','${chat.chat_time}','${chat.unread_member}',${chat.system_chat})"
 
@@ -626,6 +626,21 @@ object Retrofit {
                 callback(response.body()!!)
             }
         })
+    }
+
+    fun updateMatchingCondition(callback: (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET matching_age='${MatchingCondition.AGE}', matching_height='${MatchingCondition.HEIGHT}', matching_hobby='${MatchingCondition.HOBBY}', matching_personality='${MatchingCondition.PERSONALITY}', matching_dept='${MatchingCondition.DEPT}' WHERE user_id='${UserInfo.ID}'"
+
+        service.updateMatchingCondition(sql).enqueue(object : Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+
     }
 
 

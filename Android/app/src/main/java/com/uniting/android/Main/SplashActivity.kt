@@ -13,6 +13,7 @@ import android.os.Handler
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
+import com.uniting.android.Class.MatchingCondition
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.Login.LoginActivity
 import com.uniting.android.R
@@ -47,6 +48,12 @@ class SplashActivity : AppCompatActivity() {
                             UserInfo.BLOCKINGDEPT = it.blockingDept
                             UserInfo.UNIV = it.univName
                             UserInfo.DEPT = it.deptName
+
+                            MatchingCondition.AGE = it.matchingAge
+                            MatchingCondition.DEPT = it.matchingDept
+                            MatchingCondition.HEIGHT = it.matchingHeight
+                            MatchingCondition.PERSONALITY = it.matchingPersonality
+                            MatchingCondition.HOBBY = it.matchingHobby
 
                             val pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                             val editor = pref.edit()
@@ -91,13 +98,6 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }, 2000)
         }
-
-
-
-
-
-
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =

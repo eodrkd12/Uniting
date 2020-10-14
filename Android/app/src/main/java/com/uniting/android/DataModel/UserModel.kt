@@ -17,6 +17,16 @@ class UserModel {
         @SerializedName("dept_name")
         val deptName : String,
         @SerializedName("blocking_dept")
-        val blockingDept : Int
+        val blockingDept : Int,
+        @SerializedName("matching_age")
+        val matchingAge : String,
+        @SerializedName("matching_dept")
+        val matchingDept : String,
+        @SerializedName("matching_height")
+        val matchingHeight : String,
+        @SerializedName("matching_hobby")
+        val matchingHobby : String,
+        @SerializedName("matching_personality")
+        val matchingPersonality : String
     )
 }
