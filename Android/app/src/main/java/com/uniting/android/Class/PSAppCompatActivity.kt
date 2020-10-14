@@ -14,7 +14,6 @@ abstract class PSAppCompatActivity : AppCompatActivity(){
     fun getCurDate() : String{
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         var curDate = simpleDateFormat.format(System.currentTimeMillis())
-
         return curDate
     }
 

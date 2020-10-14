@@ -227,16 +227,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="25dp"
                 android:drawableRight="@drawable/down"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="선택"
                 android:textColor="@color/colorMdGrey_900"
                 android:textSize="15dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:maxLines="1"
-                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="@+id/edit_modify_nickname"
                 app:layout_constraintStart_toEndOf="@+id/textView27"
-                app:layout_constraintTop_toBottomOf="@+id/view33" />
+                app:layout_constraintTop_toBottomOf="@+id/view40" />
 
             <View
                 android:id="@+id/view6"
@@ -433,6 +433,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_modify_sign_date" />
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="키"
+                app:layout_constraintBottom_toBottomOf="@+id/view40"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_modify_height" />
+
+            <TextView
+                android:id="@+id/text_modify_height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="선택"
+                android:drawableRight="@drawable/down"
+                android:gravity="center"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="15dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="@+id/text_modify_city"
+                app:layout_constraintStart_toStartOf="@+id/text_modify_city"
+                app:layout_constraintTop_toBottomOf="@+id/view33" />
+
+            <View
+                android:id="@+id/view40"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorMdGrey_300"
+                app:layout_constraintEnd_toEndOf="@+id/text_modify_height"
+                app:layout_constraintStart_toStartOf="@+id/text_modify_height"
+                app:layout_constraintTop_toBottomOf="@+id/text_modify_height" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

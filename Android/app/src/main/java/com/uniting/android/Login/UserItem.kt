@@ -31,6 +31,8 @@ class UserItem {
         val userHobby : String,
         @SerializedName("user_personality")
         val userPersonality : String,
+        @SerializedName("user_height")
+        val userHeight : String,
         @SerializedName("user_signdate")
         val userSignDate : String
     )

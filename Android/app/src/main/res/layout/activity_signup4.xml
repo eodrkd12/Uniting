@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login.Signup4Activity">
+
+    <Button
+        android:id="@+id/btn_signup4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/enable_button"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="가입완료"
+        android:textColor="@color/colorMdWhite_1000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signup_postpone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_signup_postpone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="다음에"
+        android:textColor="@color/colorMdGrey_700"
+        android:foreground="?attr/selectableItemBackground"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_signup1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signup4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            tools:context=".Login.Signup4Activity">
+
+            <TextView
+                android:id="@+id/textView48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="키"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view41"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/text_user_height" />
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="취미"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view42"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/text_user_hobby" />
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="성격"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view43"
+                app:layout_constraintStart_toStartOf="@+id/textView47"
+                app:layout_constraintTop_toTopOf="@+id/text_user_personality" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="소개"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/edit_user_introduce" />
+
+            <TextView
+                android:id="@+id/text_user_height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="30dp"
+                android:drawableRight="@drawable/down"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="선택"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView49"
+                app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+            <View
+                android:id="@+id/view41"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorMdGrey_300"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_height"
+                app:layout_constraintStart_toStartOf="@+id/text_user_height"
+                app:layout_constraintTop_toBottomOf="@+id/text_user_height" />
+
+            <TextView
+                android:id="@+id/text_user_hobby"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:drawableRight="@drawable/down"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="선택"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_height"
+                app:layout_constraintStart_toStartOf="@+id/text_user_height"
+                app:layout_constraintTop_toBottomOf="@+id/text_user_height" />
+
+            <View
+                android:id="@+id/view42"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorMdGrey_300"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_hobby"
+                app:layout_constraintStart_toStartOf="@+id/text_user_hobby"
+                app:layout_constraintTop_toBottomOf="@+id/text_user_hobby" />
+
+            <TextView
+                android:id="@+id/text_user_personality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:drawableRight="@drawable/down"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="선택"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_hobby"
+                app:layout_constraintStart_toStartOf="@+id/text_user_hobby"
+                app:layout_constraintTop_toBottomOf="@+id/view42" />
+
+            <View
+                android:id="@+id/view43"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorMdGrey_300"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_personality"
+                app:layout_constraintStart_toStartOf="@+id/text_user_personality"
+                app:layout_constraintTop_toBottomOf="@+id/text_user_personality" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/custom_font_family"
+                android:text="STEP 4 OF 4 (선택)"
+                android:textColor="@color/colorMdGrey_900"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="프로필을 완성시키면 매칭률이 올라가요 !\n세부정보를 작성해보세요."
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView30"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <EditText
+                android:id="@+id/edit_user_introduce"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/category_layout"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="자신을 소개해주세요 ! (10자 이상)"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="@+id/text_user_personality"
+                app:layout_constraintStart_toStartOf="@+id/text_user_personality"
+                app:layout_constraintTop_toBottomOf="@+id/view43" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

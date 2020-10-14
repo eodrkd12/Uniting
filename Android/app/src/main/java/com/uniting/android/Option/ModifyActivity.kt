@@ -38,6 +38,7 @@ class ModifyActivity : AppCompatActivity() {
             text_modify_university_name.text = it.univName
             text_modify_web_mail.text = it.userEmail
             edit_modify_nickname.setText(it.userNickname)
+            text_modify_height.text = it.userHeight
 
             if(it.userIntroduce == null) {
                 text_modify_introduce.setTextColor(Color.parseColor("#00BFFF"))
@@ -55,6 +56,12 @@ class ModifyActivity : AppCompatActivity() {
                 text_modify_personality.setTextColor(Color.parseColor("#00BFFF"))
             } else {
                 text_modify_personality.text = it.userPersonality
+            }
+
+            if(it.userHeight == null) {
+                text_modify_height.setTextColor(Color.parseColor("#00BFFF"))
+            } else {
+                text_modify_height.text = it.userHeight
             }
 
 
