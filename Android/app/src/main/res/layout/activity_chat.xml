@@ -19,11 +19,12 @@
     <View
         android:id="@+id/view_edit"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#E6E6E6"
+        android:layout_height="50dp"
+        android:background="@color/colorMdGrey_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <EditText
         android:id="@+id/edit_chat"
@@ -31,10 +32,10 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/light_gray_background"
+        android:background="@drawable/edit_chat_background"
         android:ems="10"
         android:inputType="textMultiLine|textNoSuggestions"
-        android:padding="4dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="@id/view_edit"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +44,9 @@
 
     <ImageView
         android:id="@+id/btn_send"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/enable_button"
         android:cropToPadding="false"
         android:paddingStart="8dp"
@@ -56,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/view_edit"
         app:srcCompat="@drawable/send_icon" />
-
+<!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat"
         android:layout_width="0dp"
@@ -64,13 +66,29 @@
         android:divider="#00000000"
         android:overScrollMode="never"
         android:transcriptMode="alwaysScroll"
+        app:layout_constraintBottom_toTopOf="@id/view_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_chat"
-        app:layout_constraintBottom_toTopOf="@id/view_edit">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_chat">
 
     </androidx.recyclerview.widget.RecyclerView>
+-->
+    <ListView
+        android:id="@+id/list_chat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:divider="#00000000"
+        android:focusable="false"
+        android:listSelector="@drawable/empty_selector"
+        android:overScrollMode="never"
+        android:transcriptMode="alwaysScroll"
+        app:layout_constraintBottom_toTopOf="@id/view_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_chat" />
 
     <TextView
         android:id="@+id/text_waiting"

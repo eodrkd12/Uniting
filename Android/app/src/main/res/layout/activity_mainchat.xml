@@ -29,12 +29,10 @@
                 android:layout_width="282dp"
                 android:layout_height="0dp"
                 android:overScrollMode="never"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_me" />
+                app:layout_constraintTop_toBottomOf="@+id/text_me" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -73,23 +71,14 @@
                 android:id="@+id/text_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/colorMdGrey_900"
                 android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/image_me"
-                app:layout_constraintStart_toEndOf="@+id/image_me"
-                app:layout_constraintTop_toTopOf="@+id/image_me" />
-
-            <ImageView
-                android:id="@+id/image_me"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.navigation.NavigationView>

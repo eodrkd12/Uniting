@@ -2,6 +2,7 @@ package com.uniting.android.Interface
 
 import com.uniting.android.Cafeteria.CafeteriaItem
 import com.uniting.android.DB.Entity.Chat
+import com.uniting.android.DB.Entity.Joined
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DataModel.*
 import com.uniting.android.Item.Test
@@ -228,4 +229,13 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun updateMatchingCondition(@Field("sql") sql : String) : Call<ResultModel>
+    //방 접속 날짜 가져오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getEnterDate(@Field("sql") sql: String): Call<Joined>
+
+    //방 삭제
+    @FormUrlEncoded
+    @POST("room/delete")
+    fun deleteRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
 }

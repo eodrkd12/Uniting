@@ -1,12 +1,10 @@
 package com.uniting.android.Chat
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.ListView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +17,7 @@ import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.ViewModel.ChatViewModel
-import com.uniting.android.DataModel.MemberModel
-import com.uniting.android.Login.LoginActivity
+import com.uniting.android.DB.ViewModel.RoomViewModel
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -29,13 +26,15 @@ import kotlinx.android.synthetic.main.activity_mainchat.*
 class ChatActivity : PSAppCompatActivity() {
 
     companion object{
-        var chatRV : RecyclerView? = null
+        var chatLV : ListView? = null
     }
 
     lateinit var room : Room
     lateinit var chatViewModel : ChatViewModel
-    lateinit var chatAdapter : ChatAdapter
+    lateinit var chatAdapter : ChatListAdapter
     lateinit var memberAdapter : MemberAdapter
+
+    lateinit var roomViewModel : RoomViewModel
 
     lateinit var memberList : ArrayList<MemberItem>
 
@@ -52,7 +51,7 @@ class ChatActivity : PSAppCompatActivity() {
         setContentView(R.layout.activity_mainchat)
         setSupportActionBar(toolbar_chat)
 
-        chatRV = rv_chat
+        chatLV = list_chat
 
         memberList = ArrayList<MemberItem>()
         room = intent.getSerializableExtra("room") as Room
@@ -65,14 +64,15 @@ class ChatActivity : PSAppCompatActivity() {
 
         FirebaseMessaging.getInstance().subscribeToTopic(room.room_id).addOnCompleteListener {
             if(it.isSuccessful){
-                Log.d("test","구독")
             }
         }
 
         Retrofit.getMembers(room.room_id){
             memberList = ArrayList<MemberItem>()
             it.forEach {
-                memberList.add(MemberItem(it))
+                if(it.id != UserInfo.ID) {
+                    memberList.add(MemberItem(it))
+                }
             }
 
 
@@ -88,12 +88,8 @@ class ChatActivity : PSAppCompatActivity() {
             memberAdapter.notifyDataSetChanged()
         }
 
-        rv_chat.setHasFixedSize(true)
-        rv_chat.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-        chatAdapter = ChatAdapter(this,chatList)
-        rv_chat.adapter = chatAdapter
+        chatAdapter = ChatListAdapter(this,chatList)
+        list_chat.adapter = chatAdapter
 
         chatViewModel= ChatViewModel(application, room.room_id)
 
@@ -102,8 +98,9 @@ class ChatActivity : PSAppCompatActivity() {
             it.forEach {
                 chatList.add(ChatItem(it))
             }
+            chatAdapter.sortByChatTime()
             chatAdapter.notifyDataSetChanged()
-
+            list_chat.setSelection(chatAdapter.count-1)
         })
 
         btn_send.setOnClickListener {
@@ -136,44 +133,57 @@ class ChatActivity : PSAppCompatActivity() {
                         Retrofit.sendFcm(topic, title, content)
 
                         chatViewModel.insert(chat){
-                            rv_chat.scrollToPosition(chatAdapter.itemCount-1)
+                            list_chat.setSelection(chatAdapter.count-1)
                         }
                     }
                 }
             }
         }
 
-        Handler().postDelayed({
-            rv_chat.scrollToPosition(chatAdapter.itemCount-1)
-        },50)
+        btn_exit.setOnClickListener {
+            roomViewModel = RoomViewModel(application)
+
+            if(memberList.size == 0){
+                Retrofit.deleteRoom(room.room_id, UserInfo.ID){
+                    roomViewModel.delete(room.room_id){
+                        finish()
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        ref = FirebaseDatabase.getInstance().reference.child("chat").child(room.room_id)
-        query = ref!!.orderByChild("chat_time").startAt(lastChatTime)
+        Retrofit.getEnterDate(room.room_id, UserInfo.ID){
+            ref = FirebaseDatabase.getInstance().reference.child("chat").child(room.room_id)
+            query = ref!!.orderByChild("chat_time").startAt(it.enter_date)
 
-        query!!.addChildEventListener(object : ChildEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+            query!!.addChildEventListener(object : ChildEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                if(ref != null) chatChange(snapshot)
-            }
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    if(ref != null) chatChange(snapshot)
+                }
 
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                if(ref != null) chatAdd(snapshot)
-            }
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    if(ref != null) chatAdd(snapshot)
+                }
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
-        })
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+
+
     }
 
     override fun onDestroy() {

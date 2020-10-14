@@ -2,6 +2,7 @@ package com.uniting.android.Room
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,7 @@ class RoomListActivity : PSAppCompatActivity() {
                 rv_open.adapter=RoomAdapter(this,roomList)
 
                 it.forEach {
+                    Log.d("test","${it}")
                     var room = it
                     var numOfMembers = 0
                     Retrofit.getMembers(it.room_id){
