@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -33,7 +32,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="30dp"
                 android:fontFamily="@font/custom_font_family"
-                android:text="STEP 2 OF 5"
+                android:text="STEP 2 OF 4"
                 android:textColor="@color/colorMdGrey_900"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -64,8 +63,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
-                android:gravity="center"
                 android:ems="10"
+                android:gravity="center"
                 android:inputType="textNoSuggestions|number"
                 android:theme="@style/EditTheme"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_certify"
@@ -111,6 +110,7 @@
                 android:background="@drawable/not_enable_button"
                 android:enabled="false"
                 android:text="다음"
+                android:textSize="20dp"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -166,11 +166,11 @@
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/not_enable_rounded_button"
+                android:enabled="false"
                 android:text="인증"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"
-                android:enabled="false"
-                android:background="@drawable/not_enable_rounded_button"
                 app:layout_constraintEnd_toEndOf="@+id/view12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 

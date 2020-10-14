@@ -139,13 +139,14 @@ class PSDialog(activity: Activity) {
         var rvCondition = view.findViewById<RecyclerView>(R.id.rv_condition)
         var btnSave = view.findViewById<Button>(R.id.btn_save)
 
-        textTitle.setText(title)
-        dialog!!.getWindow()!!.getAttributes().windowAnimations = R.style.DialogSlideRight
+        textTitle.text = title
+        dialog!!.window!!.attributes.windowAnimations = R.style.DialogSlideRight
         dialog!!.addContentView(view, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
 
         rvCondition.setHasFixedSize(true)
         rvCondition.layoutManager=LinearLayoutManager(context!!,RecyclerView.VERTICAL,false)
         rvCondition.adapter=ConditionAdapter(context!!, conditionList)
+
 
         btnSave.setOnClickListener {
             if(title.contains("키") || title.contains("나이")){
@@ -156,7 +157,7 @@ class PSDialog(activity: Activity) {
                 else{
                     var array = ConditionAdapter.selectedCondition.split(", ")
                     array = array.sorted()
-                    textView.setText("${array[0]} ~ ${array[1]}")
+                    textView.text = "${array[0]} ~ ${array[1]}"
                     ConditionAdapter.selectedCondition = ""
                     dismiss()
                 }
@@ -170,7 +171,6 @@ class PSDialog(activity: Activity) {
     }
 
     class BottomSheetDialog(var textView: TextView) : BottomSheetDialogFragment() {
-
         override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,

@@ -29,5 +29,9 @@ class InquireActivity : AppCompatActivity() {
             tab.text = tabLayoutTextArray[position]
             viewpager_inquire.setCurrentItem(tab.position, true)
         }.attach()
+
+        btn_inquire_back.setOnClickListener {
+            finish()
+        }
     }
 }

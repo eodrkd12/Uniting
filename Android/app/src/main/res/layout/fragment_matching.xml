@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Home.MatchingFragment"
-    android:layout_gravity="center">
+    android:layout_gravity="top"
+    tools:context=".Home.MatchingFragment">
 
 
     <androidx.core.widget.NestedScrollView
@@ -20,14 +21,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_condition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:layout_gravity="center"
+                android:animateLayoutChanges="true"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vp_matchingtype">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
                     android:id="@+id/textView"
@@ -131,7 +134,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="학과"
-                        android:textColor="@color/colorMdGrey_900"
                         android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -331,30 +333,48 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <Button
                 android:id="@+id/btn_matching"
                 android:layout_width="300dp"
                 android:layout_height="46dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/big_main_connect_button"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:foreground="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_condition" />
+                app:layout_constraintTop_toBottomOf="@+id/vp_matchingtype" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_matchingtype"
                 android:layout_width="295dp"
                 android:layout_height="277dp"
+                android:layout_marginTop="20dp"
                 android:overScrollMode="never"
-                app:layout_constraintBottom_toTopOf="@+id/layout_condition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_matching_condition"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/enable_rounded_button_pink"
+                android:text="매칭조건"
+                android:textColor="@color/colorMdWhite_1000"
+                android:textSize="20dp"
+                android:elevation="5dp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_matching"
+                app:layout_constraintStart_toStartOf="@+id/btn_matching"
+                app:layout_constraintTop_toBottomOf="@+id/btn_matching" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

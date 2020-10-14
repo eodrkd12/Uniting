@@ -225,6 +225,10 @@ interface RetrofitService {
     @POST("/common/sql/insert")
     fun signOut(@Field("sql") sql : String) : Call<ResultModel>
 
+    //매칭조건 삽입
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun updateMatchingCondition(@Field("sql") sql : String) : Call<ResultModel>
     //방 접속 날짜 가져오기
     @FormUrlEncoded
     @POST("/common/sql/select/single")

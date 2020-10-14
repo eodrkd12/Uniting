@@ -33,11 +33,14 @@
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/save_button"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/enable_button"
+        android:text="확인"
+        android:textSize="20dp"
+        android:textColor="@color/colorMdWhite_1000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/rv_condition"
+        app:layout_constraintStart_toStartOf="@+id/rv_condition" />
 </androidx.constraintlayout.widget.ConstraintLayout>
