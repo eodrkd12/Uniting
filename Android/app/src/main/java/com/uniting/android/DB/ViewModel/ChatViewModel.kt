@@ -30,7 +30,7 @@ class ChatViewModel(app: Application, roomId: String): AndroidViewModel(app) {
         )
     }
 
-    fun delete(id: Int, next: () -> Unit) {
+    fun delete(id: String, next: () -> Unit) {
         disposable.add( repository.delete(id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { next() }

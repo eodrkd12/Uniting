@@ -121,6 +121,11 @@ class ChatActivity : PSAppCompatActivity() {
 
                 var chat = Chat(chatId,room.room_id,UserInfo.ID,UserInfo.NICKNAME,content,date,unreadMember,0)
 
+
+
+                if(chatList.last().chat.chat_time < getCurDate())
+
+
                 Retrofit.insertChat(chat){
                     if(it.result == "success"){
 
@@ -146,7 +151,19 @@ class ChatActivity : PSAppCompatActivity() {
             if(memberList.size == 0){
                 Retrofit.deleteRoom(room.room_id, UserInfo.ID){
                     roomViewModel.delete(room.room_id){
-                        finish()
+                        chatViewModel.delete(room.room_id){
+                            finish()
+                        }
+                    }
+                }
+            }
+            else{
+                //joined에서 데이터삭제
+                Retrofit.exitRoom(room.room_id, UserInfo.ID){
+                    roomViewModel.delete(room.room_id){
+                        chatViewModel.delete(room.room_id){
+                            finish()
+                        }
                     }
                 }
             }

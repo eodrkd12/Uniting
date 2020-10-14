@@ -12,8 +12,8 @@ interface ChatDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(chat: Chat)
 
-    @Query("DELETE FROM chat WHERE chat_id = :chatId")
-    fun deleteById(chatId : Int)
+    @Query("DELETE FROM chat WHERE room_id = :roomId")
+    fun deleteById(roomId: String)
 
     @Query("SELECT * FROM chat WHERE room_id = :roomId")
     fun getAllElement(roomId: String) : LiveData<List<Chat>>

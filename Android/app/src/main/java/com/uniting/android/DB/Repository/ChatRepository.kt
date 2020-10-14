@@ -28,7 +28,7 @@ class ChatRepository(app : Application, roomId: String) {
         }
     }
 
-    fun delete(id : Int) : Observable<Unit> {
+    fun delete(id : String) : Observable<Unit> {
         return Observable.fromCallable {
             dao.deleteById(id)
         }

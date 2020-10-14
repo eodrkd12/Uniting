@@ -234,4 +234,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("room/delete")
     fun deleteRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
+
+    //방 나가기
+    @FormUrlEncoded
+    @POST("room/exit")
+    fun exitRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
 }

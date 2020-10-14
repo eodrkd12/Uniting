@@ -654,5 +654,16 @@ object Retrofit {
         })
     }
 
+    fun exitRoom(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
+        service.exitRoom(roomId, userId).enqueue(object : Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
 
 }
