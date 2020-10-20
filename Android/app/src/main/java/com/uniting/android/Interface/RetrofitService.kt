@@ -240,7 +240,6 @@ interface RetrofitService {
     @POST("/room/delete")
     fun deleteRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
 
-<<<<<<< Updated upstream
     //방 나가기
     @FormUrlEncoded
     @POST("/room/exit")
@@ -253,7 +252,7 @@ interface RetrofitService {
         @Field("room_id") roomId: String,
         @Field("user_id") userId: String
     ): Call<ResultModel>
-=======
+
     //프로필 부가정보(키, 취미, 성격, 소개글) 업데이트
     @FormUrlEncoded
     @POST("/common/sql/insert")
@@ -261,10 +260,9 @@ interface RetrofitService {
 
     //식당목록 불러오기
     @FormUrlEncoded
-    @POST("/common/sql/select")
-    fun getCafeteriaList(@Field("sql") sql : String)
+    @POST("/cafeteria/get/list")
+    fun getCafeteriaList(@Field("univ_name") univName : String) : Call<CafeteriaItem.CafeteriaList>
 
 
 
->>>>>>> Stashed changes
 }

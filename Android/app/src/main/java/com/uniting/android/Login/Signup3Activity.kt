@@ -73,9 +73,10 @@ class Signup3Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup3)
 
-        /*webMail = intent.getStringExtra("mail")!!
+        webMail = intent.getStringExtra("mail")!!
         univName = intent.getStringExtra("univName")!!
-        deptName = intent.getStringExtra("deptName")!!*/
+        deptName = intent.getStringExtra("deptName")!!
+
         var displayMetrics = DisplayMetrics()
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
         val height = displayMetrics.heightPixels

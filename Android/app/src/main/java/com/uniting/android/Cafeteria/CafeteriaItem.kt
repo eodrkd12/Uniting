@@ -5,11 +5,25 @@ import java.io.Serializable
 
 class CafeteriaItem {
     data class CafeteriaList(
+        @SerializedName("koreanFood")
+        val koreanFoodList : ArrayList<CafeteriaPreview>,
+        @SerializedName("japaneseFood")
+        val japaneseFoodList : ArrayList<CafeteriaPreview>,
+        @SerializedName("chineseFood")
+        val chineseFoodList : ArrayList<CafeteriaPreview>,
+        @SerializedName("westernFood")
+        val westernFoodList : ArrayList<CafeteriaPreview>,
+        @SerializedName("chickenFood")
+        val chickenFoodList : ArrayList<CafeteriaPreview>
+    )
+
+    data class CafeteriaPreview(
+        @SerializedName("cafe_no")
+        val cafeNo : Int,
         @SerializedName("cafe_name")
         val cafeteriaName : String,
-        @SerializedName("cafe_type")
-        val cafeteriaType : String,
-        var starPoint : Int = 0
+        @SerializedName("star_point")
+        val starPoint : Double
     )
 
     data class Menu (

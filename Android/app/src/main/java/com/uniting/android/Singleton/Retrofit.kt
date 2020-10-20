@@ -668,7 +668,6 @@ object Retrofit {
         })
     }
 
-<<<<<<< Updated upstream
     fun exitRoom(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
         service.exitRoom(roomId, userId).enqueue(object : Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
@@ -682,25 +681,38 @@ object Retrofit {
 
     fun subscribeFcm(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
         service.subscribeFcm(roomId, userId).enqueue(object : Callback<ResultModel>{
-=======
-    fun updateProfileInfo(userHeight: String, userHobby: String, userPersonality: String, userIntroduce: String, callback : (ResultModel) -> Unit) {
-        val sql = "UPDATE user SET user_height = '${userHeight}, user_hobby = '${userHobby}', user_personality = '${userPersonality}', user_introduce = '${userIntroduce}' WHERE user_id='${UserInfo.ID}'"
-
-        service.updateProfileInfo(sql).enqueue(object : Callback<ResultModel> {
->>>>>>> Stashed changes
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
-<<<<<<< Updated upstream
             }
 
-=======
-                callback(response.body()!!)
-            }
->>>>>>> Stashed changes
         })
     }
 
+    fun updateProfileInfo(userHeight: String, userHobby: String, userPersonality: String, userIntroduce: String, callback : (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET user_height = '${userHeight}, user_hobby = '${userHobby}', user_personality = '${userPersonality}', user_introduce = '${userIntroduce}' WHERE user_id='${UserInfo.ID}'"
 
+        service.updateProfileInfo(sql).enqueue(object : Callback<ResultModel> {
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun getCafeteriaList(callback : (CafeteriaItem.CafeteriaList) -> Unit) {
+        service.getCafeteriaList(UserInfo.UNIV).enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
+            override fun onFailure(call: Call<CafeteriaItem.CafeteriaList>, t: Throwable) {
+                Log.d("test", "통신실패 \n ${t.toString()}")
+            }
+
+            override fun onResponse(call: Call<CafeteriaItem.CafeteriaList>, response: Response<CafeteriaItem.CafeteriaList>) {
+                callback(response.body()!!)
+                Log.d("test", "통신성공")
+            }
+        })
+    }
 }
