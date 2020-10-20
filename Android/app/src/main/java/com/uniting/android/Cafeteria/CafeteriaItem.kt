@@ -5,28 +5,11 @@ import java.io.Serializable
 
 class CafeteriaItem {
     data class CafeteriaList(
-        @SerializedName("items")
-        val cafeteriaList : ArrayList<Cafeteria>
-    )
-
-    data class Cafeteria(
-        @SerializedName("title")
-        val title : String,
-        @SerializedName("link")
-        val link : String,
-        @SerializedName("description")
-        val description : String,
-        @SerializedName("telephone")
-        val telephone : String,
-        @SerializedName("address")
-        val address : String,
-        @SerializedName("roadAddress")
-        val roadAddress : String,
-        @SerializedName("mapx")
-        val mapx : Int,
-        @SerializedName("mapy")
-        val mapy : Int,
-        var starPoint:String
+        @SerializedName("cafe_name")
+        val cafeteriaName : String,
+        @SerializedName("cafe_type")
+        val cafeteriaType : String,
+        var starPoint : Int = 0
     )
 
     data class Menu (

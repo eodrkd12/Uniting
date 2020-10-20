@@ -90,7 +90,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:gravity="center"
@@ -145,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="gmail.com"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/edit_university_id"
                 app:layout_constraintEnd_toStartOf="@+id/btn_send_certification" />
 
@@ -155,6 +154,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/enable_rounded_button"
+                android:foreground="?attr/selectableItemBackground"
                 android:text="전송"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"
@@ -169,6 +169,7 @@
                 android:background="@drawable/not_enable_rounded_button"
                 android:enabled="false"
                 android:text="인증"
+                android:foreground="?attr/selectableItemBackground"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/view12"

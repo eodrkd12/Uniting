@@ -22,7 +22,7 @@ class ModifyActivity : AppCompatActivity() {
 
     private val personalityList = arrayListOf(UserItem.UserOption("엉뚱"), UserItem.UserOption("활발"), UserItem.UserOption("도도"), UserItem.UserOption("엉뚱"), UserItem.UserOption("친절"), UserItem.UserOption("애교"), UserItem.UserOption("털털"), UserItem.UserOption("성실"), UserItem.UserOption("착한"), UserItem.UserOption("순수"), UserItem.UserOption("귀여운"), UserItem.UserOption("다정다감"))
     private val hobbyList = arrayListOf(UserItem.UserOption("영화보기"), UserItem.UserOption("카페가기"), UserItem.UserOption("코인노래방"), UserItem.UserOption("편맥하기"), UserItem.UserOption("수다떨기"), UserItem.UserOption("맛집찾기"), UserItem.UserOption("야구보기"), UserItem.UserOption("축구보기"), UserItem.UserOption("여행가기"), UserItem.UserOption("등산하기"), UserItem.UserOption("춤추기"), UserItem.UserOption("독서하기"))
-
+    private val heightList = arrayListOf(UserItem.UserOption("150cm"), UserItem.UserOption("151cm"), UserItem.UserOption("152cm"), UserItem.UserOption("153cm"), UserItem.UserOption("154cm"), UserItem.UserOption("155cm"), UserItem.UserOption("156cm"), UserItem.UserOption("157cm"), UserItem.UserOption("158cm"), UserItem.UserOption("159cm"), UserItem.UserOption("160cm"), UserItem.UserOption("161cm"), UserItem.UserOption("162cm"), UserItem.UserOption("163cm"), UserItem.UserOption("164cm"), UserItem.UserOption("165cm"), UserItem.UserOption("166cm"), UserItem.UserOption("167cm"), UserItem.UserOption("168cm"), UserItem.UserOption("169cm"), UserItem.UserOption("170cm"), UserItem.UserOption("171cm"), UserItem.UserOption("172cm"), UserItem.UserOption("173cm"), UserItem.UserOption("174cm"), UserItem.UserOption("175cm"), UserItem.UserOption("176cm"), UserItem.UserOption("177cm"), UserItem.UserOption("178cm"), UserItem.UserOption("179cm"), UserItem.UserOption("180cm"), UserItem.UserOption("181cm"), UserItem.UserOption("182cm"), UserItem.UserOption("183cm"), UserItem.UserOption("184cm"), UserItem.UserOption("185cm"), UserItem.UserOption("186cm"), UserItem.UserOption("187cm"), UserItem.UserOption("188cm"), UserItem.UserOption("189cm"), UserItem.UserOption("190cm"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,6 @@ class ModifyActivity : AppCompatActivity() {
             text_modify_university_name.text = it.univName
             text_modify_web_mail.text = it.userEmail
             edit_modify_nickname.setText(it.userNickname)
-            text_modify_height.text = it.userHeight
 
             if(it.userIntroduce == null) {
                 text_modify_introduce.setTextColor(Color.parseColor("#00BFFF"))
@@ -106,6 +105,16 @@ class ModifyActivity : AppCompatActivity() {
                 psDialog.setSaveBtnClickListener(object: PSDialog.SaveBtnClickListener {
                     override fun onClick(userOption: String) {
                         text_modify_city.text = userOption
+                    }
+                })
+                psDialog.show()
+            }
+
+            text_modify_height.setOnClickListener {
+                psDialog.setUserOption("키", heightList)
+                psDialog.setSaveBtnClickListener(object : PSDialog.SaveBtnClickListener {
+                    override fun onClick(userOption: String) {
+                        text_modify_height.text = userOption
                     }
                 })
                 psDialog.show()

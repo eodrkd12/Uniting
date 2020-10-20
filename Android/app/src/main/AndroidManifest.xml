@@ -21,7 +21,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.Signup4Activity">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         </activity>
         <activity android:name=".Option.InquireActivity" />
         <activity android:name=".Option.AlarmActivity" />

@@ -297,7 +297,7 @@ class Signup3Activity : AppCompatActivity() {
             else {
                 Retrofit.signUp(id, pw, nickname, birthday, city, gender, univName, deptName, webMail, enterYear) {
                     if(it.result == "success") {
-                        var intent = Intent(this, MainActivity::class.java)
+                        var intent = Intent(this, Signup4Activity::class.java)
                         var userPref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                         var editor = userPref.edit()
                         editor.putString("ID", id).putString("PW", pw).apply()

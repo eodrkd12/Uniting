@@ -349,7 +349,7 @@ object Retrofit {
     }
 
     fun idInsert(userId: String, callback: (ResultModel) -> Unit) {
-        val sql = "INSERT INTO user(user_id, blocking_dept, alarm_visit, alarm_openprofile) values('${userId}', 0, 0, 0)"
+        val sql = "INSERT INTO user(user_id, blocking_dept) values('${userId}', 0)"
 
         service.idInsert(sql).enqueue(object: Callback<ResultModel> {
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
@@ -446,7 +446,7 @@ object Retrofit {
     }
 
     fun getModifyUserInfo(userId: String, callback: (UserItem.ModifyUser) -> Unit) {
-        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_hobby, user_personality, user_introduce, user_signdate FROM user WHERE user_id='${userId}'"
+        val sql = "SELECT user_nickname, user_birthday, user_gender, user_email, univ_name, dept_name, enter_year, user_city, user_hobby, user_personality, user_introduce, user_signdate, user_height FROM user WHERE user_id='${userId}'"
 
         service.getModifyUserInfo(sql).enqueue(object: Callback<UserItem.ModifyUser> {
             override fun onFailure(call: Call<UserItem.ModifyUser>, t: Throwable) {
@@ -668,6 +668,7 @@ object Retrofit {
         })
     }
 
+<<<<<<< Updated upstream
     fun exitRoom(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
         service.exitRoom(roomId, userId).enqueue(object : Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
@@ -681,12 +682,23 @@ object Retrofit {
 
     fun subscribeFcm(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
         service.subscribeFcm(roomId, userId).enqueue(object : Callback<ResultModel>{
+=======
+    fun updateProfileInfo(userHeight: String, userHobby: String, userPersonality: String, userIntroduce: String, callback : (ResultModel) -> Unit) {
+        val sql = "UPDATE user SET user_height = '${userHeight}, user_hobby = '${userHobby}', user_personality = '${userPersonality}', user_introduce = '${userIntroduce}' WHERE user_id='${UserInfo.ID}'"
+
+        service.updateProfileInfo(sql).enqueue(object : Callback<ResultModel> {
+>>>>>>> Stashed changes
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+<<<<<<< Updated upstream
             }
 
+=======
+                callback(response.body()!!)
+            }
+>>>>>>> Stashed changes
         })
     }
 
