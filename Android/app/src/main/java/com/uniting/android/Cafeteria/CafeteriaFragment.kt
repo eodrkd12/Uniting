@@ -1,6 +1,7 @@
 package com.uniting.android.Cafeteria
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 
 class CafeteriaFragment : Fragment() {
 
@@ -18,13 +20,16 @@ class CafeteriaFragment : Fragment() {
         val verticalCafeteriaRV : RecyclerView = rootView.findViewById(R.id.rv_verticalcafeteria)
         val univName : TextView = rootView.findViewById(R.id.text_cafeteria_univ_name)
 
-        var cafeteriaType = arrayListOf("한식", "중식", "양식", "일식", "치킨")
-
         univName.text = UserInfo.UNIV
 
-        verticalCafeteriaRV.setHasFixedSize(true)
-        verticalCafeteriaRV.layoutManager = LinearLayoutManager(activity)
-        verticalCafeteriaRV.adapter = CafeteriaVerticalAdapter(activity!!, cafeteriaType)
+        Retrofit.getCafeteriaList {
+            Log.d("test", "식당목록 호출")
+            val cafeteriaList = arrayListOf(it.koreanFoodList, it.chineseFoodList, it.westernFoodList, it.japaneseFoodList, it.chickenFoodList)
+
+            verticalCafeteriaRV.setHasFixedSize(true)
+            verticalCafeteriaRV.layoutManager = LinearLayoutManager(activity)
+            verticalCafeteriaRV.adapter = CafeteriaVerticalAdapter(activity!!, cafeteriaList)
+        }
 
         return rootView
     }

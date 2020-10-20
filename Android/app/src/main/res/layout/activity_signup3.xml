@@ -80,6 +80,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/enable_rounded_button"
+                android:foreground="?attr/selectableItemBackground"
                 android:text="중복확인"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textStyle="bold"

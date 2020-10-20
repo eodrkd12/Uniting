@@ -229,6 +229,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun updateMatchingCondition(@Field("sql") sql : String) : Call<ResultModel>
+
     //방 접속 날짜 가져오기
     @FormUrlEncoded
     @POST("/common/sql/select/single")
@@ -276,4 +277,16 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/insert")
     fun chatAlarmOff(@Field("sql") sql: String): Call<ResultModel>
+    //프로필 부가정보(키, 취미, 성격, 소개글) 업데이트
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun updateProfileInfo(@Field("sql") sql : String) : Call<ResultModel>
+
+    //식당목록 불러오기
+    @FormUrlEncoded
+    @POST("/cafeteria/get/list")
+    fun getCafeteriaList(@Field("univ_name") univName : String) : Call<CafeteriaItem.CafeteriaList>
+
+
+
 }

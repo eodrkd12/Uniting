@@ -93,7 +93,7 @@ class PSDialog(activity: Activity) {
         dialog!!.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
 
 
-        var ssb: SpannableStringBuilder = SpannableStringBuilder(title + "을 알려주세요.")
+        var ssb = SpannableStringBuilder(title + "을 알려주세요.")
         ssb.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleText.text = ssb
 
@@ -108,9 +108,17 @@ class PSDialog(activity: Activity) {
         }
 
         saveBtn.setOnClickListener {
-            for(i in userOptionList) {
-                if(i.isSelected) {
-                    selectedOption += i.title + ","
+            if(title == "성격" || title == "취미") {
+                for(i in userOptionList) {
+                    if(i.isSelected) {
+                        selectedOption += i.title + ","
+                    }
+                }
+            } else {
+                for(i in userOptionList) {
+                    if(i.isSelected) {
+                        selectedOption += i.title
+                    }
                 }
             }
 
