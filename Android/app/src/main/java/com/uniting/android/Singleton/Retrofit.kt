@@ -690,5 +690,72 @@ object Retrofit {
         })
     }
 
+    fun allChatAlarmOn(userId: String) {
 
+        var sql = "UPDATE joined SET alarm_chat = 1 WHERE user_id = ${userId}"
+
+        service.allChatAlarmOn(sql).enqueue(object : Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+        })
+    }
+
+    fun allChatAlarmOff(userId: String) {
+        var sql = "UPDATE joined SET alarm_chat = 0 WHERE user_id = ${userId}"
+
+        service.allChatAlarmOff(sql).enqueue(object : Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+        })
+    }
+
+    fun getChatAlarm(roomId: String, userId: String, callback: (CountModel) -> Unit) {
+        var sql = "SELECT alarm_chat as count FROM joined WHERE room_id = '${roomId}' AND user_id = '${userId}'"
+
+        service.getChatAlarm(sql).enqueue(object: Callback<CountModel>{
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
+            }
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun chatAlarmOn(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
+
+        var sql = "UPDATE joined SET alarm_chat = 1 WHERE room_id = '${roomId}' AND user_id = '${userId}'"
+
+        service.chatAlarmOn(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
+
+    fun chatAlarmOff(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
+
+        var sql = "UPDATE joined SET alarm_chat = 1 WHERE room_id = '${roomId}' AND user_id = '${userId}'"
+
+        service.chatAlarmOff(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
 }

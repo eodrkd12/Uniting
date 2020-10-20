@@ -64,6 +64,11 @@ class ChatActivity : PSAppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
+        var roomViewModel = RoomViewModel(application)
+        roomViewModel.insert(room){
+
+        }
+
         if(room.category == "데이팅"){
             if(UserInfo.ID == room.maker){
                 supportActionBar?.title = room.room_title.split("&")[1]
@@ -74,11 +79,6 @@ class ChatActivity : PSAppCompatActivity() {
         }
         else{
             supportActionBar?.title = room.room_title
-        }
-
-        FirebaseMessaging.getInstance().subscribeToTopic(room.room_id).addOnCompleteListener {
-            if(it.isSuccessful){
-            }
         }
 
         Retrofit.getMembers(room.room_id){
@@ -112,8 +112,8 @@ class ChatActivity : PSAppCompatActivity() {
             it.forEach {
                 chatList.add(ChatItem(it))
             }
-            chatAdapter.sortByChatTime()
             chatAdapter.notifyDataSetChanged()
+            chatAdapter.sortByChatTime()
             list_chat.setSelection(chatAdapter.count-1)
         })
 
@@ -185,28 +185,45 @@ class ChatActivity : PSAppCompatActivity() {
 
                     Retrofit.insertChat(systemChat){
                         if(it.result == "success"){
-                            writeFirebase(systemChat)
-                            chatViewModel.insert(systemChat){
-                                list_chat.setSelection(chatAdapter.count-1)
+                            Retrofit.insertChat(chat) {
+                                if (it.result == "success") {
+
+                                    writeFirebase(chat)
+
+                                    var topic = room.room_id
+                                    var title = room.room_title
+                                    var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
+
+                                    Retrofit.sendFcm(topic, title, content)
+
+                                    chatViewModel.insert(chat) {
+                                        list_chat.setSelection(chatAdapter.count - 1)
+                                    }
+
+                                    writeFirebase(systemChat)
+                                    chatViewModel.insert(systemChat){
+                                        list_chat.setSelection(chatAdapter.count-1)
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                else {
+                    Retrofit.insertChat(chat) {
+                        if (it.result == "success") {
 
+                            writeFirebase(chat)
 
-                Retrofit.insertChat(chat){
-                    if(it.result == "success"){
+                            var topic = room.room_id
+                            var title = room.room_title
+                            var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
 
-                        writeFirebase(chat)
+                            Retrofit.sendFcm(topic, title, content)
 
-                        var topic = room.room_id
-                        var title = room.room_title
-                        var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
-
-                        Retrofit.sendFcm(topic, title, content)
-
-                        chatViewModel.insert(chat){
-                            list_chat.setSelection(chatAdapter.count-1)
+                            chatViewModel.insert(chat) {
+                                list_chat.setSelection(chatAdapter.count - 1)
+                            }
                         }
                     }
                 }
@@ -232,6 +249,34 @@ class ChatActivity : PSAppCompatActivity() {
                         chatViewModel.delete(room.room_id){
                             finish()
                         }
+                    }
+                }
+            }
+        }
+
+        Retrofit.getChatAlarm(room.room_id, UserInfo.ID){
+            when(it.count){
+                0 -> {
+                    text_alarm.text = "알람 켜기"
+                }
+                1 -> {
+                    text_alarm.text = "알람 끄기"
+                }
+            }
+        }
+
+        text_alarm.setOnClickListener {
+            when(text_alarm.text){
+                "알람 켜기" -> {
+                    Retrofit.chatAlarmOff(room.room_id,UserInfo.ID){
+                        text_alarm.text = "알람 끄기"
+                        FirebaseMessaging.getInstance().subscribeToTopic(room.room_id)
+                    }
+                }
+                "알람 끄기" -> {
+                    Retrofit.chatAlarmOn(room.room_id,UserInfo.ID){
+                        text_alarm.text = "알람 켜기"
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(room.room_id)
                     }
                 }
             }

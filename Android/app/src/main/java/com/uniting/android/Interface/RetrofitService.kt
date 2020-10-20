@@ -251,4 +251,29 @@ interface RetrofitService {
         @Field("room_id") roomId: String,
         @Field("user_id") userId: String
     ): Call<ResultModel>
+
+    //알람 모두 켜기
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun allChatAlarmOn(@Field("sql") sql: String): Call<ResultModel>
+
+    //알람 모두 끄기
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun allChatAlarmOff(@Field("sql") sql: String): Call<ResultModel>
+
+    //알람 상태 가져오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getChatAlarm(@Field("sql") sql: String): Call<CountModel>
+
+    //알람 켜기
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun chatAlarmOn(@Field("sql") sql: String): Call<ResultModel>
+
+    //알람 끄기
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun chatAlarmOff(@Field("sql") sql: String): Call<ResultModel>
 }
