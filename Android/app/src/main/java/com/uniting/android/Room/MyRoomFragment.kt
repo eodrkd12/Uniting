@@ -70,4 +70,11 @@ class MyRoomFragment : Fragment() {
 
         return rootView
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        roomAdapter.sortByLastChat()
+        roomAdapter.notifyDataSetChanged()
+    }
 }

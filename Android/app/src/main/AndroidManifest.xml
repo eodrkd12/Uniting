@@ -21,11 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Login.Signup4Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Option.InquireActivity" />
         <activity android:name=".Option.AlarmActivity" />
@@ -50,7 +46,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Main.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Main.MainActivity" />
 

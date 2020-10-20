@@ -22,6 +22,9 @@ import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_mainchat.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ChatActivity : PSAppCompatActivity() {
 
@@ -60,7 +63,18 @@ class ChatActivity : PSAppCompatActivity() {
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
-        supportActionBar?.title = room.room_title
+
+        if(room.category == "데이팅"){
+            if(UserInfo.ID == room.maker){
+                supportActionBar?.title = room.room_title.split("&")[1]
+            }
+            else{
+                supportActionBar?.title = room.room_title.split("&")[0]
+            }
+        }
+        else{
+            supportActionBar?.title = room.room_title
+        }
 
         FirebaseMessaging.getInstance().subscribeToTopic(room.room_id).addOnCompleteListener {
             if(it.isSuccessful){
@@ -119,11 +133,65 @@ class ChatActivity : PSAppCompatActivity() {
 
                 var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
 
-                var chat = Chat(chatId,room.room_id,UserInfo.ID,UserInfo.NICKNAME,content,date,unreadMember,0)
+                var chat = Chat(
+                    chatId,
+                    room.room_id,
+                    UserInfo.ID,
+                    UserInfo.NICKNAME,
+                    content,
+                    date,
+                    unreadMember,
+                    0
+                )
 
+                if (chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(" ")[0]) {
+                    val calendar = Calendar.getInstance()
+                    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
+                    var dayOfWeekStr = ""
 
-                if(chatList.last().chat.chat_time < getCurDate())
+                    when(dayOfWeek) {
+                        1 -> {
+                            dayOfWeekStr = "일요일"
+                        }
+                        2 -> {
+                            dayOfWeekStr = "월요일"
+                        }
+                        3 -> {
+                            dayOfWeekStr = "화요일"
+                        }
+                        4 -> {
+                            dayOfWeekStr = "수요일"
+                        }
+                        5 -> {
+                            dayOfWeekStr = "목요일"
+                        }
+                        6 -> {
+                            dayOfWeekStr = "금요일"
+                        }
+                        7 -> {
+                            dayOfWeekStr = "토요일"
+                        }
+                    }
+
+                    var systemChat = Chat(
+                        "SYSTEM_${room.room_id}_${date}",
+                        room.room_id,
+                        "SYSTEM",
+                        "SYSTEM",
+                        "${getCurDate().split(" ")[0]} ${dayOfWeekStr}",
+                        date, "", 1
+                    )
+
+                    Retrofit.insertChat(systemChat){
+                        if(it.result == "success"){
+                            writeFirebase(systemChat)
+                            chatViewModel.insert(systemChat){
+                                list_chat.setSelection(chatAdapter.count-1)
+                            }
+                        }
+                    }
+                }
 
 
                 Retrofit.insertChat(chat){
@@ -198,9 +266,6 @@ class ChatActivity : PSAppCompatActivity() {
                 }
             })
         }
-
-
-
     }
 
     override fun onDestroy() {

@@ -236,11 +236,19 @@ interface RetrofitService {
 
     //방 삭제
     @FormUrlEncoded
-    @POST("room/delete")
+    @POST("/room/delete")
     fun deleteRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
 
     //방 나가기
     @FormUrlEncoded
-    @POST("room/exit")
+    @POST("/room/exit")
     fun exitRoom(@Field("room_id") roomId: String, @Field("user_id") userId: String): Call<ResultModel>
+
+    //주제구독 & 푸시알림전송
+    @FormUrlEncoded
+    @POST("/common/subscribe/fcm")
+    fun subscribeFcm(
+        @Field("room_id") roomId: String,
+        @Field("user_id") userId: String
+    ): Call<ResultModel>
 }

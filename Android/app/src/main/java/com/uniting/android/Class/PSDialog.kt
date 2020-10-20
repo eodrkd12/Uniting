@@ -2,6 +2,7 @@ package com.uniting.android.Class
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -22,6 +23,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.FirebaseDatabase
+import com.uniting.android.Chat.ChatActivity
+import com.uniting.android.DB.Entity.Chat
+import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DB.ViewModel.ChatViewModel
 import com.uniting.android.Home.ConditionAdapter
 import com.uniting.android.Login.UserItem
 import com.uniting.android.Login.UserOptionAdapter
@@ -29,7 +35,9 @@ import com.uniting.android.Option.PersonalityAdapter
 import com.uniting.android.Room.MakeRoomActivity
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.dialog_inquire.*
+import java.util.*
 import java.util.concurrent.locks.Condition
+import kotlin.collections.ArrayList
 
 class PSDialog(activity: Activity) {
 
@@ -348,5 +356,126 @@ class PSDialog(activity: Activity) {
 
     }
 
+    fun setChat(userId: String, userNickname: String) {
+        dialog!!.setContentView(R.layout.dialog_check_save)
 
+        val titleText : TextView = dialog!!.findViewById(R.id.text_dialogtitle)
+        val contentText : TextView = dialog!!.findViewById(R.id.text_dialogcontent)
+        val btnCancel : Button = dialog!!.findViewById(R.id.btn_dialogcancel)
+        val btnAccept : Button = dialog!!.findViewById(R.id.btn_dialogaccept)
+
+        titleText.text = "대화 신청"
+        contentText.text = "${userNickname}님과의\n대화를 진행하시겠습니까?"
+
+        btnCancel.setOnClickListener {
+            dismiss()
+        }
+
+        btnAccept.setOnClickListener {
+
+            var roomId = ""
+
+            for(i in 0..11){
+                roomId += Random().nextInt(10).toString()
+            }
+
+            Retrofit.createRoom(roomId,"${UserInfo.NICKNAME}&${userNickname}","데이팅",curDate(),"",UserInfo.UNIV,UserInfo.ID){
+                if(it.result=="success"){
+                    Retrofit.joinRoom(roomId, userId, curDate()){
+                        Retrofit.subscribeFcm(roomId,userId){
+
+                        }
+                    }
+                    Retrofit.joinRoom(roomId, UserInfo.ID, curDate()){
+                        if(it.result=="success"){
+                            var room = Room(
+                                roomId,
+                                "${UserInfo.NICKNAME}&${userNickname}",
+                                UserInfo.ID,
+                                "데이팅",
+                                curDate(),
+                                "",
+                                UserInfo.UNIV
+                            )
+
+                            val calendar = Calendar.getInstance()
+                            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+                            var dayOfWeekStr = ""
+
+                            when(dayOfWeek) {
+                                1 -> {
+                                    dayOfWeekStr = "일요일"
+                                }
+                                2 -> {
+                                    dayOfWeekStr = "월요일"
+                                }
+                                3 -> {
+                                    dayOfWeekStr = "화요일"
+                                }
+                                4 -> {
+                                    dayOfWeekStr = "수요일"
+                                }
+                                5 -> {
+                                    dayOfWeekStr = "목요일"
+                                }
+                                6 -> {
+                                    dayOfWeekStr = "금요일"
+                                }
+                                7 -> {
+                                    dayOfWeekStr = "토요일"
+                                }
+                            }
+
+                            var systemChat = Chat(
+                                "SYSTEM_${room.room_id}_${curDate()}",
+                                room.room_id,
+                                "SYSTEM",
+                                "SYSTEM",
+                                "${curDate().split(" ")[0]} ${dayOfWeekStr}",
+                                curDate(), "", 1
+                            )
+
+                            var chatViewModel = ChatViewModel(context!!.application, roomId)
+
+                            Retrofit.insertChat(systemChat){
+                                if(it.result == "success"){
+                                    writeFirebase(systemChat, roomId)
+                                    chatViewModel.insert(systemChat){
+                                        var intent = Intent(context, ChatActivity::class.java)
+                                        intent.putExtra("room",room)
+                                        intent.putExtra("last_chat_time","0000-00-00")
+                                        context!!.startActivity(intent)
+                                        context!!.finish()
+                                        dismiss()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun writeFirebase(chat: Chat, roomId: String){
+
+        var ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomId)
+
+        var map = HashMap<String, Any>()
+        val key: String? = ref!!.push().key
+
+        var root = ref!!.child(key!!)
+        var objectMap = HashMap<String, Any>()
+
+        objectMap.put("chat_id", chat.chat_id)
+        objectMap.put("room_id", chat.room_id)
+        objectMap.put("user_id", chat.user_id)
+        objectMap.put("user_nickname", chat.user_nickname)
+        objectMap.put("chat_content", chat.chat_content)
+        objectMap.put("chat_time", chat.chat_time)
+        objectMap.put("unread_member", chat.unread_member)
+        objectMap.put("system_chat", chat.system_chat)
+
+        root.updateChildren(objectMap)
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.uniting.android.Chat.ChatActivity
+import com.uniting.android.Class.UserInfo
 import com.uniting.android.R
 
 class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
@@ -37,10 +38,20 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
         var lastChatTime = view.findViewById<TextView>(R.id.text_last_chat_time)
 
         fun bind(myRoom: MyRoomItem, context: Context) {
-            roomTitle.text = myRoom.room.room_title
+            if(myRoom.room.category == "데이팅"){
+                if(UserInfo.ID == myRoom.room.maker){
+                    roomTitle.text = myRoom.room.room_title.split("&")[1]
+                }
+                else{
+                    roomTitle.text = myRoom.room.room_title.split("&")[0]
+                }
+            }
+            else {
+                roomTitle.text = myRoom.room.room_title
+            }
             lastChat.text = ""
             lastChatTime.text = ""
-            Log.d("test","${position}, ${myRoom.room.room_id}")
+
             var ref = FirebaseDatabase.getInstance().reference.child("chat").child(myRoom.room.room_id)
             var query = ref!!.orderByChild("chat_time").limitToLast(1)
             query!!.addChildEventListener(object : ChildEventListener{
@@ -56,18 +67,21 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
                 override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                     var value = p0.value as HashMap<String, Any>
 
-                    myRoom.lastChatTime = value["chat_time"] as String
-                    myRoom.lastChat = value["chat_content"] as String
+                    var systemChat = value["system_chat"] as Long
+                    if(systemChat == 0L){
+                        myRoom.lastChatTime = value["chat_time"] as String
+                        myRoom.lastChat = value["chat_content"] as String
 
-                    var time = myRoom.lastChatTime.split(" ")[1]
-                    var hour = time.split(":")[0]
+                        var time = myRoom.lastChatTime.split(" ")[1]
+                        var hour = time.split(":")[0]
 
-                    if(time != "") {
-                        if (hour.toInt() > 12) hour = "오후 ${hour.toInt() - 12}:${time.split(":")[1]}"
-                        else hour = "오전 ${hour}:${time.split(":")[1]}"
+                        if(time != "") {
+                            if (hour.toInt() > 12) hour = "오후 ${hour.toInt() - 12}:${time.split(":")[1]}"
+                            else hour = "오전 ${hour}:${time.split(":")[1]}"
 
-                        lastChatTime.text = hour
-                        lastChat.text = myRoom.lastChat
+                            lastChatTime.text = hour
+                            lastChat.text = myRoom.lastChat
+                        }
                     }
                 }
 

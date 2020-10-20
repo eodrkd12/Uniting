@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.uniting.android.Class.PSDialog
 import com.uniting.android.R
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.text.SimpleDateFormat
@@ -66,6 +67,12 @@ class ProfileActivity : AppCompatActivity() {
 
         image_profile_back.setOnClickListener {
             finish()
+        }
+
+        btn_chat.setOnClickListener {
+            val psDialog = PSDialog(this)
+            psDialog.setChat(userId!!, text_profile_nickname.text.toString())
+            psDialog.show()
         }
     }
 
