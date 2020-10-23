@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.ViewModel.ChatViewModel
+import com.uniting.android.DB.ViewModel.RoomViewModel
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -148,6 +150,8 @@ class MakeRoomActivity : PSAppCompatActivity() {
                                         if(it.result == "success"){
                                             writeFirebase(systemChat, roomId)
                                             chatViewModel.insert(systemChat){
+                                                FirebaseMessaging.getInstance().subscribeToTopic(room.room_id)
+
                                                 var intent = Intent(this, ChatActivity::class.java)
                                                 intent.putExtra("room",room)
                                                 intent.putExtra("last_chat_time","0000-00-00")

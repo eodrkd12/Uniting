@@ -24,6 +24,7 @@ import com.uniting.android.R
 import java.text.SimpleDateFormat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
@@ -450,6 +451,7 @@ class PSDialog(activity: Activity) {
                                     writeFirebase(systemChat, roomId)
                                     chatViewModel.insert(systemChat){
                                         var intent = Intent(context, ChatActivity::class.java)
+                                        FirebaseMessaging.getInstance().subscribeToTopic(room.room_id)
                                         intent.putExtra("room",room)
                                         intent.putExtra("last_chat_time","0000-00-00")
                                         context!!.startActivity(intent)

@@ -10,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Room
+import com.uniting.android.DB.ViewModel.RoomViewModel
 import com.uniting.android.R
 import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.item_room.view.*
@@ -91,6 +93,8 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
                             .setMessage("입장하시겠습니까?")
                             .setPositiveButton("입장", object : DialogInterface.OnClickListener {
                                 override fun onClick(p0: DialogInterface?, p1: Int) {
+                                    FirebaseMessaging.getInstance().subscribeToTopic(roomItem.room.room_id)
+
                                     var intent = Intent(context, ChatActivity::class.java)
                                     intent.putExtra("room", roomItem.room)
                                     intent.putExtra("last_chat_time", lastChatTime)
