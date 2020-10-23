@@ -1,7 +1,6 @@
 package com.uniting.android.Cafeteria
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,6 @@ class CafeteriaFragment : Fragment() {
         univName.text = UserInfo.UNIV
 
         Retrofit.getCafeteriaList {
-            Log.d("test", "식당목록 호출")
             val cafeteriaList = arrayListOf(it.koreanFoodList, it.chineseFoodList, it.westernFoodList, it.japaneseFoodList, it.chickenFoodList)
 
             verticalCafeteriaRV.setHasFixedSize(true)

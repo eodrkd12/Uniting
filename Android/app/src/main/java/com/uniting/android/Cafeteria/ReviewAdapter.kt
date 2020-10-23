@@ -61,7 +61,7 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
             holder.reviewDelete.visibility = View.VISIBLE
             holder.reviewDelete.setOnClickListener {
                 if(reviewList.get(position).imageUrl == "null") {
-                    Retrofit.deleteReview(reviewList.get(position).reviewId, "noimage") {
+                    Retrofit.deleteReview(reviewList.get(position).reviewNo, "noimage") {
                         if(it.result == "success") {
                             Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                             reviewList.removeAt(position)
@@ -74,7 +74,7 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
                     }
                 } else {
                     var list : List<String>? = reviewList.get(position).imageUrl?.split("/")
-                    Retrofit.deleteReview(reviewList.get(position).reviewId, list!!.get(3)) {
+                    Retrofit.deleteReview(reviewList.get(position).reviewNo, list!!.get(3)) {
                         if(it.result == "success") {
                             Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                             reviewList.removeAt(position)

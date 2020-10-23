@@ -71,15 +71,11 @@ object Retrofit {
         })
     }
 
-    fun getReview(cafeteriaName: String, callback: (ArrayList<CafeteriaItem.Review>) -> Unit) {
-
-        val sql = "select * from review where cafe_name='${cafeteriaName}' order by review_date desc"
+    fun getReview(cafeNo : Int, callback: (ArrayList<CafeteriaItem.Review>) -> Unit) {
+        val sql = "select * from review where cafe_no = $cafeNo order by review_date desc"
 
         service.getReview(sql).enqueue(object: Callback<ArrayList<CafeteriaItem.Review>>{
-            override fun onResponse(
-                call: Call<ArrayList<CafeteriaItem.Review>>,
-                response: Response<ArrayList<CafeteriaItem.Review>>
-            ) {
+            override fun onResponse(call: Call<ArrayList<CafeteriaItem.Review>>, response: Response<ArrayList<CafeteriaItem.Review>>) {
                 callback(response.body()!!)
 
                 for(i in response.body()!!)
@@ -91,9 +87,9 @@ object Retrofit {
         })
     }
 
-    fun insertReview(cafeteriaName: String, reviewContent: String, reviewPoint:Int, reviewType: String, imagePath: String, callback : (ResultModel) -> Unit) {
+    fun insertReview(cafeNo: Int, reviewContent: String, reviewPoint:Int, reviewType: String, imagePath: String, callback : (ResultModel) -> Unit) {
         if(reviewType == "noimage") {
-            service.insertNoImageReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, "noimage").enqueue(object: Callback<ResultModel> {
+            service.insertNoImageReview(UserInfo.ID, UserInfo.NICKNAME, cafeNo, reviewContent, curDate(), reviewPoint, "noimage").enqueue(object: Callback<ResultModel> {
                 override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                     callback(response.body()!!)
                 }
@@ -106,7 +102,7 @@ object Retrofit {
         else {
             val requestFile = RequestBody.create(MediaType.parse("image/*"), File(imagePath))
             val uploadFile = MultipartBody.Part.createFormData("img", imagePath, requestFile)
-            service.insertReview(UserInfo.ID, UserInfo.NICKNAME, cafeteriaName, reviewContent, curDate(), reviewPoint, uploadFile).enqueue(object: Callback<ResultModel> {
+            service.insertReview(UserInfo.ID, UserInfo.NICKNAME, cafeNo, reviewContent, curDate(), reviewPoint, uploadFile).enqueue(object: Callback<ResultModel> {
                 override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                     callback(response.body()!!)
                 }
@@ -251,8 +247,8 @@ object Retrofit {
 
     }
 
-    fun deleteReview(reviewId: Int, imagePath: String, callback : (ResultModel) -> Unit) {
-        service.deleteReview(reviewId, imagePath).enqueue(object:Callback<ResultModel> {
+    fun deleteReview(reviewNo: Int, imagePath: String, callback : (ResultModel) -> Unit) {
+        service.deleteReview(reviewNo, imagePath).enqueue(object:Callback<ResultModel> {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
@@ -706,12 +702,22 @@ object Retrofit {
     fun getCafeteriaList(callback : (CafeteriaItem.CafeteriaList) -> Unit) {
         service.getCafeteriaList(UserInfo.UNIV).enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
             override fun onFailure(call: Call<CafeteriaItem.CafeteriaList>, t: Throwable) {
-                Log.d("test", "통신실패 \n ${t.toString()}")
             }
 
             override fun onResponse(call: Call<CafeteriaItem.CafeteriaList>, response: Response<CafeteriaItem.CafeteriaList>) {
                 callback(response.body()!!)
-                Log.d("test", "통신성공")
+            }
+        })
+    }
+
+    fun getCafeteriaInform(cafeNo : Int, callback : (CafeteriaItem.Cafeteria) -> Unit) {
+        service.getCafeteriaInform(cafeNo).enqueue(object : Callback<CafeteriaItem.Cafeteria> {
+            override fun onFailure(call: Call<CafeteriaItem.Cafeteria>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<CafeteriaItem.Cafeteria>, response: Response<CafeteriaItem.Cafeteria>) {
+                callback(response.body()!!)
+                Log.d("test", response.body().toString())
             }
         })
     }

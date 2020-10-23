@@ -35,7 +35,7 @@ interface RetrofitService {
     fun insertReview(
         @Part("user_id") userId: String,
         @Part("user_nickname") userNickname: String,
-        @Part("cafe_name") cafeteriaName: String,
+        @Part("cafe_no") cafeNo : Int,
         @Part("review_content") reviewContent: String,
         @Part("review_date") reviewDate: String,
         @Part("review_point") reviewPoint: Int,
@@ -54,7 +54,7 @@ interface RetrofitService {
     fun insertNoImageReview(
         @Field("user_id") userId: String,
         @Field("user_nickname") userNickname: String,
-        @Field("cafe_name") cafeteriaName: String,
+        @Field("cafe_no") cafeNo : Int,
         @Field("review_content") reviewContent: String,
         @Field("review_date") reviewDate: String,
         @Field("review_point") reviewPoint: Int,
@@ -91,7 +91,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/image/review/delete")
     fun deleteReview(
-        @Field("review_id") reviewId: Int,
+        @Field("review_no") reviewNo: Int,
         @Field("image_path") imagePath: String
     ): Call<ResultModel>
 
@@ -263,6 +263,8 @@ interface RetrofitService {
     @POST("/cafeteria/get/list")
     fun getCafeteriaList(@Field("univ_name") univName : String) : Call<CafeteriaItem.CafeteriaList>
 
-
-
+    //식당정보 불러오기
+    @FormUrlEncoded
+    @POST("/cafeteria/get/inform")
+    fun getCafeteriaInform(@Field("cafe_no") cafeNo : Int) : Call<CafeteriaItem.Cafeteria>
 }
