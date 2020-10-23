@@ -19,6 +19,7 @@ struct MyRoomItem : View {
     @State var lastChat = ""
     @State var lastChatTime = ""
     
+    @State var title = ""
     
     var body: some View{
         HStack(spacing: 5){
@@ -27,12 +28,24 @@ struct MyRoomItem : View {
                     .resizable()
                     .frame(width: 70, height: 70)
                 VStack(spacing: 5){
-                    Text(room.room_title)
-                        .font(.system(size: 20))
-                        .foregroundColor(Colors.grey700)
-                    Text(lastChat)
-                        .font(.system(size: 18))
-                        .foregroundColor(Colors.grey500)
+                    HStack{
+                        Text(title)
+                            .font(.system(size: 20))
+                            .foregroundColor(Colors.grey700)
+                            .truncationMode(.tail)
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                    .frame(width:150)
+                    HStack{
+                        Text(lastChat)
+                            .font(.system(size: 18))
+                            .foregroundColor(Colors.grey500)
+                            .truncationMode(.tail)
+                            .lineLimit(2)
+                        Spacer()
+                    }
+                    .frame(width:150)
                     Spacer()
                 }
                 Spacer()
@@ -67,6 +80,18 @@ struct MyRoomItem : View {
                 
                 self.lastChatTime = timeStr
             })
+            
+            if self.room.category == "데이팅" {
+                if UserInfo.shared.ID == self.room.maker {
+                    self.title = String(self.room.room_title.split(separator: "&")[1])
+                }
+                else {
+                    self.title = String(self.room.room_title.split(separator: "&")[0])
+                }
+            }
+            else{
+                self.title = self.room.room_title
+            }
         }
     }
 }

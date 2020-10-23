@@ -36,7 +36,6 @@ struct CafeteriaView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear(){
-            
             if self.initCount < 5 {
                 self.cafeteriaType.forEach { (type) in
                     AlamofireService.shared.getCafeteriaList(start: 1,display: 10,query: "성서계명대\(type)",sortingOrder: "reviewCount"){ items in

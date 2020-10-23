@@ -18,24 +18,28 @@ struct HomeView: View {
                 Image("openchat_button-1")
                     .onTapGesture {
                         self.matchingMode.toggle()
-                }
+                    }
             }
             else {
                 Image("by1_button")
                     .onTapGesture {
                         self.matchingMode.toggle()
+                    }
+            }
+            GeometryReader{ _ in
+                HStack{
+                    MatchingView()
+                        .offset(x: self.matchingMode ? 0 : -UIScreen.main.bounds.width)
+                        .animation(.easeIn(duration: 0.2))
+                    OpenChatView()
+                        .offset(x: self.matchingMode ? UIScreen.main.bounds.width : -UIScreen.main.bounds.width)
+                        .animation(.easeIn(duration: 0.2))
                 }
-            }
-            
-            if matchingMode == true {
-                MatchingView()
-            }
-            else {
-                OpenChatView()
             }
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .padding(.top,20)
     }
 }
 

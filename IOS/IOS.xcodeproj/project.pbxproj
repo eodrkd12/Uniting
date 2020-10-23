@@ -54,7 +54,7 @@
 		54BA653824FE1667007C6B32 /* ConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653724FE1667007C6B32 /* ConditionView.swift */; };
 		54BA653A24FE1B28007C6B32 /* ConditionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653924FE1B28007C6B32 /* ConditionRow.swift */; };
 		54BA653C24FE2F97007C6B32 /* ChangeAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */; };
-		54C53503251492390045E702 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C53502251492390045E702 /* Menu.swift */; };
+		54C53503251492390045E702 /* RoomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C53502251492390045E702 /* RoomMenu.swift */; };
 		54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */; };
 		54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C5D088252AE6180066EFB7 /* DynamicHeightHStack.swift */; };
 		54CE0F85251330300028A98A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54CE0F84251330300028A98A /* GoogleService-Info.plist */; };
@@ -117,7 +117,7 @@
 		54BA653724FE1667007C6B32 /* ConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionView.swift; sourceTree = "<group>"; };
 		54BA653924FE1B28007C6B32 /* ConditionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionRow.swift; sourceTree = "<group>"; };
 		54BA653B24FE2F97007C6B32 /* ChangeAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAlert.swift; sourceTree = "<group>"; };
-		54C53502251492390045E702 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		54C53502251492390045E702 /* RoomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMenu.swift; sourceTree = "<group>"; };
 		54C5D085252ABBCD0066EFB7 /* ProfileRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRow.swift; sourceTree = "<group>"; };
 		54C5D088252AE6180066EFB7 /* DynamicHeightHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightHStack.swift; sourceTree = "<group>"; };
 		54CE0F84251330300028A98A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 				54CE0F86251337F70028A98A /* ChatView.swift */,
 				54CE0F88251344B20028A98A /* ChatItem.swift */,
 				54CE0F8A251344CC0028A98A /* ChatData.swift */,
-				54C53502251492390045E702 /* Menu.swift */,
+				54C53502251492390045E702 /* RoomMenu.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -449,7 +449,7 @@
 				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
 				54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
-				54C53503251492390045E702 /* Menu.swift in Sources */,
+				54C53503251492390045E702 /* RoomMenu.swift in Sources */,
 				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
 				544A7A8D252D960400525286 /* EditProfileView.swift in Sources */,

@@ -33,7 +33,7 @@ struct MatchingView: View {
                 .aspectRatio(4/4, contentMode: .fit)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .frame(width: UIScreen.main.bounds.width, height: 280)
-                //if index == 1 {
+                if index == 1 {
                     VStack(spacing: 10){
                         HStack{
                             Text("매칭조건")
@@ -48,7 +48,7 @@ struct MatchingView: View {
                         EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$hobby, title: "취미")
                         EditConditionRow(index: self.$index, changeAlertVisible: self.$changeAlertVisible, value: self.$personality, title: "성격")
                     }
-                //}
+                }
                 NavigationLink(destination: ProfileView(profile: $profile), isActive: $profileVisible, label: {
                     
                 })
@@ -83,7 +83,7 @@ struct MatchingView: View {
                 }, label: {
                     Image("big_main_connect_button")
                         .resizable()
-                        .frame(width: 270, height: 40)
+                        .frame(width: 270, height: 45)
                         .alert(isPresented: self.$alertVisible){
                             Alert(title: Text("키와 나이는 필수항목입니다."))
                         }
@@ -98,6 +98,8 @@ struct MatchingView: View {
                         ChangeAlert(showing: self.$changeAlertVisible, index: self.$index)
                     }.background(Color.black.opacity(0.5).edgesIgnoringSafeArea(.all))
                 }
+                
+                Spacer()
             }
         }
     }

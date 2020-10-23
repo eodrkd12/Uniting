@@ -21,59 +21,94 @@ struct ChatView: View {
     @State var chatDataList : [ChatData] = []
     @State var chatList : [ChatItem] = []
     
+    @State var memberList : [MemberData] = []
+    
     @State var menuVisible = false
     
     @State var height : CGFloat=0
     @State var content = ""
+    
+    @State var title = ""
     var body: some View {
         ZStack{
             VStack{
-                HStack{
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image("black_back_icon")
+                VStack{
+                    HStack{
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image("black_back_icon")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        })
+                        
+                        Spacer()
+                        Text(title)
+                            .font(.system(size: 20))
+                            .foregroundColor(Colors.grey700)
+                        Spacer()
+                        Image("option_icon")
                             .resizable()
                             .frame(width: 20, height: 20)
-                    })
-                    
-                    Spacer()
-                    Text(room.room_title)
-                        .font(.system(size: 20))
-                        .foregroundColor(Colors.grey700)
-                    Spacer()
-                    Image("option_icon")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .onTapGesture {
-                            self.menuVisible.toggle()
+                            .onTapGesture {
+                                self.menuVisible.toggle()
+                            }
+                    }
+                    ScrollView{
+                        ForEach(chatList, id:\.chat.chat_id){ chat in
+                            chat
                         }
-                }
-                ScrollView{
-                    ForEach(chatList, id:\.chat.chat_id){ chat in
-                        chat
                     }
                 }
+                .padding()
                 Spacer()
-                HStack{
-                    TextField("", text: $content)
+                HStack(){
+                    Spacer()
+                    Text(content)
+                        .opacity(0)
+                        .font(.system(size: 18))
+                        .frame(minWidth: UIScreen.main.bounds.width*0.7,maxWidth: UIScreen.main.bounds.width*0.7,minHeight: 25)
+                        .padding(4)
                         .lineLimit(4)
-                        .font(.system(size: 15))
-                    Button(action: {
-                        self.sendChat()
-                    }){
-                        Text("send")
+                        .overlay(GeometryReader{ geometry in
+                            ScrollView(showsIndicators: false){
+                                TextEditor(text: $content)
+                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .padding(4)
+                                    .font(.system(size: 18))
+                                    .background(Colors.grey200)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Colors.grey300,lineWidth: 2)
+                                    )
+                            }
+                        })
+                    Spacer()
+                    VStack{
+                        Button(action: {
+                            self.sendChat()
+                        }){
+                            Image("send_icon")
+                                .resizable()
+                                .padding(7)
+                                .frame(width:38,height:38)
+                                .background(Colors.primary)
+                                .clipShape(Circle())
+                        }
+                        .padding(.top,7)
                     }
+                    Spacer()
                 }
-                .frame(height : UIScreen.main.bounds.height*0.05)
+                .padding(.bottom,23)
                 .padding(.horizontal,15)
+                .padding(.top,2)
+                .background(Colors.grey100)
                 .offset(y: -self.height)
             }
-            .padding()
             GeometryReader{ _ in
                 HStack{
                     Spacer()
-                    RoomMenu(showing: self.presentationMode, room: self.room)
+                    RoomMenu(showing: self.presentationMode, room: room, memberList: $memberList)
                         .offset(x: self.menuVisible ? 0 : UIScreen.main.bounds.width)
                         .animation(.easeIn(duration: 0.2))
                 }
@@ -82,6 +117,7 @@ struct ChatView: View {
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .ignoresSafeArea(edges: .bottom)
         .onAppear(){
             
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
@@ -132,6 +168,22 @@ struct ChatView: View {
                     }
                 }
             })
+            
+            AlamofireService.shared.getMembers(roomId: self.room.room_id){ members in
+                self.memberList = members
+            }
+            
+            if self.room.category == "데이팅" {
+                if UserInfo.shared.ID == self.room.maker {
+                    self.title = String(self.room.room_title.split(separator: "&")[1])
+                }
+                else {
+                    self.title = String(self.room.room_title.split(separator: "&")[0])
+                }
+            }
+            else{
+                self.title = self.room.room_title
+            }
         }
     }
     

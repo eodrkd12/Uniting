@@ -726,7 +726,7 @@ object Retrofit {
             override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
                 callback(response.body()!!)
             }
-        }
+        })
     }
     
     fun updateProfileInfo(userHeight: String, userHobby: String, userPersonality: String, userIntroduce: String, callback : (ResultModel) -> Unit) {
@@ -769,7 +769,7 @@ object Retrofit {
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
                 callback(response.body()!!)
             }
-        }
+        })
     }
     
     fun getCafeteriaList(callback : (CafeteriaItem.CafeteriaList) -> Unit) {

@@ -37,6 +37,7 @@ struct OpenChatView: View {
                 } )
                 .foregroundColor(Color.clear)
             }
+            Spacer()
         }
     }
 }
