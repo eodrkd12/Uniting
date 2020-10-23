@@ -19,7 +19,7 @@ router.post('/review/insert', upload.single('img'), (req, res) => {
 
     var user_id = req.body.user_id
     var user_nickname = req.body.user_nickname
-    var cafe_name = req.body.cafe_name
+    var cafe_no = req.body.cafe_no
     var review_content = req.body.review_content
     var review_date = req.body.review_date
     var review_point = req.body.review_point
@@ -41,13 +41,13 @@ router.post('/review/insert/noimage', function(req, res) {
 
     var user_id = req.body.user_id
     var user_nickname = req.body.user_nickname
-    var cafe_name = req.body.cafe_name
+    var cafe_no = req.body.cafe_no
     var review_content = req.body.review_content
     var review_date = req.body.review_date
     var review_point = req.body.review_point
 
    
-    db_image.insert_review(user_id, user_nickname, cafe_name, review_content, review_date, review_point, null, function (err, result) {
+    db_image.insert_review(user_id, user_nickname, cafe_no, review_content, review_date, review_point, null, function (err, result) {
         if (err) console.log(err)
         else {
             var object = new Object();
@@ -58,11 +58,11 @@ router.post('/review/insert/noimage', function(req, res) {
 })
 
 router.post('/review/delete', function(req, res) {
-    var review_id = req.body.review_id
+    var review_no = req.body.review_no
     var image_path = req.body.image_path
 
     if(image_path == "noimage") {
-        db_image.delete_review(review_id, function(err, result) {
+        db_image.delete_review(review_no, function(err, result) {
             if(err) console.log(err)
             else {
                 var object = new Object();
@@ -72,7 +72,7 @@ router.post('/review/delete', function(req, res) {
         })
     }
     else {
-        db_image.delete_review(review_id, function(err, result) {
+        db_image.delete_review(review_no, function(err, result) {
             if(err) console.log(err)
             else {
                 fs.unlink("uploads/"+image_path, (err) => {

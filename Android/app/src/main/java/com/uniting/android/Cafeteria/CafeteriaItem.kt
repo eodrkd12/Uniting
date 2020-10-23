@@ -23,17 +23,47 @@ class CafeteriaItem {
         @SerializedName("cafe_name")
         val cafeteriaName : String,
         @SerializedName("star_point")
-        val starPoint : Double
+        val starPoint : Double,
+        @SerializedName("cafe_thumbnail")
+        val cafeThumbnail : String
+    )
+
+    data class Cafeteria(
+        @SerializedName("inform")
+        val inform : CafeteriaInform,
+        @SerializedName("menu")
+        val menuList : ArrayList<Menu>,
+        @SerializedName("review")
+        val reviewList : ArrayList<Review>
+    )
+
+    data class CafeteriaInform(
+        @SerializedName("cafe_address")
+        val cafeAddress : String,
+        @SerializedName("cafe_name")
+        val cafeName : String,
+        @SerializedName("cafe_phone")
+        val cafePhone : String,
+        @SerializedName("cafe_menu")
+        val cafeMenu : String,
+        @SerializedName("cafe_bizhour")
+        val cafeBizHour : String,
+        @SerializedName("cafe_mapx")
+        val mapx : Double,
+        @SerializedName("cafe_mapy")
+        val mapy : Double
     )
 
     data class Menu (
-        val name:String?,
-        val price:String?
+        @SerializedName("menu_title")
+        val menuTitle:String?,
+        @SerializedName("menu_price")
+        val menuPrice:String?
     ) : Serializable
 
     data class Review(
-        @SerializedName("review_id")
-        val reviewId: Int,
+        @SerializedName("review_no")
+        val reviewNo : Int,
         @SerializedName("user_id")
         val userId : String,
         @SerializedName("user_nickname")
@@ -45,6 +75,6 @@ class CafeteriaItem {
         @SerializedName("review_point")
         val reviewPoint : Int,
         @SerializedName("image_url")
-        val imageUrl : String?
+        val imageUrl : String
     ) : Serializable
 }

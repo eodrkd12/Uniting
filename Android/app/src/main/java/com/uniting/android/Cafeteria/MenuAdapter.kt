@@ -10,7 +10,7 @@ import com.uniting.android.R
 class MenuAdapter(val menuList:ArrayList<CafeteriaItem.Menu>) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return menuList.size-1
+        return menuList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuAdapter.ViewHolder {
@@ -19,8 +19,8 @@ class MenuAdapter(val menuList:ArrayList<CafeteriaItem.Menu>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: MenuAdapter.ViewHolder, position: Int) {
-        holder.menuTitle.text = menuList.get(position).name
-        holder.menuPrice.text = "· " + menuList.get(position).price
+        holder.menuTitle.text = menuList.get(position).menuTitle
+        holder.menuPrice.text = "· " + menuList.get(position).menuPrice
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){

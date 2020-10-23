@@ -1,18 +1,16 @@
 package com.uniting.android.Cafeteria
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uniting.android.R
-import com.uniting.android.Singleton.Retrofit
 import kotlinx.android.synthetic.main.item_verticalcafeteria.view.*
 
-class CafeteriaVerticalAdapter(val activity: Activity, val cafeteriaTypeList: ArrayList<ArrayList<CafeteriaItem.CafeteriaPreview>>) : RecyclerView.Adapter<CafeteriaVerticalAdapter.ViewHolder>() {
-    val cafeteriaType = arrayListOf("한식", "중식", "양식", "일식", "치킨")
+class CafeteriaVerticalAdapter(val activity: Activity, private val cafeteriaTypeList: ArrayList<ArrayList<CafeteriaItem.CafeteriaPreview>>) : RecyclerView.Adapter<CafeteriaVerticalAdapter.ViewHolder>() {
+    private val cafeteriaType = arrayListOf("한식", "중식", "양식", "일식", "치킨")
 
     override fun getItemCount(): Int {
         return cafeteriaTypeList.size
@@ -30,7 +28,6 @@ class CafeteriaVerticalAdapter(val activity: Activity, val cafeteriaTypeList: Ar
         holder.horizontalCafeteriaRV.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         holder.horizontalCafeteriaRV.adapter = CafeteriaHorizontalAdapter(activity, cafeteriaTypeList.get(position))
 
-        Log.d("test", cafeteriaTypeList.get(position).toString())
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
