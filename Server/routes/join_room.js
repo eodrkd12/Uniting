@@ -8,7 +8,7 @@ var router=express.Router();
 var db_join_room=require('../public/SQL/join_room_sql')();
 var db_user=require('../public/SQL/user_sql')();
 var request=require('request')
-
+/*
 var admin=require('firebase-admin')
 var serviceAccount=require("../../realtimechatting-70acf-firebase-adminsdk-34z0s-ed88f96e29.json")
 
@@ -16,7 +16,7 @@ admin.initializeApp({
                 credential: admin.credential.cert(serviceAccount),
                 databaseURL: 'https://realtimechatting-70acf.firebaseio.com'
         })
-
+*/
 
 router.get('/date',function(req,res,next){
     db_join_room.get_join_room_date(function(err,result){
@@ -64,7 +64,7 @@ router.post('/',function(req,res,next){//채팅방 생성
 
         var room_id=`${time}-${code}`
 	var room_title=`데이팅`
-
+/*
 	db_user.get_token(user,function(err,result){
 		if(err) console.log(err)
 		else{
@@ -78,7 +78,7 @@ router.post('/',function(req,res,next){//채팅방 생성
 			})
 		}
 	})
-
+*/
 
     	db_join_room.create_dating_room(room_id,room_title,cate_name,maker,universityName,user,function(err,result){
 	    if(err) console.log(err)

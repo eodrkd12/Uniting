@@ -4,7 +4,7 @@ module.exports=function(){
     return {
         get_cafeteria_list : function(univ_name, callback) {
             pool.getConnection(function(err, con) {
-                var sql = `SELECT cafeteria.cafe_thumbnail, cafeteria.cafe_no, cafeteria.cafe_name, avg(review_point) as star_point, cafe_type FROM review right outer join cafeteria ON (cafeteria.cafe_name = review.cafe_name and cafeteria.univ_name = review.univ_name) WHERE cafeteria.univ_name ='${univ_name}' GROUP BY cafeteria.cafe_name;`
+                var sql = `SELECT cafeteria.cafe_thumbnail, cafeteria.cafe_no, cafeteria.cafe_name, avg(review_point) as star_point, cafe_type FROM review right outer join cafeteria ON cafeteria.cafe_no = review.cafe_no WHERE cafeteria.univ_name ='${univ_name}' GROUP BY cafeteria.cafe_name;`
                 con.query(sql, function(err, result, fields) {
                     con.release()
                     if(err) callback(err)
@@ -45,3 +45,4 @@ module.exports=function(){
 	    pool : pool
     }
 }
+

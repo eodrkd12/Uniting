@@ -54,7 +54,7 @@ module.exports=function(){
 	    },
 	    get_average_review : function(cafe_name, univ_name, callback){
 		    pool.getConnection(function(err, con){
-			    var sql=`select avg(point) as avg from review where cafe_name='${cafe_name}' and univ_name='${univ_name}'`
+			    var sql=`select avg(review_point) as avg from review where cafe_name='${cafe_name}' and univ_name='${univ_name}'`
 			    con.query(sql, function(err, result, fields){
 				    con.release()
 				    if(err) callback(err)
