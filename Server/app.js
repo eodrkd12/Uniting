@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var join_roomRouter = require('./routes/join_room');
 var postRouter = require('./routes/post'); //라우터 파일 참조
@@ -13,6 +12,13 @@ var codeRouter=require('./routes/code');
 var universityRouter=require('./routes/university');
 var departmentRouter=require('./routes/department');
 var reviewRouter=require('./routes/review');
+var chatRouter=require('./routes/chat');
+var commonRouter = require('./routes/common');
+var imageRouter = require('./routes/image');
+var blockingRouter = require('./routes/blocking');
+var roomRouter = require('./routes/room');
+var cafeteriaRouter = require('./routes/cafeteria');
+
 var app = express();
 
 // view engine setup
@@ -24,10 +30,9 @@ app.use(express.json({limit: 5000000}));
 app.use(express.urlencoded({limit: 5000000, extended: true, parameterLimit: 50000 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 
-
-app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/join_room',join_roomRouter);
 app.use('/post',postRouter); // 라우터에 url 주소 지정
@@ -36,6 +41,12 @@ app.use('/code',codeRouter);
 app.use('/university',universityRouter);
 app.use('/department',departmentRouter);
 app.use('/review',reviewRouter);
+app.use('/chat',chatRouter);
+app.use('/common', commonRouter);
+app.use('/image', imageRouter);
+app.use('/blocking', blockingRouter);
+app.use('/room', roomRouter);
+app.use('/cafeteria', cafeteriaRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
