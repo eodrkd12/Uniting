@@ -9,11 +9,7 @@ var router = express.Router();
 var db_cafeteria = require('../public/SQL/cafeteria_sql')();
 
 router.post('/get/list', function(req,res,next){
-<<<<<<< HEAD
     var univ_name = req.body.univ_name
-=======
-    var univ_name = req.body[0].univ_name
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 
     var koreanFood = new Array()
     var chineseFood = new Array()
@@ -43,30 +39,19 @@ router.post('/get/list', function(req,res,next){
                         break;
                 }
             }
-<<<<<<< HEAD
-	    var object = new Object()
-=======
 
             var object = new Object()
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
             object.koreanFood = koreanFood
             object.japaneseFood = japaneseFood
             object.chineseFood = chineseFood
             object.westernFood = westernFood
             object.chickenFood = chickenFood
             res.send(object)
-<<<<<<< HEAD
-		console.log(object)
-=======
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
         }
     })
 })
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 router.post('/get/inform', function(req, res, next) {
 	var cafe_no = req.body.cafe_no
 
@@ -80,11 +65,7 @@ router.post('/get/inform', function(req, res, next) {
 						if(err) console.log(err)
 						else {
 							var object = new Object()
-<<<<<<< HEAD
-							object.inform = inform[0]
-=======
 							object.inform = inform
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 							object.menu = menu
 							object.review = review
 							res.send(object)
@@ -96,8 +77,6 @@ router.post('/get/inform', function(req, res, next) {
 	})
 })
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -176,5 +155,4 @@ router.post('/get_average', function(req,res,next){
 	})
 })
 
->>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 module.exports = router;
