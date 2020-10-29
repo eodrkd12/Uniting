@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>477419768405-56f7818b5ddii83j1rmka8mc69hs9tcq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.477419768405-56f7818b5ddii83j1rmka8mc69hs9tcq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAp09HJvmpeK8yXj7KA3an00WNjsQHsHxw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>477419768405</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.uniting.IOS</string>
+	<key>PROJECT_ID</key>
+	<string>uniting-bad5d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>uniting-bad5d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:477419768405:ios:c2a11738a817ca0c3062dc</string>
+	<key>DATABASE_URL</key>
+	<string>https://uniting-bad5d.firebaseio.com</string>
+</dict>
+</plist>

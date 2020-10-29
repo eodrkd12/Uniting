@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_chat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_partner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/text_partner_content"
+        app:layout_constraintBottom_toTopOf="@+id/text_partner_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_partner_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/chat_background"
+        android:padding="8dp"
+        android:text="text"
+        android:textColor="#000000"
+        android:textSize="17dp"
+        android:maxWidth="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_partner" />
+
+    <TextView
+        android:id="@+id/text_partner_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="test"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_partner_content"
+        app:layout_constraintStart_toEndOf="@+id/text_partner_content" />
+
+    <TextView
+        android:id="@+id/text_partner_unread_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EEDD00"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_partner_time"
+        app:layout_constraintStart_toStartOf="@+id/text_partner_time" />
+
+    <TextView
+        android:id="@+id/text_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/my_chat_background"
+        android:padding="8dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:maxWidth="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_content"
+        app:layout_constraintEnd_toStartOf="@+id/text_content" />
+
+    <TextView
+        android:id="@+id/text_unread_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="test"
+        android:textColor="#EEDD00"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_time"
+        app:layout_constraintEnd_toStartOf="@+id/text_content" />
+
+    <TextView
+        android:id="@+id/text_system"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/system_chat_background"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="8dp"
+        android:text="TextView"
+        android:textSize="13dp"
+        android:textColor="@color/colorMdGrey_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

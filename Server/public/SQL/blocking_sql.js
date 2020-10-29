@@ -35,4 +35,7 @@ module.exports=function(){
 	    pool : pool
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+<<<<<<< HEAD
 var admin = require('firebase-admin');
 
 var pool = require('../config/db_config');
@@ -44,25 +45,69 @@ router.post('/sql/select', function(req,res){
 			}
 		})
 	})
+=======
+
+var express = require('express');
+var router = express.Router();
+
+var pool = require('../config/db_config');
+
+router.post('/sql/insert', function(req, res) {
+        var sql = req.body.sql
+
+        pool.getConnection(function(err, con) {
+                con.query(sql, function(err, result) {
+                        con.release();
+                        if(err) console.log(err)
+                        else {
+                                var object = new Object();
+                                object.result = "success"
+                                res.send(object)
+                        }
+                })
+        })
+})
+
+router.post('/sql/select', function(req,res){
+        var sql = req.body.sql
+
+        pool.getConnection(function(err, con){
+                con.query(sql,function(err,result){
+                        con.release()
+                        if(err) console.log(err)
+                        else {
+                                res.send(result)
+                                console.log(result)
+                        }
+                })
+        })
+>>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 })
 
 router.post('/sql/select/single', function(req, res) {
 	var sql = req.body.sql
 
+<<<<<<< HEAD
 	console.log(sql)
 
+=======
+>>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 	pool.getConnection(function(err, con) {
 		con.query(sql, function(err, result) {
 			con.release()
 			if(err) console.log(err)
 			else {
+<<<<<<< HEAD
 				console.log(result[0])
+=======
+>>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958
 				res.send(result[0])
 			}
 		})
 	})
 })
 
+<<<<<<< HEAD
 router.post('/fcm', function(req,res){
 	var topic = req.body.topic
 	var content = req.body.content
@@ -131,3 +176,6 @@ router.post('/subscribe/fcm', function(req,res){
 })
 
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> 6ab14aa1f96c106934d5cc84eff6bf532a8e1958

@@ -2,20 +2,65 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uniting.android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.DIAL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Login.Signup4Activity">
+
+        </activity>
+        <activity android:name=".Option.InquireActivity" />
+        <activity android:name=".Option.AlarmActivity" />
+        <activity android:name=".Option.ModifyActivity" />
+        <activity android:name=".Login.Signup3Activity" />
+        <activity android:name=".Login.Signup2Activity" />
+        <activity android:name=".Login.Signup1Activity" />
+        <activity android:name=".Profile.ProfileActivity" /> <!-- meta-data -->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="4fk2n2jfrm" /> <!-- meta-data -->
+        <!-- activity -->
+        <activity android:name=".Cafeteria.RecyclerViewActivity" />
+        <activity android:name=".Cafeteria.CafeteriaInformActivity" />
+        <activity
+            android:name=".Room.MakeRoomActivity"
+            android:theme="@style/AppTheme.StatusBar" />
+        <activity android:name=".Cafeteria.WriteReviewActivity" />
+        <activity android:name=".Room.RoomListActivity" />
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main.MainActivity" />
+
+        <service
+            android:name=".Class.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
