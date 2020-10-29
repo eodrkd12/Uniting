@@ -108,7 +108,7 @@ struct ChatView: View {
             GeometryReader{ _ in
                 HStack{
                     Spacer()
-                    RoomMenu(showing: self.presentationMode, room: room, memberList: $memberList)
+                    RoomMenu(presentationMode: self.presentationMode, room: room, memberList: $memberList)
                         .offset(x: self.menuVisible ? 0 : UIScreen.main.bounds.width)
                         .animation(.easeIn(duration: 0.2))
                 }
@@ -196,27 +196,98 @@ struct ChatView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date=dateFormatter.string(from: now)
-        /*
-         var chatPartner=""
-         if UserInfo.shared.ID == self.room!.room_maker {
-         chatPartner=self.room!.room_partner
-         }
-         else {
-         chatPartner=self.room!.room_maker
-         }
-         
-         HttpService.shared.insertChatReq(roomId: self.room!.room_id, userId: UserInfo.shared.ID, userNickname: UserInfo.shared.NICKNAME, chatPartner: chatPartner, chatContent: self.content, currentDate: date){ resultModel -> Void in
-         
-         self.ref!.childByAutoId().setValue([
-         "room_id" : self.room!.room_id,
-         "chat_speaker" : UserInfo.shared.ID,
-         "chat_speaker_nickname" : UserInfo.shared.NICKNAME,
-         "chat_content" : self.content,
-         "chat_time" : date,
-         "unread_count" : 1
-         ])
-         self.content=""
-         }
-         */
+        
+        var unreadMembers = ""
+        
+        self.memberList.forEach { (member) in
+            unreadMembers.append("\(member.user_id)|")
+        }
+        unreadMembers = unreadMembers.replacingOccurrences(of: "\(UserInfo.shared.ID)|", with: "")
+        
+        
+        if chatList.count == 0 || (chatList.last!.chat.chat_time.split(separator: " ")[0]) < date.split(separator: " ")[0] {
+            let cal = Calendar(identifier: .gregorian)
+            let comps = cal.dateComponents([.weekday], from: now)
+            
+            var dayOfWeek = ""
+            
+            switch comps.weekday {
+            case 1:
+                dayOfWeek = "일요일"
+                break
+            case 2:
+                dayOfWeek = "월요일"
+                break
+            case 3:
+                dayOfWeek = "화요일"
+                break
+            case 4:
+                dayOfWeek = "수요일"
+                break
+            case 5:
+                dayOfWeek = "목요일"
+                break
+            case 6:
+                dayOfWeek = "금요일"
+                break
+            case 7:
+                dayOfWeek = "토요일"
+                break
+            default:
+                print("?")
+            }
+            
+            var systemChat = ChatData(chat_id: "SYSTEM_\(self.room.room_id)_\(date)", room_id: self.room.room_id, user_id: "SYSTEM", user_nickname: "SYSTEM", chat_content: "\(date.split(separator: " ")[0]) \(dayOfWeek)", chat_time: date, unread_member: "", system_chat: 1)
+            
+            AlamofireService.shared.insertChat(chat: systemChat){ result in
+                if result.result == "success" {
+                    var chatId = "\(UserInfo.shared.ID)_\(self.room.room_id)_\(date)"
+                    var chat = ChatData(chat_id: chatId, room_id: self.room.room_id, user_id: UserInfo.shared.ID, user_nickname: UserInfo.shared.NICKNAME, chat_content: self.content, chat_time: "\(date)_1", unread_member: unreadMembers, system_chat: 0)
+                    writeFirebase(chat: systemChat)
+                    
+                    AlamofireService.shared.insertChat(chat: chat){ result in
+                        if result.result == "success" {
+                            var topic = room.room_id
+                            var title = room.room_title
+                            var content = "\(UserInfo.shared.ID) \(self.content)"
+                            
+                            //AlamofireService.shared.sendFcm(topic: topic, title: title, content: content)
+                            writeFirebase(chat: chat)
+                            self.content = ""
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            var chatId = "\(UserInfo.shared.ID)_\(self.room.room_id)_\(date)"
+            var chat = ChatData(chat_id: chatId, room_id: self.room.room_id, user_id: UserInfo.shared.ID, user_nickname: UserInfo.shared.NICKNAME, chat_content: self.content, chat_time: "\(date)_1", unread_member: unreadMembers, system_chat: 0)
+            
+            AlamofireService.shared.insertChat(chat: chat){ result in
+                if result.result == "success" {
+                    var topic = room.room_id
+                    var title = room.room_title
+                    var content = "\(UserInfo.shared.ID) \(self.content)"
+                    
+                    //AlamofireService.shared.sendFcm(topic: topic, title: title, content: content)
+                    writeFirebase(chat: chat)
+                    self.content = ""
+                }
+            }
+        }
+    }
+    
+    func writeFirebase(chat: ChatData){
+        
+        self.ref!.childByAutoId().setValue([
+            "chat_id" : chat.chat_id,
+            "room_id" : chat.room_id,
+            "user_id" : chat.user_id,
+            "user_nickname" : chat.user_nickname,
+            "chat_content" : chat.chat_content,
+            "chat_time" : chat.chat_time,
+            "unread_member" : chat.unread_member,
+            "system_chat" : chat.system_chat
+        ])
     }
 }

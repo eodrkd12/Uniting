@@ -13,9 +13,6 @@ struct MyRoomItem : View {
     
     @State var room : RoomData
     
-    @State var ref : DatabaseReference?
-    @State var query : DatabaseQuery?
-    
     @State var lastChat = ""
     @State var lastChatTime = ""
     
@@ -59,28 +56,6 @@ struct MyRoomItem : View {
         }
         .padding()
         .onAppear(){
-            self.ref = Database.database().reference().child("chat").child(self.room.room_id)
-            self.query = self.ref!.queryOrderedByKey().queryLimited(toLast: 1)
-            
-            self.query?.observe(.childAdded, with: { (snapshot) in
-                var value = snapshot.value as! [String : Any?]
-                
-                self.lastChat = value["chat_content"].unsafelyUnwrapped as! String
-                
-                var time = (value["chat_time"].unsafelyUnwrapped as! String).split(separator: " ")[1]
-                var hour = Int(time.split(separator: ":")[0])
-                var timeStr = ""
-                
-                if hour! >= 12 {
-                    timeStr = "오후 \(hour!-12):\(Int(time.split(separator: ":")[1]).unsafelyUnwrapped)"
-                }
-                else {
-                    timeStr = "오전 \(hour!):\(Int(time.split(separator: ":")[1]).unsafelyUnwrapped)"
-                }
-                
-                self.lastChatTime = timeStr
-            })
-            
             if self.room.category == "데이팅" {
                 if UserInfo.shared.ID == self.room.maker {
                     self.title = String(self.room.room_title.split(separator: "&")[1])

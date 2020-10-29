@@ -225,6 +225,39 @@ class AlamofireService : ObservableObject {
         }
     }
     
+    func exitRoom(roomId: String, userId: String,type: String, callback: @escaping (ResultModel) -> Void){
+        var url = ""
+        if type == "delete" {
+            url = "\(serverUrl)/room/delete"
+        }
+        else {
+            url = "\(serverUrl)/room/exit"
+        }
+        
+        let body = [
+            "room_id" : roomId,
+            "user_id" : userId
+        ]
+        
+        AF.request(
+           url,
+           method: .post,
+           parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
     func getMyRoom(userId: String, callback: @escaping ([RoomData]) -> Void){
         let url = "\(serverUrl)/common/sql/select"
         
@@ -315,6 +348,54 @@ class AlamofireService : ObservableObject {
             case .failure(let err):
                 print(err)
             }
+        }
+    }
+    
+    func insertChat(chat: ChatData, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        var sql = "INSERT INTO chat "
+        sql += "VALUES('\(chat.chat_id)','\(chat.room_id)','\(chat.user_id)','\(chat.user_nickname)','\(chat.chat_content)','\(chat.chat_time)','\(chat.unread_member)','\(chat.system_chat)')"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func sendFcm(topic: String, title: String, content: String){
+        let url = "\(serverUrl)/common/fcm"
+        
+        var body = [
+            "topic" : topic,
+            "title" : title,
+            "content" : content
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { (res) in
+            
         }
     }
     // 식당
