@@ -65,7 +65,7 @@ router.post('/get/inform', function(req, res, next) {
 						if(err) console.log(err)
 						else {
 							var object = new Object()
-							object.inform = inform
+							object.inform = inform[0]
 							object.menu = menu
 							object.review = review
 							res.send(object)

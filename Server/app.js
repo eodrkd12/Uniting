@@ -18,12 +18,16 @@ var imageRouter = require('./routes/image');
 var blockingRouter = require('./routes/blocking');
 var roomRouter = require('./routes/room');
 var cafeteriaRouter = require('./routes/cafeteria');
+var webRouter = require('./routes/web');
+
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+
 
 app.use(logger('dev'));
 app.use(express.json({limit: 5000000}));
@@ -32,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'uploads')));
 
-
+app.use('/', webRouter);
 app.use('/user', userRouter);
 app.use('/join_room',join_roomRouter);
 app.use('/post',postRouter); // 라우터에 url 주소 지정
@@ -58,9 +62,11 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  console.log(err)
+
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error.html');
 });
 
 module.exports = app;
