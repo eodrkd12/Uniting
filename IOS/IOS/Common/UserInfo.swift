@@ -14,7 +14,7 @@ class UserInfo : ObservableObject {
     
     var ID: String = "test"
     var PW: String = ""
-    var NICKNAME: String = "김세현짱"
+    var NICKNAME: String = "김세현짱ㅇㅇㅇㅇㅇㅇ"
     var BIRTHDAY: String = ""
     var GENDER: String = "M"
     var UNIV: String = "계명대학교"

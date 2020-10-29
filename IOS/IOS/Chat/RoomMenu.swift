@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RoomMenu : View {
     
-    @Binding var showing : PresentationMode
+    @Binding var presentationMode : PresentationMode
     @State var room: RoomData
     @Binding var memberList: [MemberData]
     
@@ -19,23 +19,53 @@ struct RoomMenu : View {
         VStack(spacing: 10) {
             HStack{
                 Text("대화상대")
-                    .padding()
+                    .padding(.leading,10)
+                    .padding(.top,5)
                     .font(.system(size: 20))
                     .foregroundColor(Colors.grey500)
                 Spacer()
             }
             ScrollView{
+                RoomMenuMemberRow(member: MemberData(user_id: UserInfo.shared.ID, user_nickname: UserInfo.shared.NICKNAME))
                 ForEach(memberList, id:\.user_id){ member in
-                    RoomMenuMemberRow(member: member)
+                    if member.user_id != UserInfo.shared.ID{
+                        RoomMenuMemberRow(member: member)
+                    }
                 }
             }
             Spacer()
             HStack{
-                Text("나가기")
-                    .padding()
-                    .padding(.bottom,33)
+                Button(action: {
+                    if memberList.count == 1 {
+                        AlamofireService.shared.exitRoom(roomId: room.room_id, userId: UserInfo.shared.ID, type: "delete"){ result in
+                            self.presentationMode.dismiss()
+                        }
+                    }
+                    else {
+                        AlamofireService.shared.exitRoom(roomId: room.room_id, userId: UserInfo.shared.ID, type: "exit"){ result in
+                            self.presentationMode.dismiss()
+                        }
+                    }
+                }, label: {
+                    Image("exit_icon")
+                        .resizable()
+                        .frame(width:30, height: 30)
+                })
+                .padding(.top,10)
+                .padding()
+                
                 Spacer()
+                
+                Button(action: {
+                    
+                }, label: {
+                    Text("알림")
+                        .foregroundColor(Color.black)
+                })
+                .padding(.top,10)
+                .padding()
             }
+            .padding(.bottom,33)
             .frame(height: 70)
             .background(Colors.grey300)
         }
@@ -56,6 +86,8 @@ struct RoomMenuMemberRow : View {
                     .font(.system(size: 20))
                 Spacer()
             }
+            .padding(.vertical,4)
+            .padding(.horizontal,20)
         }
     }
 }
