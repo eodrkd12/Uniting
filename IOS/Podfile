@@ -19,4 +19,6 @@ target 'IOS' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Database'
 
+  pod 'GoogleAPIClient/Gmail'
+
 end

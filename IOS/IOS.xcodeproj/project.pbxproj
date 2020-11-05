@@ -42,6 +42,7 @@
 		54B4E1F62553AEFB00BDCD69 /* UniversityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */; };
 		54B4E1F92553C3DC00BDCD69 /* SignUp2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */; };
 		54B4E1FC2553C97200BDCD69 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */; };
+		54B4E2152553DE3A00BDCD69 /* GMailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E2142553DE3A00BDCD69 /* GMailManager.swift */; };
 		54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */; };
 		54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */; };
 		54BA650424FDE1EA007C6B32 /* IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650224FDE1EA007C6B32 /* IOS.xcdatamodeld */; };
@@ -113,6 +114,7 @@
 		54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityData.swift; sourceTree = "<group>"; };
 		54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2View.swift; sourceTree = "<group>"; };
 		54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHelper.swift; sourceTree = "<group>"; };
+		54B4E2142553DE3A00BDCD69 /* GMailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMailManager.swift; sourceTree = "<group>"; };
 		54BA64FB24FDE1EA007C6B32 /* IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				54EC70252521C5EF0061D27F /* CommonDataModel.swift */,
 				542D5D542547FEF8002E8AFF /* Line.swift */,
 				54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */,
+				54B4E2142553DE3A00BDCD69 /* GMailManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				54B4E1F92553C3DC00BDCD69 /* SignUp2View.swift in Sources */,
 				54B05F2925494D4D009623CB /* EditIntroduceView.swift in Sources */,
 				547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */,
+				54B4E2152553DE3A00BDCD69 /* GMailManager.swift in Sources */,
 				54EC70262521C5EF0061D27F /* CommonDataModel.swift in Sources */,
 				541ACBE52500B1C900C1C079 /* CafeInformView.swift in Sources */,
 				54BA652424FDE8C5007C6B32 /* OptionView.swift in Sources */,

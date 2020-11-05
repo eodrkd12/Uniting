@@ -37,7 +37,7 @@ struct SignUp2View: View {
                             .frame(width: g.size.width * 0.35, height: 30)
                             .font(.system(size: 18))
                             .foregroundColor(Colors.grey700)
-                            .multilineTextAlignment(.leading)
+                            .multilineTextAlignment(.center)
                         Text(universityMail)
                             .frame(width: g.size.width * 0.45, height: 30)
                             .font(.system(size: 18))
@@ -46,8 +46,9 @@ struct SignUp2View: View {
                             for i in 0..<6 {
                                 code += "\(Int.random(in: 0..<10))"
                             }
-                            
-                            EmailHelper.shared.sendEmail(subject: "Uniting 이메일 인증", body: "안녕하세요.\n아래 인증 코드를 애플리케이션에서 입력하여 회원가입을 진행해주십시오.\n인증코드 : [\(   code)]\n감사합니다.", to: "\(webmail)\(universityMail)")
+
+                            var gmailManager = GMailManager()
+                            gmailManager.sendEmail(to: "\(webmail)\(universityMail)", code: code)
                             
                         }, label: {
                             Text("전송")
@@ -77,7 +78,7 @@ struct SignUp2View: View {
                             .frame(width: g.size.width * 0.8, height: 30)
                             .font(.system(size: 18))
                             .foregroundColor(Colors.grey700)
-                            .multilineTextAlignment(.leading)
+                            .multilineTextAlignment(.center)
                         Button(action: {
                             
                         }, label: {
@@ -85,7 +86,7 @@ struct SignUp2View: View {
                                 .frame(width: g.size.width * 0.2, height: 30)
                                 .font(.system(size: 18,weight: .bold))
                                 .foregroundColor(Color.white)
-                                .background(Colors.primary)
+                                .background(editCode.count == 6 ? Colors.primary : Colors.grey500)
                                 .cornerRadius(15)
                         })
                     }
