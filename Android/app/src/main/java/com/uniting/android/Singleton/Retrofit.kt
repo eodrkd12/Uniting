@@ -768,8 +768,8 @@ object Retrofit {
         })
     }
     
-    fun getCafeteriaList(callback : (CafeteriaItem.CafeteriaList) -> Unit) {
-        service.getCafeteriaList(UserInfo.UNIV).enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
+    fun getCafeteriaList(campus : String, callback : (CafeteriaItem.CafeteriaList) -> Unit) {
+        service.getCafeteriaList("${UserInfo.UNIV} $campus").enqueue(object : Callback<CafeteriaItem.CafeteriaList> {
             override fun onFailure(call: Call<CafeteriaItem.CafeteriaList>, t: Throwable) {
             }
 

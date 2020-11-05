@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 if(cafeteriaFragment != null) supportFragmentManager.beginTransaction().hide(cafeteriaFragment!!).commit()
                 if(optionFragment != null) supportFragmentManager.beginTransaction().hide(optionFragment!!).commit()
 
-                it.setIcon(R.drawable.home_click_icon)
+                //it.setIcon(R.drawable.home_click_icon)
 
                 bnv_main.menu.findItem(R.id.menu_chat)
 

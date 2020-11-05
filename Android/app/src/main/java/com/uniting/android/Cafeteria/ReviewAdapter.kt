@@ -17,7 +17,7 @@ import com.uniting.android.Singleton.Retrofit
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
-class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaItem.Review>, val size : Int) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaItem.Review>, var size : Int) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return size
@@ -65,8 +65,10 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
                         if(it.result == "success") {
                             Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                             reviewList.removeAt(position)
-                            notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, reviewList.size)
+                            size--
+                            //notifyItemRemoved(position)
+                            notifyDataSetChanged()
+                            //notifyItemRangeChanged(position, reviewList.size)
                         }
                         else {
                             Toast.makeText(activity, "서버와의 통신오류", Toast.LENGTH_SHORT).show()
@@ -78,8 +80,10 @@ class ReviewAdapter(val activity: Activity, val reviewList:ArrayList<CafeteriaIt
                         if(it.result == "success") {
                             Toast.makeText(activity, "리뷰가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                             reviewList.removeAt(position)
-                            notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, reviewList.size)
+                            //notifyItemRemoved(position)
+                            size--
+                            notifyDataSetChanged()
+                            //notifyItemRangeChanged(position, reviewList.size)
                         }
                         else {
                             Toast.makeText(activity, "서버와의 통신오류", Toast.LENGTH_SHORT).show()

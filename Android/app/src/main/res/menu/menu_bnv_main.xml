@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/home_click_icon"
+        android:icon="@drawable/home_icon"
         android:title="홈"
         app:itemIconTint="@drawable/item_color"
         app:itemTextColor="@drawable/item_color"/>

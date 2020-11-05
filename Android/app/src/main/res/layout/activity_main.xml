@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:itemIconSize="24dp"
-        android:background="@color/colorMdWhite_1000"
+        android:background="@color/colorMdGrey_900"
         app:itemBackground="@color/colorMdWhite_1000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

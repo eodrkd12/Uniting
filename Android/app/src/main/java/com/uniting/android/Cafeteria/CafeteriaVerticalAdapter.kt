@@ -10,7 +10,7 @@ import com.uniting.android.R
 import kotlinx.android.synthetic.main.item_verticalcafeteria.view.*
 
 class CafeteriaVerticalAdapter(val activity: Activity, private val cafeteriaTypeList: ArrayList<ArrayList<CafeteriaItem.CafeteriaPreview>>) : RecyclerView.Adapter<CafeteriaVerticalAdapter.ViewHolder>() {
-    private val cafeteriaType = arrayListOf("한식", "중식", "양식", "일식", "치킨")
+    private val cafeteriaType = arrayListOf("한식", "중식", "양식", "일식", "패스트푸드")
 
     override fun getItemCount(): Int {
         return cafeteriaTypeList.size

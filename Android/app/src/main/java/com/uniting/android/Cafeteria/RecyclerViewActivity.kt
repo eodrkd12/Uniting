@@ -16,6 +16,10 @@ class RecyclerViewActivity : PSAppCompatActivity() {
         val activityType = intent.getStringExtra("activityType")
         val spaceDecroation = VerticalSpaceItemDecoration(20)
 
+        btn_recycler_view_back.setOnClickListener {
+            finish()
+        }
+
         if(activityType == "review") {
             var reviewList = intent.getSerializableExtra("reviewList") as ArrayList<CafeteriaItem.Review>
 
@@ -23,6 +27,18 @@ class RecyclerViewActivity : PSAppCompatActivity() {
             rv_cafeteria_common.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
             rv_cafeteria_common.adapter = ReviewAdapter(this, reviewList, reviewList.size)
             rv_cafeteria_common.addItemDecoration(spaceDecroation)
+
+            text_recycler_view_title.text = "리뷰"
+
+        } else if(activityType == "menu") {
+            var menuList = intent.getSerializableExtra("menuList") as ArrayList<CafeteriaItem.Menu>
+
+            rv_cafeteria_common.setHasFixedSize(true)
+            rv_cafeteria_common.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+            rv_cafeteria_common.adapter = MenuAdapter(menuList, menuList.size)
+            rv_cafeteria_common.addItemDecoration(spaceDecroation)
+
+            text_recycler_view_title.text = "메뉴"
         }
     }
 }
