@@ -7,15 +7,48 @@
     tools:context=".Cafeteria.RecyclerViewActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:overScrollMode="never"
         android:id="@+id/rv_cafeteria_common"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view44" />
+
+    <View
+        android:id="@+id/view44"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/colorMdGrey_300"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_recycler_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorMdGrey_900"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/view44"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_recycler_view_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/view44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/black_back_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

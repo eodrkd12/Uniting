@@ -13,8 +13,8 @@ class CafeteriaItem {
         val chineseFoodList : ArrayList<CafeteriaPreview>,
         @SerializedName("westernFood")
         val westernFoodList : ArrayList<CafeteriaPreview>,
-        @SerializedName("chickenFood")
-        val chickenFoodList : ArrayList<CafeteriaPreview>
+        @SerializedName("fastFood")
+        val fastFoodList : ArrayList<CafeteriaPreview>
     )
 
     data class CafeteriaPreview(

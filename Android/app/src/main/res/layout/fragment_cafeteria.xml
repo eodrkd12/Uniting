@@ -30,4 +30,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.571" />
 
+    <Spinner
+        android:id="@+id/spinner_campus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/text_cafeteria_univ_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_cafeteria_univ_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

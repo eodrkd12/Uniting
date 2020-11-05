@@ -39,7 +39,7 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
 
         val cafeNo = intent.getIntExtra("cafe_no", 0)
         Log.d("test", "$cafeNo")
-        val spaceDecoration = VerticalSpaceItemDecoration(20) // RecyclerView 간격
+        val spaceDecoration = VerticalSpaceItemDecoration(50) // RecyclerView 간격
 
         //식당정보 불러오기
         Retrofit.getCafeteriaInform(cafeNo) {
@@ -91,7 +91,7 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
             if("|" in it.inform.cafeBizHour)
             {
                 text_inform_bizhour.setTextColor(Color.parseColor("#42A5F5"))
-                var index:Int =  it.inform.cafeBizHour.indexOf("|")
+                val index:Int =  it.inform.cafeBizHour.indexOf("|")
                 var timeOpenClose:String = it.inform.cafeBizHour.substring(0, index)
                 text_inform_bizhour.text = "$timeOpenClose ∨"
                 var timeData:String = it.inform.cafeBizHour.substring(index+1, it.inform.cafeBizHour.length).replace("|", "\n")
@@ -137,36 +137,25 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
 
             if(menuList.size == 0) {
                 text_no_menu.visibility = View.VISIBLE
-            }
-        }
-
-        //리뷰 불러오기
-        /*Retrofit.getReview(cafeNo) {
-            reviewList = it
-
-            if(reviewList.size == 0) {
-                text_no_review.visibility = View.VISIBLE
             } else {
-                if(reviewList.size < 3) {
-                    rv_cafeteria_review.setHasFixedSize(true)
-                    rv_cafeteria_review.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                    rv_cafeteria_review.adapter = ReviewAdapter(this, it, it.size)
-                    rv_cafeteria_review.addItemDecoration(spaceDecoration)
+                if(menuList.size < 5) {
+                    rv_cafeteria_menu.setHasFixedSize(true)
+                    rv_cafeteria_menu.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    rv_cafeteria_menu.adapter = MenuAdapter(menuList, menuList.size)
                 } else {
-                    rv_cafeteria_review.setHasFixedSize(true)
-                    rv_cafeteria_review.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                    rv_cafeteria_review.adapter = ReviewAdapter(this, it, 3)
-                    rv_cafeteria_review.addItemDecoration(spaceDecoration)
+                    rv_cafeteria_menu.setHasFixedSize(true)
+                    rv_cafeteria_menu.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                    rv_cafeteria_menu.adapter = MenuAdapter(menuList, 5)
                 }
 
-                text_review_etc.setOnClickListener {
+                text_menu_etc.setOnClickListener {
                     val intent = Intent(this, RecyclerViewActivity::class.java)
-                    intent.putExtra("reviewList", reviewList)
-                    intent.putExtra("activityType", "review")
+                    intent.putExtra("menuList", menuList)
+                    intent.putExtra("activityType", "menu")
                     startActivity(intent)
                 }
             }
-        }*/
+        }
 
         rating_inform.setOnRatingBarChangeListener{ ratingBar, fl, b ->
             if(rating_inform.rating != 0.0f) {
