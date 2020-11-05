@@ -11,7 +11,7 @@ import class Kingfisher.KingfisherManager
 
 struct ReviewItem: View {
     
-    var reviewData : ReviewData
+    var review : Review
     
     var date : String = ""
     
@@ -22,13 +22,13 @@ struct ReviewItem: View {
             HStack{
                 VStack{
                     HStack{
-                        Text(reviewData.user_nickname)
+                        Text(review.user_nickname)
                             .font(.system(size: 15))
                             .foregroundColor(Colors.grey700)
                         Spacer()
                     }
                     HStack{
-                        ReviewStarPoint(point: reviewData.review_point, editable: false)
+                        ReviewStarPoint(point: review.review_point, editable: false)
                         
                         Text("날짜")
                             .font(.system(size: 12))
@@ -55,15 +55,15 @@ struct ReviewItem: View {
                 .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9)
             
             HStack{
-                Text(reviewData.review_content)
+                Text(review.review_content)
                     .font(.system(size: 15))
                     .foregroundColor(Colors.grey700)
                 Spacer()
             }
         }
         .onAppear(){
-            if self.reviewData.image_url != nil {
-                ImageManager.shared.loadImage(url: self.reviewData.image_url!){ uiImage in
+            if self.review.image_url != nil && self.review.image_url != "" {
+                ImageManager.shared.loadImage(url: self.review.image_url){ uiImage in
                     self.uiImage=uiImage
                 }
             }

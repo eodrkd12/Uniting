@@ -15,6 +15,46 @@ class AlamofireService : ObservableObject {
     
     let serverUrl = "http://52.78.27.41:1901"
     
+    // 로그인
+    func login(userId: String, userPw: String, callback: @escaping (Int) -> Void){
+        let url = "\(serverUrl)/common/sql/select/single"
+        
+        let sql = "SELECT user_pw as result FROM user WHERE user_id = '\(userId)'"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    var resultPw = result.result
+                    
+                    if userPw == resultPw {
+                        callback(1)
+                    }
+                    else {
+                        callback(2)
+                    }
+                } catch {
+                    print(error)
+                    callback(0)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     // 홈
     func randomMatching(callback: @escaping ([ProfileData]) -> Void){
         
@@ -399,47 +439,58 @@ class AlamofireService : ObservableObject {
         }
     }
     // 식당
-    func getCafeteriaList(start: Int, display: Int, query: String, sortingOrder: String, callback: @escaping ([CafeteriaData]) -> Void){
-        /*
-        let url = "https://store.naver.com/sogum/api/businesses"
-        
-        let body = [
-        "start" : start,
-        "display" : display,
-        "query" : query,
-        "sortingOrder" : sortingOrder
-        ] as [String : Any]
+    func getCafeteriaList(callback: @escaping (CafeteriaList) -> Void){
+        let url = "\(serverUrl)/cafeteria/get/list"
         
         AF.request(
             url,
-            method: .get,
-            parameters: body
-        ).responseData { (data) in
-            do {
-                let json = try! JSON(data: data.data!)
-                var items : [CafeteriaData] = []
-                
-                json["items"].arrayValue.forEach { (json) in
+            method: .post,
+            parameters: [
+                "univ_name" : UserInfo.shared.UNIV
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let cafeteriaList = try JSONDecoder().decode(CafeteriaList.self, from: json)
                     
-                    var tags : [String] = []
+                    callback(cafeteriaList)
                     
-                    var temp = json["tags"].arrayObject
-                    
-                    temp?.forEach({ (tag) in
-                        tags.append(tag as! String)
-                    })
-                    
-                    var item = CafeteriaData(id: json["id"].stringValue, name: json["name"].stringValue, x: json["x"].stringValue, y: json["y"].stringValue, phone: json["phone"].stringValue, imageSrc: json["imageSrc"].stringValue, roadAddr: json["roadAddr"].stringValue, tags: tags, options: json["options"].stringValue, bizHourInfo: json["bizHourInfo"].stringValue)
-                    
-                    items.append(item)
+                } catch {
+                    print(error)
                 }
-                
-                callback(items)
-            } catch {
-                self.getCafeteriaList(start: start, display: display, query: query, sortingOrder: sortingOrder, callback: callback)
+            case .failure(let err):
+                print(err)
             }
         }
- */
+    }
+    
+    func getCafeteriaInform(cafeNo : Int, callback: @escaping (Cafeteria) -> Void){
+        let url = "\(serverUrl)/cafeteria/get/inform"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "cafe_no" : cafeNo
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let cafeteria = try JSONDecoder().decode(Cafeteria.self, from: json)
+                    
+                    callback(cafeteria)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
     
     func getReview(cafeteriaName: String, callback: @escaping ([ReviewData]) -> Void){
@@ -480,6 +531,35 @@ class AlamofireService : ObservableObject {
                     let profile = try JSONDecoder().decode(ProfileData.self, from: json)
                     
                     callback(profile)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func updateUserInfo(userId: String, nickname: String, birthday: String, city: String, height: String, hobby: String, personality: String, introduce: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let sql = "UPDATE user SET user_nickname = '\(nickname)', user_birthday = '\(birthday)', user_city = '\(city)', user_height = '\(height)', user_hobby = '\(hobby)', user_personality='\(personality)', user_introduce='\(introduce)' WHERE user_id = '\(userId)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql" : sql
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
                 } catch {
                     print(error)
                 }

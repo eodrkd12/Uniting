@@ -9,10 +9,10 @@
 import SwiftUI
 import class Kingfisher.KingfisherManager
 
-struct CafeteriaList: View {
+struct PreviewList: View {
     
     @State var type : String
-    @State var cafeteriaList : [CafeteriaData]
+    @State var previewList : [CafeteriaPreview]
     
     var body: some View {
         VStack{
@@ -29,8 +29,8 @@ struct CafeteriaList: View {
             }
             ScrollView(.horizontal,showsIndicators: false, content: {
                 HStack(spacing: 15){
-                    ForEach(cafeteriaList, id:\.id){ cafeteria in
-                        CafeteriaItem(cafeteria: cafeteria)
+                    ForEach(previewList.count > 10 ? 0..<10 : 0..<previewList.count, id:\.self){ i in
+                        PreviewItem(preview: previewList[i])
                     }
                 }
             })
@@ -39,15 +39,20 @@ struct CafeteriaList: View {
     }
 }
 
-struct CafeteriaItem: View {
+struct PreviewItem: View {
     
-    @State var cafeteria : CafeteriaData
+    @State var preview : CafeteriaPreview
     @State var uiImage = UIImage()
+    
+    @State var isActive = false
+    
+    @State var cafeteria : Cafeteria? = nil
     
     var body: some View{
         ZStack{
+            NavigationLink(destination: CafeInformView(cafeNo: preview.cafe_no), isActive: $isActive, label: {})
             VStack(spacing: 10){
-                if cafeteria.imageSrc != "" {
+                if preview.cafe_thumbnail != nil && preview.cafe_thumbnail != "" {
                     Image(uiImage: uiImage)
                         .resizable()
                         .frame(width: 150, height: 150)
@@ -55,30 +60,37 @@ struct CafeteriaItem: View {
                 }
                 else {
                     Text("이미지가 없습니다")
-                        .font(.system(size: 15))
+                        .font(.system(size: 18))
                         .foregroundColor(Colors.grey500)
                         .frame(width: 150, height: 150)
                 }
-                Text(cafeteria.name)
-                    .font(.system(size: 15))
+                Text(preview.cafe_name)
+                    .font(.system(size: 18))
                     .foregroundColor(Colors.grey700)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                     .frame(width: 150)
-                HStack{
+                HStack(spacing: 8){
                     Image(systemName: "star.fill")
                         .foregroundColor(Color.yellow)
+                        .padding(.leading, 10)
+                    Text(preview.star_point == nil ? "0" : String(preview.star_point!))
+                        .font(.system(size: 15))
                     Spacer()
                 }
+                .frame(width: 150)
             }
-            NavigationLink(destination: DetailView(cafeteria: cafeteria)) {
-                Text("")
-                    .frame(width: 150,height: 180)
+            .onTapGesture {
+                isActive = true
             }
+            
         }
         .padding(5)
         .onAppear(){
-            if self.cafeteria.imageSrc != "" {
+            print(self.preview)
+            if self.preview.cafe_thumbnail != "" && self.preview.cafe_thumbnail != nil {
                 
-                ImageManager.shared.loadImage(url: self.cafeteria.imageSrc){ uiImage in
+                ImageManager.shared.loadImage(url: self.preview.cafe_thumbnail!){ uiImage in
                     self.uiImage=uiImage
                 }
             }

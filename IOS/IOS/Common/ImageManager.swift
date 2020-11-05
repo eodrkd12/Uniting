@@ -14,7 +14,7 @@ class ImageManager : ObservableObject {
     
     func loadImage(url: String, callback: @escaping (UIImage) -> Void){
         KingfisherManager.shared.retrieveImage(with: URL(string: url)!, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-            
+            print(url)
             callback(image!)
         })
     }

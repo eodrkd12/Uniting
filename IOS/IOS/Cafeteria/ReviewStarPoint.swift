@@ -19,7 +19,7 @@ struct ReviewStarPoint: View {
     var body: some View {
         HStack(spacing: 10){
             if editable == true {
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(self.point > 0 ? Color.yellow : Colors.grey500)
@@ -27,7 +27,7 @@ struct ReviewStarPoint: View {
                         self.point = 1
                         self.reviewSheetVisible = true
                 }
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(self.point > 1 ? Color.yellow : Colors.grey500)
@@ -35,7 +35,7 @@ struct ReviewStarPoint: View {
                         self.point = 2
                         self.reviewSheetVisible = true
                 }
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(self.point > 2 ? Color.yellow : Colors.grey500)
@@ -43,7 +43,7 @@ struct ReviewStarPoint: View {
                         self.point = 3
                         self.reviewSheetVisible = true
                 }
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(self.point > 3 ? Color.yellow : Colors.grey500)
@@ -51,7 +51,7 @@ struct ReviewStarPoint: View {
                         self.point = 4
                         self.reviewSheetVisible = true
                 }
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(self.point > 4 ? Color.yellow : Colors.grey500)
@@ -61,23 +61,23 @@ struct ReviewStarPoint: View {
                 }
             }
             else {
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 10, height: 10)
                     .foregroundColor(self.point > 0 ? Color.yellow : Colors.grey500)
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 10, height: 10)
                     .foregroundColor(self.point > 1 ? Color.yellow : Colors.grey500)
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 10, height: 10)
                     .foregroundColor(self.point > 2 ? Color.yellow : Colors.grey500)
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 10, height: 10)
                     .foregroundColor(self.point > 3 ? Color.yellow : Colors.grey500)
-                Image("star.fill")
+                Image(systemName: "star.fill")
                     .resizable()
                     .frame(width: 10, height: 10)
                     .foregroundColor(self.point > 4 ? Color.yellow : Colors.grey500)

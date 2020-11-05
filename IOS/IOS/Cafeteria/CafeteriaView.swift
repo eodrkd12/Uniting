@@ -11,53 +11,25 @@ import SwiftSoup
 
 struct CafeteriaView: View {
     
-    @State var cafeteriaListSet : [CafeteriaDataList] = [
-        CafeteriaDataList(),
-        CafeteriaDataList(),
-        CafeteriaDataList(),
-        CafeteriaDataList(),
-        CafeteriaDataList()
-    ]
-    
-    @State var initCount = 0
-    
-    var cafeteriaType = ["한식","양식","중식","일식","치킨"]
+    @State var cafeteriaList : CafeteriaList? = nil
     
     var body: some View {
         ScrollView{
-            if initCount == 5 {
-                CafeteriaList(type: "한식", cafeteriaList: cafeteriaListSet[0].items!)
-                CafeteriaList(type: "양식", cafeteriaList: cafeteriaListSet[1].items!)
-                CafeteriaList(type: "중식", cafeteriaList: cafeteriaListSet[2].items!)
-                CafeteriaList(type: "일식", cafeteriaList: cafeteriaListSet[3].items!)
-                CafeteriaList(type: "치킨", cafeteriaList: cafeteriaListSet[4].items!)
+            if cafeteriaList != nil {
+                PreviewList(type: "한식", previewList: cafeteriaList!.koreanFood)
+                PreviewList(type: "중식", previewList: cafeteriaList!.chineseFood)
+                PreviewList(type: "양식", previewList: cafeteriaList!.westernFood)
+                PreviewList(type: "일식", previewList: cafeteriaList!.japaneseFood)
+                PreviewList(type: "패스트푸드", previewList: cafeteriaList!.fastFood)
             }
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear(){
-            if self.initCount < 5 {
-                self.cafeteriaType.forEach { (type) in
-                    AlamofireService.shared.getCafeteriaList(start: 1,display: 10,query: "성서계명대\(type)",sortingOrder: "reviewCount"){ items in
-                        
-                        switch type {
-                        case "한식":
-                            self.cafeteriaListSet[0].items=items
-                        case "양식":
-                            self.cafeteriaListSet[1].items=items
-                        case "중식":
-                            self.cafeteriaListSet[2].items=items
-                        case "일식":
-                            self.cafeteriaListSet[3].items=items
-                        case "치킨":
-                            self.cafeteriaListSet[4].items=items
-                        default: break
-                        }
-                        
-                        self.initCount += 1
-                    }
-                }
+            AlamofireService.shared.getCafeteriaList(){ cafeteriaList in
+                self.cafeteriaList = cafeteriaList
             }
         }
     }
 }
+

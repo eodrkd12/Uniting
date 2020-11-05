@@ -6,26 +6,50 @@
 //  Copyright © 2020 KSH. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
-struct CafeteriaDataList {
-    var items : [CafeteriaData]?
+struct CafeteriaList : Codable{
+    var koreanFood : [CafeteriaPreview]
+    var japaneseFood : [CafeteriaPreview]
+    var chineseFood : [CafeteriaPreview]
+    var westernFood : [CafeteriaPreview]
+    var fastFood : [CafeteriaPreview]
 }
 
-struct CafeteriaData : Codable {
-    var id : String
-    var name : String
-    var x : String
-    var y : String
-    var phone : String
-    var imageSrc : String
-    var roadAddr : String
-    var tags : [String]
-    var options : String
-    var bizHourInfo : String
+struct CafeteriaPreview : Codable{
+    var cafe_no : Int
+    var cafe_name : String
+    var star_point : Double?
+    var cafe_thumbnail : String?
+}
+
+struct Cafeteria : Codable {
+    var inform : CafeteriaInform
+    var menu : [Menu]
+    var review : [Review]
+}
+
+struct CafeteriaInform : Codable {
+    var cafe_address : String
+    var cafe_name : String
+    var cafe_phone : String
+    var cafe_bizhour : String
+    var cafe_mapx : Double
+    var cafe_mapy : Double
+    
 }
 
 struct Menu : Codable {
-    var name : String?
-    var price : String?
+    var menu_title : String?
+    var menu_price : String?
+}
+
+struct Review : Codable {
+    var review_no : Int
+    var user_id : String
+    var user_nickname : String
+    var review_content : String
+    var review_date : String
+    var review_point : Int
+    var image_url : String
 }

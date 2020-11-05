@@ -38,13 +38,17 @@ struct MyRoomListView: View {
                         
                         var time = (value["chat_time"].unsafelyUnwrapped as! String).split(separator: " ")[1]
                         var hour = Int(time.split(separator: ":")[0])
+                        var minute = Int(time.split(separator: ":")[1]).unsafelyUnwrapped
+                        var minuteStr = "\(minute)"
+                        if minute < 10 {
+                            minuteStr = "0\(minute)"
+                        }
                         var timeStr = ""
-                        
                         if hour! >= 12 {
-                            timeStr = "오후 \(hour!-12):\(Int(time.split(separator: ":")[1]).unsafelyUnwrapped)"
+                            timeStr = "오후 \(hour!-12):\(minuteStr)"
                         }
                         else {
-                            timeStr = "오전 \(hour!):\(Int(time.split(separator: ":")[1]).unsafelyUnwrapped)"
+                            timeStr = "오전 \(hour!):\(minuteStr)"
                         }
                         
                         self.roomList.append(MyRoomItem(room: myRoom, lastChat: lastChat, lastChatTime: timeStr))

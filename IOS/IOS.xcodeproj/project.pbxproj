@@ -10,7 +10,7 @@
 		540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCE7251DABEC00CA7FC8 /* RoomItem.swift */; };
 		540FDCEC251DB2DB00CA7FC8 /* MemberData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCEB251DB2DB00CA7FC8 /* MemberData.swift */; };
 		540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540FDCEE251DC92D00CA7FC8 /* MakeRoomView.swift */; };
-		541ACBE52500B1C900C1C079 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541ACBE42500B1C900C1C079 /* DetailView.swift */; };
+		541ACBE52500B1C900C1C079 /* CafeInformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541ACBE42500B1C900C1C079 /* CafeInformView.swift */; };
 		541ACBE72500B58A00C1C079 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541ACBE62500B58A00C1C079 /* MapView.swift */; };
 		542AC6A524FF567D00726F04 /* AlamofireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6A424FF567D00726F04 /* AlamofireService.swift */; };
 		542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6A824FF627100726F04 /* CafeteriaData.swift */; };
@@ -34,6 +34,8 @@
 		54A57B03250F53DF00EAE750 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A57B02250F53DF00EAE750 /* UserInfo.swift */; };
 		54A6CB1B25130C7600BC37D3 /* MyRoomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */; };
 		54A6CB1D2513251400BC37D3 /* MyRoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */; };
+		54ACA955255110FC0081F154 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACA954255110FC0081F154 /* SplashView.swift */; };
+		54ACA95A2551130B0081F154 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACA9592551130B0081F154 /* LoginView.swift */; };
 		54B05F2625494266009623CB /* EditDetailProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05F2525494266009623CB /* EditDetailProfileView.swift */; };
 		54B05F2925494D4D009623CB /* EditIntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05F2825494D4D009623CB /* EditIntroduceView.swift */; };
 		54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */; };
@@ -74,7 +76,7 @@
 		540FDCE7251DABEC00CA7FC8 /* RoomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomItem.swift; sourceTree = "<group>"; };
 		540FDCEB251DB2DB00CA7FC8 /* MemberData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberData.swift; sourceTree = "<group>"; };
 		540FDCEE251DC92D00CA7FC8 /* MakeRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeRoomView.swift; sourceTree = "<group>"; };
-		541ACBE42500B1C900C1C079 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		541ACBE42500B1C900C1C079 /* CafeInformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInformView.swift; sourceTree = "<group>"; };
 		541ACBE62500B58A00C1C079 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		542AC6A424FF567D00726F04 /* AlamofireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireService.swift; sourceTree = "<group>"; };
 		542AC6A824FF627100726F04 /* CafeteriaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaData.swift; sourceTree = "<group>"; };
@@ -98,6 +100,8 @@
 		54A57B02250F53DF00EAE750 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		54A6CB1A25130C7600BC37D3 /* MyRoomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomData.swift; sourceTree = "<group>"; };
 		54A6CB1C2513251400BC37D3 /* MyRoomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRoomItem.swift; sourceTree = "<group>"; };
+		54ACA954255110FC0081F154 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		54ACA9592551130B0081F154 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		54B05F2325492530009623CB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		54B05F2525494266009623CB /* EditDetailProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDetailProfileView.swift; sourceTree = "<group>"; };
 		54B05F2825494D4D009623CB /* EditIntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIntroduceView.swift; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		54ACA957255111020081F154 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				54ACA954255110FC0081F154 /* SplashView.swift */,
+				54ACA9592551130B0081F154 /* LoginView.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
 		54BA64F224FDE1EA007C6B32 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +211,7 @@
 		54BA64FD24FDE1EA007C6B32 /* IOS */ = {
 			isa = PBXGroup;
 			children = (
+				54ACA957255111020081F154 /* Intro */,
 				54CE0F84251330300028A98A /* GoogleService-Info.plist */,
 				54A57AFD250F4E8E00EAE750 /* Profile */,
 				54BA652E24FE083E007C6B32 /* Common */,
@@ -284,7 +298,7 @@
 				542AC6A824FF627100726F04 /* CafeteriaData.swift */,
 				542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */,
 				542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */,
-				541ACBE42500B1C900C1C079 /* DetailView.swift */,
+				541ACBE42500B1C900C1C079 /* CafeInformView.swift */,
 				547D5C5B2506151A00AAF43A /* CafeteriaImageCell.swift */,
 				547D5C5D25061C7D00AAF43A /* MenuRow.swift */,
 				547D5C5F2507431700AAF43A /* ReviewStarPoint.swift */,
@@ -457,6 +471,7 @@
 				540FDCEC251DB2DB00CA7FC8 /* MemberData.swift in Sources */,
 				547D5C68250759E900AAF43A /* Extension.swift in Sources */,
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
+				54ACA955255110FC0081F154 /* SplashView.swift in Sources */,
 				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
 				54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
@@ -466,6 +481,7 @@
 				544A7A8D252D960400525286 /* EditProfileView.swift in Sources */,
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
+				54ACA95A2551130B0081F154 /* LoginView.swift in Sources */,
 				54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */,
 				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
 				540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */,
@@ -488,7 +504,7 @@
 				54B05F2925494D4D009623CB /* EditIntroduceView.swift in Sources */,
 				547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */,
 				54EC70262521C5EF0061D27F /* CommonDataModel.swift in Sources */,
-				541ACBE52500B1C900C1C079 /* DetailView.swift in Sources */,
+				541ACBE52500B1C900C1C079 /* CafeInformView.swift in Sources */,
 				54BA652424FDE8C5007C6B32 /* OptionView.swift in Sources */,
 				54BA652924FDEAA9007C6B32 /* PagingView.swift in Sources */,
 				547D5C622507576B00AAF43A /* WriteReviewView.swift in Sources */,

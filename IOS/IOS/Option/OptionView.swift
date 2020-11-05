@@ -68,7 +68,8 @@ struct OptionView: View {
                 
                 HStack{
                     Button(action: {
-                        
+                        UserDefaults.standard.removeObject(forKey: "id")
+                        UserDefaults.standard.removeObject(forKey: "pw")
                     }, label: {
                         Text("로그아웃")
                             .font(.system(size: 22))

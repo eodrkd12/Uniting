@@ -59,7 +59,11 @@ struct EditProfileView: View {
                     HStack{
                         Spacer()
                         Button(action:{
-                            
+                            AlamofireService.shared.updateUserInfo(userId: UserInfo.shared.ID,nickname: nickname,birthday: birthday,city: city,height: height,hobby: hobby,personality: personality,introduce: introduce){ result in
+                                if result.result == "success" {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
                         },
                         label: {
                             Text("저장")
