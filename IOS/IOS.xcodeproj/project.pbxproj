@@ -38,6 +38,10 @@
 		54ACA95A2551130B0081F154 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54ACA9592551130B0081F154 /* LoginView.swift */; };
 		54B05F2625494266009623CB /* EditDetailProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05F2525494266009623CB /* EditDetailProfileView.swift */; };
 		54B05F2925494D4D009623CB /* EditIntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B05F2825494D4D009623CB /* EditIntroduceView.swift */; };
+		54B4E1F22553974100BDCD69 /* SignUp1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1F12553974100BDCD69 /* SignUp1View.swift */; };
+		54B4E1F62553AEFB00BDCD69 /* UniversityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */; };
+		54B4E1F92553C3DC00BDCD69 /* SignUp2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */; };
+		54B4E1FC2553C97200BDCD69 /* EmailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */; };
 		54BA64FF24FDE1EA007C6B32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */; };
 		54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */; };
 		54BA650424FDE1EA007C6B32 /* IOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54BA650224FDE1EA007C6B32 /* IOS.xcdatamodeld */; };
@@ -105,6 +109,10 @@
 		54B05F2325492530009623CB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		54B05F2525494266009623CB /* EditDetailProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDetailProfileView.swift; sourceTree = "<group>"; };
 		54B05F2825494D4D009623CB /* EditIntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIntroduceView.swift; sourceTree = "<group>"; };
+		54B4E1F12553974100BDCD69 /* SignUp1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp1View.swift; sourceTree = "<group>"; };
+		54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityData.swift; sourceTree = "<group>"; };
+		54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2View.swift; sourceTree = "<group>"; };
+		54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHelper.swift; sourceTree = "<group>"; };
 		54BA64FB24FDE1EA007C6B32 /* IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54BA64FE24FDE1EA007C6B32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54BA650024FDE1EA007C6B32 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,10 +192,21 @@
 		54ACA957255111020081F154 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
+				54B4E1F02553972D00BDCD69 /* SignUp */,
 				54ACA954255110FC0081F154 /* SplashView.swift */,
 				54ACA9592551130B0081F154 /* LoginView.swift */,
 			);
 			path = Intro;
+			sourceTree = "<group>";
+		};
+		54B4E1F02553972D00BDCD69 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				54B4E1F12553974100BDCD69 /* SignUp1View.swift */,
+				54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */,
+				54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */,
+			);
+			path = SignUp;
 			sourceTree = "<group>";
 		};
 		54BA64F224FDE1EA007C6B32 = {
@@ -338,6 +357,7 @@
 				54A57B02250F53DF00EAE750 /* UserInfo.swift */,
 				54EC70252521C5EF0061D27F /* CommonDataModel.swift */,
 				542D5D542547FEF8002E8AFF /* Line.swift */,
+				54B4E1FB2553C97200BDCD69 /* EmailHelper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -470,6 +490,7 @@
 				547D5C5C2506151A00AAF43A /* CafeteriaImageCell.swift in Sources */,
 				540FDCEC251DB2DB00CA7FC8 /* MemberData.swift in Sources */,
 				547D5C68250759E900AAF43A /* Extension.swift in Sources */,
+				54B4E1F62553AEFB00BDCD69 /* UniversityData.swift in Sources */,
 				54BA653024FE084F007C6B32 /* Colors.swift in Sources */,
 				54ACA955255110FC0081F154 /* SplashView.swift in Sources */,
 				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
@@ -480,8 +501,10 @@
 				54A57B01250F50A000EAE750 /* ProfileData.swift in Sources */,
 				544A7A8D252D960400525286 /* EditProfileView.swift in Sources */,
 				54CE0F87251337F70028A98A /* ChatView.swift in Sources */,
+				54B4E1F22553974100BDCD69 /* SignUp1View.swift in Sources */,
 				547D5C6E2507681400AAF43A /* ImageManager.swift in Sources */,
 				54ACA95A2551130B0081F154 /* LoginView.swift in Sources */,
+				54B4E1FC2553C97200BDCD69 /* EmailHelper.swift in Sources */,
 				54C5D089252AE6180066EFB7 /* DynamicHeightHStack.swift in Sources */,
 				54A57AFF250F4EA000EAE750 /* ProfileView.swift in Sources */,
 				540FDCEF251DC92D00CA7FC8 /* MakeRoomView.swift in Sources */,
@@ -501,6 +524,7 @@
 				54BA650124FDE1EA007C6B32 /* SceneDelegate.swift in Sources */,
 				54BA653624FE1440007C6B32 /* PageView.swift in Sources */,
 				54A6CB1D2513251400BC37D3 /* MyRoomItem.swift in Sources */,
+				54B4E1F92553C3DC00BDCD69 /* SignUp2View.swift in Sources */,
 				54B05F2925494D4D009623CB /* EditIntroduceView.swift in Sources */,
 				547D5C5E25061C7D00AAF43A /* MenuRow.swift in Sources */,
 				54EC70262521C5EF0061D27F /* CommonDataModel.swift in Sources */,

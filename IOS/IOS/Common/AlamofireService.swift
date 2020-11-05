@@ -15,6 +15,62 @@ class AlamofireService : ObservableObject {
     
     let serverUrl = "http://52.78.27.41:1901"
     
+    // 회원가입
+    func getUniversity(callback: @escaping ([UniversityData]) -> Void){
+        let url = "\(serverUrl)/university"
+        
+        AF.request(
+            url,
+            method: .get
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode([UniversityData].self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func getDepartment(university: String, callback: @escaping ([DepartmentData]) -> Void) {
+        let url = "\(serverUrl)/common/sql/select"
+        
+        let sql = "SELECT dept_name FROM department WHERE univ_name = '\(university)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql" : sql
+            ]
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode([DepartmentData].self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     // 로그인
     func login(userId: String, userPw: String, callback: @escaping (Int) -> Void){
         let url = "\(serverUrl)/common/sql/select/single"

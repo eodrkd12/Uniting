@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView: View {
     
     @State var activeMain = false
+    @State var activeSignUp = false
     
     @State var id = ""
     @State var pw = ""
@@ -22,6 +23,7 @@ struct LoginView: View {
         NavigationView{
             VStack{
                 NavigationLink(destination: MainView(), isActive: $activeMain, label: {})
+                NavigationLink(destination: SignUp1View(), isActive: $activeSignUp, label: {})
                 VStack(spacing: 15){
                     VStack(spacing: 5){
                         TextField("아이디", text: $id)
@@ -68,7 +70,7 @@ struct LoginView: View {
                     }
                     
                     Button(action: {
-                        
+                        activeSignUp = true
                     }, label: {
                         Text("회원가입")
                             .font(.system(size: 15))
