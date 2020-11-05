@@ -9,7 +9,7 @@ var router = express.Router();
 var db_cafeteria = require('../public/SQL/cafeteria_sql')();
 
 router.post('/get/list', function(req,res,next){
-    var univ_name = req.body[0].univ_name
+    var univ_name = req.body.univ_name
 
     var koreanFood = new Array()
     var chineseFood = new Array()
@@ -65,7 +65,7 @@ router.post('/get/inform', function(req, res, next) {
 						if(err) console.log(err)
 						else {
 							var object = new Object()
-							object.inform = inform
+							object.inform = inform[0]
 							object.menu = menu
 							object.review = review
 							res.send(object)

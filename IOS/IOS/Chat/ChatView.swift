@@ -21,59 +21,94 @@ struct ChatView: View {
     @State var chatDataList : [ChatData] = []
     @State var chatList : [ChatItem] = []
     
+    @State var memberList : [MemberData] = []
+    
     @State var menuVisible = false
     
     @State var height : CGFloat=0
     @State var content = ""
+    
+    @State var title = ""
     var body: some View {
         ZStack{
             VStack{
-                HStack{
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image("black_back_icon")
+                VStack{
+                    HStack{
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image("black_back_icon")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                        })
+                        
+                        Spacer()
+                        Text(title)
+                            .font(.system(size: 20))
+                            .foregroundColor(Colors.grey700)
+                        Spacer()
+                        Image("option_icon")
                             .resizable()
                             .frame(width: 20, height: 20)
-                    })
-                    
-                    Spacer()
-                    Text(room.room_title)
-                        .font(.system(size: 20))
-                        .foregroundColor(Colors.grey700)
-                    Spacer()
-                    Image("option_icon")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .onTapGesture {
-                            self.menuVisible.toggle()
+                            .onTapGesture {
+                                self.menuVisible.toggle()
+                            }
+                    }
+                    ScrollView{
+                        ForEach(chatList, id:\.chat.chat_id){ chat in
+                            chat
                         }
-                }
-                ScrollView{
-                    ForEach(chatList, id:\.chat.chat_id){ chat in
-                        chat
                     }
                 }
+                .padding()
                 Spacer()
-                HStack{
-                    TextField("", text: $content)
+                HStack(){
+                    Spacer()
+                    Text(content)
+                        .opacity(0)
+                        .font(.system(size: 18))
+                        .frame(minWidth: UIScreen.main.bounds.width*0.7,maxWidth: UIScreen.main.bounds.width*0.7,minHeight: 25)
+                        .padding(4)
                         .lineLimit(4)
-                        .font(.system(size: 15))
-                    Button(action: {
-                        self.sendChat()
-                    }){
-                        Text("send")
+                        .overlay(GeometryReader{ geometry in
+                            ScrollView(showsIndicators: false){
+                                TextEditor(text: $content)
+                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .padding(4)
+                                    .font(.system(size: 18))
+                                    .background(Colors.grey200)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Colors.grey300,lineWidth: 2)
+                                    )
+                            }
+                        })
+                    Spacer()
+                    VStack{
+                        Button(action: {
+                            self.sendChat()
+                        }){
+                            Image("send_icon")
+                                .resizable()
+                                .padding(7)
+                                .frame(width:38,height:38)
+                                .background(Colors.primary)
+                                .clipShape(Circle())
+                        }
+                        .padding(.top,7)
                     }
+                    Spacer()
                 }
-                .frame(height : UIScreen.main.bounds.height*0.05)
+                .padding(.bottom,23)
                 .padding(.horizontal,15)
+                .padding(.top,2)
+                .background(Colors.grey100)
                 .offset(y: -self.height)
             }
-            .padding()
             GeometryReader{ _ in
                 HStack{
                     Spacer()
-                    RoomMenu(showing: self.presentationMode, room: self.room)
+                    RoomMenu(presentationMode: self.presentationMode, room: room, memberList: $memberList)
                         .offset(x: self.menuVisible ? 0 : UIScreen.main.bounds.width)
                         .animation(.easeIn(duration: 0.2))
                 }
@@ -82,6 +117,7 @@ struct ChatView: View {
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .ignoresSafeArea(edges: .bottom)
         .onAppear(){
             
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
@@ -132,6 +168,22 @@ struct ChatView: View {
                     }
                 }
             })
+            
+            AlamofireService.shared.getMembers(roomId: self.room.room_id){ members in
+                self.memberList = members
+            }
+            
+            if self.room.category == "데이팅" {
+                if UserInfo.shared.ID == self.room.maker {
+                    self.title = String(self.room.room_title.split(separator: "&")[1])
+                }
+                else {
+                    self.title = String(self.room.room_title.split(separator: "&")[0])
+                }
+            }
+            else{
+                self.title = self.room.room_title
+            }
         }
     }
     
@@ -144,27 +196,98 @@ struct ChatView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date=dateFormatter.string(from: now)
-        /*
-         var chatPartner=""
-         if UserInfo.shared.ID == self.room!.room_maker {
-         chatPartner=self.room!.room_partner
-         }
-         else {
-         chatPartner=self.room!.room_maker
-         }
-         
-         HttpService.shared.insertChatReq(roomId: self.room!.room_id, userId: UserInfo.shared.ID, userNickname: UserInfo.shared.NICKNAME, chatPartner: chatPartner, chatContent: self.content, currentDate: date){ resultModel -> Void in
-         
-         self.ref!.childByAutoId().setValue([
-         "room_id" : self.room!.room_id,
-         "chat_speaker" : UserInfo.shared.ID,
-         "chat_speaker_nickname" : UserInfo.shared.NICKNAME,
-         "chat_content" : self.content,
-         "chat_time" : date,
-         "unread_count" : 1
-         ])
-         self.content=""
-         }
-         */
+        
+        var unreadMembers = ""
+        
+        self.memberList.forEach { (member) in
+            unreadMembers.append("\(member.user_id)|")
+        }
+        unreadMembers = unreadMembers.replacingOccurrences(of: "\(UserInfo.shared.ID)|", with: "")
+        
+        
+        if chatList.count == 0 || (chatList.last!.chat.chat_time.split(separator: " ")[0]) < date.split(separator: " ")[0] {
+            let cal = Calendar(identifier: .gregorian)
+            let comps = cal.dateComponents([.weekday], from: now)
+            
+            var dayOfWeek = ""
+            
+            switch comps.weekday {
+            case 1:
+                dayOfWeek = "일요일"
+                break
+            case 2:
+                dayOfWeek = "월요일"
+                break
+            case 3:
+                dayOfWeek = "화요일"
+                break
+            case 4:
+                dayOfWeek = "수요일"
+                break
+            case 5:
+                dayOfWeek = "목요일"
+                break
+            case 6:
+                dayOfWeek = "금요일"
+                break
+            case 7:
+                dayOfWeek = "토요일"
+                break
+            default:
+                print("?")
+            }
+            
+            var systemChat = ChatData(chat_id: "SYSTEM_\(self.room.room_id)_\(date)", room_id: self.room.room_id, user_id: "SYSTEM", user_nickname: "SYSTEM", chat_content: "\(date.split(separator: " ")[0]) \(dayOfWeek)", chat_time: date, unread_member: "", system_chat: 1)
+            
+            AlamofireService.shared.insertChat(chat: systemChat){ result in
+                if result.result == "success" {
+                    var chatId = "\(UserInfo.shared.ID)_\(self.room.room_id)_\(date)"
+                    var chat = ChatData(chat_id: chatId, room_id: self.room.room_id, user_id: UserInfo.shared.ID, user_nickname: UserInfo.shared.NICKNAME, chat_content: self.content, chat_time: "\(date)_1", unread_member: unreadMembers, system_chat: 0)
+                    writeFirebase(chat: systemChat)
+                    
+                    AlamofireService.shared.insertChat(chat: chat){ result in
+                        if result.result == "success" {
+                            var topic = room.room_id
+                            var title = room.room_title
+                            var content = "\(UserInfo.shared.ID) \(self.content)"
+                            
+                            //AlamofireService.shared.sendFcm(topic: topic, title: title, content: content)
+                            writeFirebase(chat: chat)
+                            self.content = ""
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            var chatId = "\(UserInfo.shared.ID)_\(self.room.room_id)_\(date)"
+            var chat = ChatData(chat_id: chatId, room_id: self.room.room_id, user_id: UserInfo.shared.ID, user_nickname: UserInfo.shared.NICKNAME, chat_content: self.content, chat_time: "\(date)_1", unread_member: unreadMembers, system_chat: 0)
+            
+            AlamofireService.shared.insertChat(chat: chat){ result in
+                if result.result == "success" {
+                    var topic = room.room_id
+                    var title = room.room_title
+                    var content = "\(UserInfo.shared.ID) \(self.content)"
+                    
+                    //AlamofireService.shared.sendFcm(topic: topic, title: title, content: content)
+                    writeFirebase(chat: chat)
+                    self.content = ""
+                }
+            }
+        }
+    }
+    
+    func writeFirebase(chat: ChatData){
+        
+        self.ref!.childByAutoId().setValue([
+            "chat_id" : chat.chat_id,
+            "room_id" : chat.room_id,
+            "user_id" : chat.user_id,
+            "user_nickname" : chat.user_nickname,
+            "chat_content" : chat.chat_content,
+            "chat_time" : chat.chat_time,
+            "unread_member" : chat.unread_member,
+            "system_chat" : chat.system_chat
+        ])
     }
 }

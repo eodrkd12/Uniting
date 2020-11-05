@@ -15,6 +15,10 @@ struct EditProfileView: View {
     @State var nickname = ""
     @State var birthday = ""
     @State var city = ""
+    @State var height = ""
+    @State var hobby = ""
+    @State var personality = ""
+    @State var introduce = ""
     @State var signdate = ""
     
     @State var university = ""
@@ -55,167 +59,53 @@ struct EditProfileView: View {
                     HStack{
                         Spacer()
                         Button(action:{
-                            
+                            AlamofireService.shared.updateUserInfo(userId: UserInfo.shared.ID,nickname: nickname,birthday: birthday,city: city,height: height,hobby: hobby,personality: personality,introduce: introduce){ result in
+                                if result.result == "success" {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
                         },
                         label: {
                             Text("저장")
                                 .font(.system(size: 20))
+                                .foregroundColor(Colors.primary)
                                 .padding()
                         })
                     }
                     .frame(width: UIScreen.main.bounds.width/3, height: 40)
                 }
                 
+                Line(width: 2)
+                    .padding(.top,10)
+                
+                
                 VStack(spacing: 5){
                     HStack{
-                        Text("사용자 정보")
+                        Text("프로필 정보")
                             .font(.system(size: 22))
                             .foregroundColor(Colors.grey700)
                         Spacer()
                     }
                     .padding(.leading, 10)
-                    .padding(.top, 10)
-                    HStack{
-                        Text("")
-                        Spacer()
-                    }
-                    .frame(height: 2)
-                    .background(Colors.grey300)
+                    .padding(.vertical, 10)
                     
                     VStack(){
-                        HStack{
-                            Text("닉네임")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    TextEditor(text: $nickname)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200, height: 35)
-                                    /*
-                                     Text(nickname)
-                                     .font(.system(size:18))
-                                     .foregroundColor(Colors.grey700)
-                                     .frame(width: 200)
-                                     */
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                    .background(Colors.grey300)
-                                }
-                                HStack{
-                                    Spacer()
-                                    Image("more_icon")
-                                        .resizable()
-                                        .frame(width: 12,height: 12)
-                                }
-                                .padding(.horizontal, 10)
+                        EditableRow(title: "닉네임", content: $nickname)
+                        EditableRow(title: "생년월일", content: $birthday)
+                            .onTapGesture {
+                                datePickerVisible = true
                             }
-                        }
-                        .padding(5)
-                        
-                        HStack{
-                            Text("생년월일")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Button(action: {
-                                        datePickerVisible = true
-                                    }, label: {
-                                        Text(birthday)
-                                            .font(.system(size:18))
-                                            .foregroundColor(Colors.grey700)
-                                            .frame(width: 200)
-                                    })
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                    .background(Colors.grey300)
-                                }
-                                HStack{
-                                    Spacer()
-                                    Image("more_icon")
-                                        .resizable()
-                                        .frame(width: 12,height: 12)
-                                }
-                                .padding(.horizontal, 10)
-                            }
-                        }
-                        .padding(5)
-                        
-                        HStack{
-                            Text("거주지")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Text(city)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200)
-                                    
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                    .background(Colors.grey300)
-                                }
-                                HStack{
-                                    Spacer()
-                                    Image("more_icon")
-                                        .resizable()
-                                        .frame(width: 12,height: 12)
-                                }
-                                .padding(.horizontal, 10)
-                            }
-                        }
-                        .padding(5)
-                        
-                        HStack{
-                            Text("가입일자")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Text(signdate)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200)
-                                    
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                }
-                            }
-                        }
-                        .padding(5)
+                        EditableRow(title: "거주지", content: $city)
+                        EditableRow(title: "키", content: $height)
+                        EditableRow(title: "취미", content: $hobby)
+                        EditableRow(title: "성격", content: $personality)
+                        EditableRow(title: "소개", content: $introduce, isIntroduce: true)
+                        NotEditableRow(title: "가입일자", content: $signdate)
                     }
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Colors.grey300, lineWidth: 2)
-                )
                 .padding()
-                .padding(.top,30)
                 
-                
+                Line(width: 2)
                 
                 VStack(spacing: 5){
                     HStack{
@@ -225,98 +115,54 @@ struct EditProfileView: View {
                         Spacer()
                     }
                     .padding(.leading, 10)
-                    .padding(.top, 10)
-                    HStack{
-                        Text("")
-                        Spacer()
-                    }
-                    .frame(height: 2)
-                    .background(Colors.grey300)
+                    .padding(.vertical, 10)
+                    
                     VStack{
-                        HStack{
-                            Text("학교")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Text(university)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200)
-                                    
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                }
-                            }
-                        }
-                        .padding(5)
-                        
-                        HStack{
-                            Text("학과")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Text(department)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200)
-                                    
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                }
-                            }
-                        }
-                        .padding(5)
-                        
-                        HStack{
-                            Text("웹메일")
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey500)
-                                .frame(width: 80)
-                            Spacer()
-                            ZStack{
-                                VStack{
-                                    Text(webmail)
-                                        .font(.system(size:18))
-                                        .foregroundColor(Colors.grey700)
-                                        .frame(width: 200)
-                                    
-                                    HStack{
-                                        Text("")
-                                        Spacer()
-                                    }
-                                    .frame(height: 2)
-                                }
-                            }
-                        }
-                        .padding(5)
+                        NotEditableRow(title: "학교", content: $university)
+                        NotEditableRow(title: "학과", content: $department)
+                        NotEditableRow(title: "웹메일", content: $webmail)
                     }
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Colors.grey300, lineWidth: 2)
-                )
                 .padding()
-                .padding(.top,30)
                 
                 Spacer()
             }
             
             if datePickerVisible {
-                GeometryReader{_ in
-                    DatePicker("", selection: $date, displayedComponents: .date)
-                }.background(Color.black.opacity(0.5).edgesIgnoringSafeArea(.all))
+                VStack{
+                    Spacer()
+                    VStack{
+                        DatePicker("", selection: $date, displayedComponents: .date)
+                            .datePickerStyle(WheelDatePickerStyle())
+                        HStack(spacing: 15){
+                            Spacer()
+                            Button(action: {
+                                datePickerVisible = false
+                            }, label: {
+                                Text("취소")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.red)
+                                    .padding()
+                            })
+                            Button(action: {
+                                var str = dateFormatter.string(from: date)
+                                birthday = String(str.split(separator: " ")[0])
+                                
+                                datePickerVisible = false
+                            }, label: {
+                                Text("확인")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Colors.primary)
+                                    .padding()
+                            })
+                        }
+                            
+                    }
+                    .background(Color.white)
+                    Spacer()
+                }
+                .padding()
+                .background(Color.black.opacity(0.5).edgesIgnoringSafeArea(.all))
             }
         }
         .navigationTitle("")
@@ -326,6 +172,10 @@ struct EditProfileView: View {
                 self.nickname = profile.user_nickname
                 self.birthday = profile.user_birthday
                 self.city = profile.user_city
+                self.height = profile.user_height == nil ? "정보 없음" : profile.user_height!
+                self.hobby = profile.user_hobby == nil ? "정보 없음" : profile.user_hobby!
+                self.personality = profile.user_personality == nil ? "정보 없음" : profile.user_personality!
+                self.introduce = profile.user_introduce == nil ? "정보 없음" : profile.user_introduce!
                 self.signdate = String(profile.user_signdate.split(separator: " ")[0])
                 
                 self.university = profile.univ_name
@@ -340,4 +190,97 @@ struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
         EditProfileView()
     }
+}
+
+struct EditableRow : View {
+    
+    @State var title : String
+    @Binding var content : String
+    
+    @State var alertVisible = false
+    @State var isIntroduce = false
+    
+    var body: some View {
+        HStack{
+            Text(title)
+                .font(.system(size:18))
+                .foregroundColor(Colors.grey500)
+                .frame(width: 80)
+            Spacer()
+            ZStack{
+                VStack{
+                    if title == "닉네임" {
+                        TextEditor(text: $content)
+                            .font(.system(size: 18))
+                            .foregroundColor(Colors.grey700)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 200, height: 30)
+                    }
+                    else {
+                        Text(content)
+                            .font(.system(size:18))
+                            .foregroundColor(Colors.grey700)
+                            .truncationMode(.tail)
+                            .lineLimit(1)
+                            .frame(width: 200)
+                    }
+                    Line(width: 2)
+                }
+                HStack{
+                    Spacer()
+                    Image("more_icon")
+                        .resizable()
+                        .frame(width: 12,height: 12)
+                }
+                .padding(.horizontal, 10)
+            }
+        }
+        .sheet(isPresented: $alertVisible,onDismiss: {
+            OptionRow.selected.removeAll()
+        }){
+            if isIntroduce == true {
+                EditIntroduceView(data: $content)
+            }
+            else {
+                EditDetailProfileView(title: title, data: $content)
+            }
+        }
+        .padding(5)
+        .onTapGesture {
+            if title == "거주지" || title == "키" || title == "취미" || title == "성격" {
+                alertVisible = true
+            }
+            else if title == "소개" {
+                alertVisible = true
+            }
+        }
+    }
+}
+
+struct NotEditableRow : View {
+    
+    @State var title : String
+    @Binding var content : String
+    
+    var body: some View {
+        HStack{
+            Text(title)
+                .font(.system(size:18))
+                .foregroundColor(Colors.grey500)
+                .frame(width: 80)
+            Spacer()
+            ZStack{
+                HStack{
+                    Spacer()
+                    Text(content)
+                        .font(.system(size:18))
+                        .foregroundColor(Colors.grey700)
+                        .frame(width: 200)
+                    Spacer()
+                }
+            }
+        }
+        .padding(5)
+    }
+    
 }

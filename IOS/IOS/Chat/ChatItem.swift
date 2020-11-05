@@ -30,7 +30,7 @@ struct ChatItem: View {
                             .foregroundColor(Colors.grey500)
                     }
                     Text(chat.chat_content)
-                        .font(.system(size:18))
+                        .font(.system(size:20))
                         .foregroundColor(Color.white)
                         .padding(.horizontal, 5)
                         .padding(.vertical, 5)
@@ -39,34 +39,42 @@ struct ChatItem: View {
                 }
             }
             else {
-                HStack(spacing: 10){
-                    VStack(alignment:.leading, spacing: 10){
-                        if nicknameVisible {
-                            Text(chat.user_nickname)
+                if chat.system_chat == 0 {
+                    HStack(spacing: 10){
+                        VStack(alignment:.leading, spacing: 10){
+                            if nicknameVisible {
+                                Text(chat.user_nickname)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Colors.grey500)
+                            }
+                            HStack{
+                                Text(chat.chat_content)
+                                    .font(.system(size:20))
+                                    .foregroundColor(Colors.grey700)
+                                    .padding(.horizontal, 5)
+                                    .padding(.vertical, 5)
+                                    .background(Colors.grey300)
+                                    .cornerRadius(10)
+                            }
+                            Spacer()
+                        }
+                        VStack(alignment: .leading){
+                            Spacer()
+                            Text(unreadCount > 0 ? "\(unreadCount)" : "")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color.yellow)
+                            Text(timeVisible == true ? chatTime : "")
                                 .font(.system(size: 12))
                                 .foregroundColor(Colors.grey500)
                         }
-                        HStack{
-                            Text(chat.chat_content)
-                                .font(.system(size:18))
-                                .foregroundColor(Colors.grey700)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 5)
-                                .background(Colors.grey300)
-                                .cornerRadius(10)
-                        }
                         Spacer()
                     }
-                    VStack(alignment: .leading){
-                        Spacer()
-                        Text(unreadCount > 0 ? "\(unreadCount)" : "")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.yellow)
-                        Text(timeVisible == true ? chatTime : "")
-                            .font(.system(size: 12))
-                            .foregroundColor(Colors.grey500)
-                    }
-                    Spacer()
+                }
+                else {
+                    Text(chat.chat_content)
+                        .font(.system(size: 14))
+                        .foregroundColor(Colors.grey500)
+                        .padding(5)
                 }
             }
         }

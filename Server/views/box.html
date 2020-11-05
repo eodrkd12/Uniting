@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>김세현 하트 임재성</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <style>
+    .cafe>* {
+      display: inline-block;
+    }
+
+    .cafe_name {
+      margin-left: 10px;
+    }
+
+    .cafe_address {
+      margin-left: 10px;
+      width: 300px;
+      margin-right: 20px;
+    }
+
+    .cafe_type {
+      margin-left: 10px;
+      width: 50px;
+    }
+
+    .cafe_phone {
+      width: 150px;
+      margin-left: 16px;
+    }
+
+    .cafe_bizhour {
+      width: 200px;
+      margin-left: 10px;
+    }
+
+    .univ_name {
+      width: 150px;
+      margin-left: 10px;
+    }
+
+    .cafe_mapx {
+      width: 50px;
+      margin-left: 33px;
+    }
+
+    .cafe_mapy {
+      width: 50px;
+      margin-left: 33px;
+    }
+
+    .cafe_thumbnail {
+      width: 150px;
+      margin-left: 32px;
+    }
+
+    .submit1 {
+      margin-top: 5%;
+      margin-left: 35%;
+    }
+
+    .submit2 {
+      margin-top: 1%;
+      margin-left: 10%;
+    }
+
+    .cafe {
+      list-style: none;
+      float: left;
+      margin-left: 0px;
+    }
+
+    .cafe_number {
+      margin-left: 10px;
+    }
+
+    .menu_name {
+      margin-left: 10px;
+    }
+
+    .menu_price {
+      margin-left: 10px;
+    }
+
+    ul {
+      padding: 10;
+      margin: 0;
+      list-style: none;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div class="cafe">
+    <nav>
+      <ul>
+        <li>식당 이름<input id="cafeName" type="text" class="cafe_name"></li>
+        <li>식당 주소<input id="cafeAddress" type="text" class="cafe_address"></li>
+        <li>식당 타입<input id="cafeType" type="text" class="cafe_type"></li>
+        <li>전화번호<input id="cafePhone" type="text" class="cafe_phone"></li>
+        <li>영업 시간<input id="cafeBizHour" type="text" class="cafe_bizhour"></li>
+        <li>대학 이름<input id="univName" type="text" class="univ_name"></li>
+        <li>X 좌표<input id="x" type="text" class="cafe_mapx"></li>
+        <li>Y 좌표<input id="y" type="text" class="cafe_mapy"></li>
+        <li>썸네일<input id="thumbnail" type="text" class="cafe_thumbnail"></li>
+
+        <input id="btnCafe" type="button" class="submit1" value="식당 입력">
+      </ul>
+    </nav>
+  </div>
+
+  <div class="cafe_info">
+    <nav>
+      <ul>
+        <li>식당 번호<input id="cafeNo" type="text" class="cafe_number"></li>
+        <li>메뉴 이름<input id="menuName" type="text" class="menu_name"></li>
+        <li>메뉴 가격<input id="menuPrice" type="text" class="menu_price"></li>
+
+        <input id="btnMenu" type="button" class="submit2" value="메뉴 입력">
+      </ul>
+    </nav>
+  </div>
+  <script>
+    $('#btnCafe').click(function () {
+
+      var cafeName = $('#cafeName').val()
+      var cafeAddress = $('#cafeAddress').val()
+      var cafeType = $('#cafeType').val()
+      var cafePhone = $('#cafePhone').val()
+      var cafeBizHour = $('#cafeBizHour').val()
+      var univName = $('#univName').val()
+      var x = $('#x').val()
+      var y = $('#y').val()
+      var thumbnail = $('#thumbnail').val()
+
+      var sql = `INSERT INTO cafeteria(cafe_type, cafe_address, cafe_name, cafe_phone, cafe_bizhour, univ_name, cafe_mapx, cafe_mapy, cafe_thumbnail)
+       VALUES('${cafeType}','${cafeAddress}','${cafeName}','${cafePhone}','${cafeBizHour}','${univName}',${x},${y},'${thumbnail}')`
+
+      $.ajax({
+        url: '/common/sql/insert',
+        type: 'POST',
+        data: {
+          'sql' : sql
+        },
+        dataType: 'json',
+        success: function(data){
+          alert(data['result'])
+        },
+        error: function(){
+          alert('error')
+        }
+      })
+    })
+    $('#btnMenu').click(function () {
+      var cafeNo = $('#cafeNo').val()
+      var menuName = $('#menuName').val()
+      var menuPrice = $('#menuPrice').val()
+
+      var sql = `INSERT INTO menu(cafe_no, menu_title, menu_price)
+      VALUES(${cafeNo},'${menuName}','${menuPrice}')`
+
+      $.ajax({
+        url: '/common/sql/insert',
+        type: 'POST',
+        data: {
+          'sql' : sql
+        },
+        dataType: 'json',
+        success: function(data){
+          alert(data['result'])
+        },
+        error: function(){
+          alert('error')
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

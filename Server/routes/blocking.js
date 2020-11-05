@@ -30,8 +30,8 @@ router.post('/delete',function(req,res,next){
     var user_id = req.body.user_id
     var update_value = req.body.update_value
 
-    db_blocking.insert_blocking(user_id, function(err, result) {
-        if(err) console.log(err)
+    db_blocking.delete_blocking(user_id, function(err, result) {
+	if(err) console.log(err)
         else {
             db_blocking.update_blocking(user_id, update_value, function(err, result) {
                 if(err) console.log(err)

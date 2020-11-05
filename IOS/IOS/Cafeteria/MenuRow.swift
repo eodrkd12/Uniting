@@ -14,13 +14,14 @@ struct MenuRow: View {
     
     var body: some View {
         HStack{
-            Text("\(menu.name!)")
+            Text(menu.menu_title!)
                 .font(.system(size: 20))
                 .foregroundColor(Colors.grey500)
             Spacer()
-            Text("\(menu.price!)")
+            Text("\(menu.menu_price!)")
                 .font(.system(size: 20))
                 .foregroundColor(Colors.grey500)
         }
     }
 }
+

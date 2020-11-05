@@ -11,14 +11,14 @@ import NMapsMap
 struct MapView: UIViewRepresentable {
     
     @State var cgRect : CGRect
-    @State var x : String
-    @State var y : String
+    @State var x : Double
+    @State var y : Double
     
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> UIView {
         
         let view = UIView()
 
-        var nmgLatlng = NMGLatLng(lat: (y as NSString).doubleValue, lng: (x as NSString).doubleValue)
+        var nmgLatlng = NMGLatLng(lat: y, lng: x)
         
         let mapView = NMFMapView(frame: cgRect)
         mapView.mapType = .basic

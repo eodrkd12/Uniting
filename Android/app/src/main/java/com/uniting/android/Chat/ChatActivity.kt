@@ -114,6 +114,7 @@ class ChatActivity : PSAppCompatActivity() {
             }
             chatAdapter.notifyDataSetChanged()
             chatAdapter.sortByChatTime()
+            Log.d("test","${chatList}")
             list_chat.setSelection(chatAdapter.count-1)
         })
 
@@ -133,18 +134,7 @@ class ChatActivity : PSAppCompatActivity() {
 
                 var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
 
-                var chat = Chat(
-                    chatId,
-                    room.room_id,
-                    UserInfo.ID,
-                    UserInfo.NICKNAME,
-                    content,
-                    date,
-                    unreadMember,
-                    0
-                )
-
-                if (chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(" ")[0]) {
+                if (chatList.size == 0 || chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(" ")[0]) {
                     val calendar = Calendar.getInstance()
                     val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -185,10 +175,21 @@ class ChatActivity : PSAppCompatActivity() {
 
                     Retrofit.insertChat(systemChat){
                         if(it.result == "success"){
+
+                            var chat = Chat(
+                                chatId,
+                                room.room_id,
+                                UserInfo.ID,
+                                UserInfo.NICKNAME,
+                                content,
+                                "${date}_1",
+                                unreadMember,
+                                0
+                            )
+
                             Retrofit.insertChat(chat) {
                                 if (it.result == "success") {
 
-                                    writeFirebase(chat)
 
                                     var topic = room.room_id
                                     var title = room.room_title
@@ -196,13 +197,15 @@ class ChatActivity : PSAppCompatActivity() {
 
                                     Retrofit.sendFcm(topic, title, content)
 
-                                    chatViewModel.insert(chat) {
-                                        list_chat.setSelection(chatAdapter.count - 1)
-                                    }
-
                                     writeFirebase(systemChat)
                                     chatViewModel.insert(systemChat){
                                         list_chat.setSelection(chatAdapter.count-1)
+
+
+                                        writeFirebase(chat)
+                                        chatViewModel.insert(chat) {
+                                            list_chat.setSelection(chatAdapter.count - 1)
+                                        }
                                     }
                                 }
                             }
@@ -210,9 +213,20 @@ class ChatActivity : PSAppCompatActivity() {
                     }
                 }
                 else {
+
+                    var chat = Chat(
+                        chatId,
+                        room.room_id,
+                        UserInfo.ID,
+                        UserInfo.NICKNAME,
+                        content,
+                        date,
+                        unreadMember,
+                        0
+                    )
+
                     Retrofit.insertChat(chat) {
                         if (it.result == "success") {
-
                             writeFirebase(chat)
 
                             var topic = room.room_id

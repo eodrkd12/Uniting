@@ -15,6 +15,46 @@ class AlamofireService : ObservableObject {
     
     let serverUrl = "http://52.78.27.41:1901"
     
+    // 로그인
+    func login(userId: String, userPw: String, callback: @escaping (Int) -> Void){
+        let url = "\(serverUrl)/common/sql/select/single"
+        
+        let sql = "SELECT user_pw as result FROM user WHERE user_id = '\(userId)'"
+        
+        let body = [
+            "sql" : sql
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    var resultPw = result.result
+                    
+                    if userPw == resultPw {
+                        callback(1)
+                    }
+                    else {
+                        callback(2)
+                    }
+                } catch {
+                    print(error)
+                    callback(0)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     // 홈
     func randomMatching(callback: @escaping ([ProfileData]) -> Void){
         
@@ -225,6 +265,39 @@ class AlamofireService : ObservableObject {
         }
     }
     
+    func exitRoom(roomId: String, userId: String,type: String, callback: @escaping (ResultModel) -> Void){
+        var url = ""
+        if type == "delete" {
+            url = "\(serverUrl)/room/delete"
+        }
+        else {
+            url = "\(serverUrl)/room/exit"
+        }
+        
+        let body = [
+            "room_id" : roomId,
+            "user_id" : userId
+        ]
+        
+        AF.request(
+           url,
+           method: .post,
+           parameters: body
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
     func getMyRoom(userId: String, callback: @escaping ([RoomData]) -> Void){
         let url = "\(serverUrl)/common/sql/select"
         
@@ -317,48 +390,107 @@ class AlamofireService : ObservableObject {
             }
         }
     }
-    // 식당
-    func getCafeteriaList(start: Int, display: Int, query: String, sortingOrder: String, callback: @escaping ([CafeteriaData]) -> Void){
-        /*
-        let url = "https://store.naver.com/sogum/api/businesses"
+    
+    func insertChat(chat: ChatData, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        var sql = "INSERT INTO chat "
+        sql += "VALUES('\(chat.chat_id)','\(chat.room_id)','\(chat.user_id)','\(chat.user_nickname)','\(chat.chat_content)','\(chat.chat_time)','\(chat.unread_member)','\(chat.system_chat)')"
         
         let body = [
-        "start" : start,
-        "display" : display,
-        "query" : query,
-        "sortingOrder" : sortingOrder
-        ] as [String : Any]
+            "sql" : sql
+        ]
         
         AF.request(
             url,
-            method: .get,
+            method: .post,
             parameters: body
-        ).responseData { (data) in
-            do {
-                let json = try! JSON(data: data.data!)
-                var items : [CafeteriaData] = []
-                
-                json["items"].arrayValue.forEach { (json) in
-                    
-                    var tags : [String] = []
-                    
-                    var temp = json["tags"].arrayObject
-                    
-                    temp?.forEach({ (tag) in
-                        tags.append(tag as! String)
-                    })
-                    
-                    var item = CafeteriaData(id: json["id"].stringValue, name: json["name"].stringValue, x: json["x"].stringValue, y: json["y"].stringValue, phone: json["phone"].stringValue, imageSrc: json["imageSrc"].stringValue, roadAddr: json["roadAddr"].stringValue, tags: tags, options: json["options"].stringValue, bizHourInfo: json["bizHourInfo"].stringValue)
-                    
-                    items.append(item)
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    callback(result)
+                } catch {
+                    print(error)
                 }
-                
-                callback(items)
-            } catch {
-                self.getCafeteriaList(start: start, display: display, query: query, sortingOrder: sortingOrder, callback: callback)
+            case .failure(let err):
+                print(err)
             }
         }
- */
+    }
+    
+    func sendFcm(topic: String, title: String, content: String){
+        let url = "\(serverUrl)/common/fcm"
+        
+        var body = [
+            "topic" : topic,
+            "title" : title,
+            "content" : content
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { (res) in
+            
+        }
+    }
+    // 식당
+    func getCafeteriaList(callback: @escaping (CafeteriaList) -> Void){
+        let url = "\(serverUrl)/cafeteria/get/list"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "univ_name" : UserInfo.shared.UNIV
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let cafeteriaList = try JSONDecoder().decode(CafeteriaList.self, from: json)
+                    
+                    callback(cafeteriaList)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func getCafeteriaInform(cafeNo : Int, callback: @escaping (Cafeteria) -> Void){
+        let url = "\(serverUrl)/cafeteria/get/inform"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "cafe_no" : cafeNo
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let cafeteria = try JSONDecoder().decode(Cafeteria.self, from: json)
+                    
+                    callback(cafeteria)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
     
     func getReview(cafeteriaName: String, callback: @escaping ([ReviewData]) -> Void){
@@ -399,6 +531,35 @@ class AlamofireService : ObservableObject {
                     let profile = try JSONDecoder().decode(ProfileData.self, from: json)
                     
                     callback(profile)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func updateUserInfo(userId: String, nickname: String, birthday: String, city: String, height: String, hobby: String, personality: String, introduce: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let sql = "UPDATE user SET user_nickname = '\(nickname)', user_birthday = '\(birthday)', user_city = '\(city)', user_height = '\(height)', user_hobby = '\(hobby)', user_personality='\(personality)', user_introduce='\(introduce)' WHERE user_id = '\(userId)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql" : sql
+            ]
+        ).responseJSON { (res) in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
                 } catch {
                     print(error)
                 }
