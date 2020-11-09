@@ -11,16 +11,23 @@ import SwiftUI
 struct OptionView: View {
     
     @State var blockMyDept = false
-    @State var editProfileVisible = false
+    @State var activeEditProfile = false
+    @State var activeLogin = false
     
     var body: some View {
         VStack(spacing: 35){
             NavigationLink(
                 destination: EditProfileView(),
-                isActive: $editProfileVisible,
+                isActive: $activeEditProfile,
                 label: {})
+            
+            NavigationLink(
+                destination: LoginView(),
+                isActive: $activeLogin,
+                label: {})
+            
             Button(action: {
-                editProfileVisible = true
+                activeEditProfile = true
             }, label: {
                 Text("프로필 편집")
                     .font(.system(size: 22))
@@ -49,13 +56,9 @@ struct OptionView: View {
                 Line(width: 1)
                 
                 HStack{
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("같은 학과 만나지 않기")
-                            .font(.system(size: 22))
-                            .foregroundColor(Colors.grey600)
-                    })
+                    Text("같은 학과 만나지 않기")
+                        .font(.system(size: 22))
+                        .foregroundColor(Colors.grey600)
                     Spacer()
                     Toggle(isOn: $blockMyDept, label: {
                     })
@@ -70,6 +73,7 @@ struct OptionView: View {
                     Button(action: {
                         UserDefaults.standard.removeObject(forKey: "id")
                         UserDefaults.standard.removeObject(forKey: "pw")
+                        activeLogin = true
                     }, label: {
                         Text("로그아웃")
                             .font(.system(size: 22))
