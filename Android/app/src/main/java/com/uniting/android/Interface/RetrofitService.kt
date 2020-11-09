@@ -141,8 +141,9 @@ interface RetrofitService {
 
     //로그인
     @FormUrlEncoded
-    @POST("/common/sql/select/single")
-    fun login(@Field("sql") sql : String) : Call<ResultModel>
+    @POST("/user/login")
+    fun login(@Field("user_id") userId : String,
+    @Field("user_pw") userPw : String) : Call<UserModel.User>
 
     //회원정보수정 데이터 불러오기
     @FormUrlEncoded
@@ -291,4 +292,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/cafeteria/get/inform")
     fun getCafeteriaInform(@Field("cafe_no") cafeNo : Int) : Call<CafeteriaItem.Cafeteria>
+
+    //버전정보 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getVersionInfo(@Field("sql") sql : String) : Call<VersionModel.Version>
 }

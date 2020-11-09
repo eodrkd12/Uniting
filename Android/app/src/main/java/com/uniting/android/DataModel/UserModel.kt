@@ -27,6 +27,8 @@ class UserModel {
         @SerializedName("matching_hobby")
         val matchingHobby : String,
         @SerializedName("matching_personality")
-        val matchingPersonality : String
+        val matchingPersonality : String,
+        @SerializedName("result")
+        val result : String
     )
 }

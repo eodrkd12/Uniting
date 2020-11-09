@@ -146,7 +146,6 @@ class WriteReviewActivity : PSAppCompatActivity() {
 
     private fun makeCacheFile(bitmap : Bitmap) {
         val storage : File = this.cacheDir
-
         val fileName = "test.jpg"
 
         var tempFile = File(storage, fileName)
@@ -217,7 +216,6 @@ class WriteReviewActivity : PSAppCompatActivity() {
         val options = BitmapFactory.Options()
 
         try {
-
             BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri), null, options) // 1번
             var width = options.outWidth
             var height = options.outHeight

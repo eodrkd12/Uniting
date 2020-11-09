@@ -1,5 +1,6 @@
 package com.uniting.android.Class
 
+import android.content.pm.PackageInfo
 import android.graphics.Rect
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,13 @@ abstract class PSAppCompatActivity : AppCompatActivity(){
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         var curDate = simpleDateFormat.format(System.currentTimeMillis())
         return curDate
+    }
+
+    fun getVersionInfo() : String {
+        val info : PackageInfo = this.packageManager.getPackageInfo(this.packageName, 0)
+        val version = info.versionName
+
+        return version
     }
 
     inner class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
