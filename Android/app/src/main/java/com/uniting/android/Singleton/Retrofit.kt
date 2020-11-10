@@ -790,4 +790,17 @@ object Retrofit {
             }
         })
     }
+
+    fun insertChatHistory(userId: String, partnerId: String, date: String) {
+
+        var sql = "INSERT INTO chathistory VALUES('${userId}','${partnerId}','${date}')"
+
+        service.insertChatHistory(sql).enqueue(object: Callback<ResultModel>{
+            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+        })
+    }
 }

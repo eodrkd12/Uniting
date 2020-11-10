@@ -23,6 +23,10 @@ class ChatViewModel(app: Application, roomId: String): AndroidViewModel(app) {
 
     fun getAllElement() = elements
 
+    fun getLastChat(roomId: String) : LiveData<List<Chat>> {
+        return repository.getLastChat(roomId)
+    }
+
     fun insert(element: Chat, next: () -> Unit) {
         disposable.add( repository.insert(element).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -40,9 +44,5 @@ class ChatViewModel(app: Application, roomId: String): AndroidViewModel(app) {
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
-    }
-
-    fun getLastChat(roomId: String) : LiveData<List<Chat>> {
-        return repository.getLastChat(roomId)
     }
 }

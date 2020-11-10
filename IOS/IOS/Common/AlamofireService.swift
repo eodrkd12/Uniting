@@ -71,6 +71,38 @@ class AlamofireService : ObservableObject {
         }
     }
     
+    func sendMail(to: String, code: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/mail"
+        
+        let body = [
+            "to" : to,
+            "code" : code
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: body
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    var resultPw = result.result
+                    
+                    callback(result)
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     // 로그인
     func login(userId: String, userPw: String, callback: @escaping (Int) -> Void){
         let url = "\(serverUrl)/common/sql/select/single"

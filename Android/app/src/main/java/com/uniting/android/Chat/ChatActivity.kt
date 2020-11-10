@@ -114,7 +114,6 @@ class ChatActivity : PSAppCompatActivity() {
             }
             chatAdapter.notifyDataSetChanged()
             chatAdapter.sortByChatTime()
-            Log.d("test","${chatList}")
             list_chat.setSelection(chatAdapter.count-1)
         })
 

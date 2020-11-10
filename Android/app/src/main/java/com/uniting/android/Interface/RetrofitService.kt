@@ -291,4 +291,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/cafeteria/get/inform")
     fun getCafeteriaInform(@Field("cafe_no") cafeNo : Int) : Call<CafeteriaItem.Cafeteria>
+
+    //챗히스토리 입력
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun insertChatHistory(@Field("sql") sql : String): Call<ResultModel>
 }

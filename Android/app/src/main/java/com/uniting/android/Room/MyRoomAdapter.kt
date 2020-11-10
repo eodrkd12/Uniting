@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.UserInfo
+import com.uniting.android.DB.Entity.Room
 import com.uniting.android.R
 
 class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
@@ -38,21 +39,30 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
         var lastChatTime = view.findViewById<TextView>(R.id.text_last_chat_time)
 
         fun bind(myRoom: MyRoomItem, context: Context) {
-            if(myRoom.room.category == "데이팅"){
-                if(UserInfo.ID == myRoom.room.maker){
-                    roomTitle.text = myRoom.room.room_title.split("&")[1]
+            if(myRoom.category == "데이팅"){
+                if(UserInfo.ID == myRoom.maker){
+                    roomTitle.text = myRoom.room_title.split("&")[1]
                 }
                 else{
-                    roomTitle.text = myRoom.room.room_title.split("&")[0]
+                    roomTitle.text = myRoom.room_title.split("&")[0]
                 }
             }
             else {
-                roomTitle.text = myRoom.room.room_title
+                roomTitle.text = myRoom.room_title
             }
-            lastChat.text = ""
-            lastChatTime.text = ""
 
-            var ref = FirebaseDatabase.getInstance().reference.child("chat").child(myRoom.room.room_id)
+
+            if(myRoom.chat_time != "") {
+                var time = myRoom.chat_time!!.split(" ")[1]
+                var hour = time.split(":")[0]
+                if (hour.toInt() > 12) hour = "오후 ${hour.toInt() - 12}:${time.split(":")[1]}"
+                else hour = "오전 ${hour}:${time.split(":")[1]}"
+
+                lastChat.text = myRoom.chat_content
+                lastChatTime.text = hour
+            }
+
+            var ref = FirebaseDatabase.getInstance().reference.child("chat").child(myRoom.room_id)
             var query = ref!!.orderByChild("chat_time").limitToLast(1)
             query!!.addChildEventListener(object : ChildEventListener{
                 override fun onCancelled(p0: DatabaseError) {
@@ -69,10 +79,10 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
                     var systemChat = value["system_chat"] as Long
                     if(systemChat == 0L){
-                        myRoom.lastChatTime = value["chat_time"] as String
-                        myRoom.lastChat = value["chat_content"] as String
+                        myRoom.chat_time = value["chat_time"] as String
+                        myRoom.chat_content = value["chat_content"] as String
 
-                        var time = myRoom.lastChatTime.split(" ")[1]
+                        var time = myRoom.chat_time!!.split(" ")[1]
                         var hour = time.split(":")[0]
 
                         if(time != "") {
@@ -80,7 +90,7 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
                             else hour = "오전 ${hour}:${time.split(":")[1]}"
 
                             lastChatTime.text = hour
-                            lastChat.text = myRoom.lastChat
+                            lastChat.text = myRoom.chat_content
                         }
                     }
                 }
@@ -91,8 +101,9 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
 
             view.setOnClickListener {
                 var intent = Intent(context, ChatActivity::class.java)
-                intent.putExtra("room",myRoom.room)
-                intent.putExtra("last_chat_time",myRoom.lastChatTime)
+                var room = Room(myRoom.room_id, myRoom.room_title, myRoom.maker, myRoom.category, myRoom.room_date, myRoom.room_introduce, myRoom.univ_name)
+                intent.putExtra("room",room)
+                intent.putExtra("last_chat_time",myRoom.chat_time)
                 context.startActivity(intent)
             }
         }
@@ -103,5 +114,5 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
         roomList.sortByDescending { selector(it) }
     }
 
-    fun selector(room: MyRoomItem): String = room.lastChatTime
+    fun selector(room: MyRoomItem): String = room.chat_time!!
 }
