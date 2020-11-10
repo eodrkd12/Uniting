@@ -390,6 +390,8 @@ class PSDialog(activity: Activity) {
 
             Retrofit.createRoom(roomId,"${UserInfo.NICKNAME}&${userNickname}","데이팅",curDate(),"",UserInfo.UNIV,UserInfo.ID){
                 if(it.result=="success"){
+                    Retrofit.insertChatHistory(UserInfo.ID,userId, curDate())
+
                     Retrofit.joinRoom(roomId, userId, curDate()){
                         Retrofit.subscribeFcm(roomId,userId){
 

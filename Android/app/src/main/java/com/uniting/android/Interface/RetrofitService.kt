@@ -293,6 +293,12 @@ interface RetrofitService {
     @POST("/cafeteria/get/inform")
     fun getCafeteriaInform(@Field("cafe_no") cafeNo : Int) : Call<CafeteriaItem.Cafeteria>
 
+    //챗히스토리 입력
+    @FormUrlEncoded
+    @POST("/common/sql/insert")
+    fun insertChatHistory(@Field("sql") sql : String): Call<ResultModel>
+
+    
     //버전정보 불러오기
     @FormUrlEncoded
     @POST("/common/sql/select/single")

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.Entity.User
 import com.uniting.android.DB.Repository.RoomRepository
+import com.uniting.android.Room.MyRoomItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +19,7 @@ class RoomViewModel(app: Application): AndroidViewModel(app) {
         RoomRepository(app)
     }
 
-    private val elements: LiveData<List<Room>> by lazy {
+    private val elements: LiveData<List<MyRoomItem>> by lazy {
         repository.getAllElement()
     }
 

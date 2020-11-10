@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.uniting.android.DB.DataAccessObject.RoomDao
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.UnitingDB
+import com.uniting.android.Room.MyRoomItem
 import io.reactivex.Observable
 
 class RoomRepository(app : Application) {
@@ -14,11 +15,11 @@ class RoomRepository(app : Application) {
         db.roomDao()
     }
 
-    val elements: LiveData<List<Room>> by lazy{
+    val elements: LiveData<List<MyRoomItem>> by lazy{
         dao.getAllElement()
     }
 
-    fun getAllElement() : LiveData<List<Room>> {
+    fun getAllElement() : LiveData<List<MyRoomItem>> {
         return elements
     }
 

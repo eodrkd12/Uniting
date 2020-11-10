@@ -22,7 +22,7 @@ class AlarmActivity : AppCompatActivity() {
         }
 
         var roomViewModel = RoomViewModel(application)
-        var roomList = listOf<Room>()
+        var roomList = listOf<MyRoomItem>()
         roomViewModel.getAllElement().observe(this, Observer {
             roomList = it
         })

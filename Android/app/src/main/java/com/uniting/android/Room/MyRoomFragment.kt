@@ -23,8 +23,6 @@ import com.uniting.android.Singleton.Retrofit
 class MyRoomFragment : Fragment() {
 
     lateinit var roomViewModel : RoomViewModel
-    lateinit var chatViewModel : ChatViewModel
-    lateinit var joinedViewModel : JoinedViewModel
 
     lateinit var roomAdapter : MyRoomAdapter
 
@@ -44,26 +42,24 @@ class MyRoomFragment : Fragment() {
         rvRoom.adapter = roomAdapter
 
         roomViewModel= RoomViewModel(activity!!.application)
-        //chatViewModel= ChatViewModel(activity!!.application,"")
-        //joinedViewModel= JoinedViewModel(activity!!.application)
 
         roomViewModel.getAllElement().observe(this, Observer {
             roomList.clear()
-            it.forEach{
-                roomList.add(
-                    MyRoomItem(
-                        it,"",""
-                    )
-                )
+            it.forEach {
+                if(it.chat_content == null) {
+                    it.chat_content = ""
+                    it.chat_time = ""
+                }
+                roomList.add(it)
             }
             roomAdapter.sortByLastChat()
             roomAdapter.notifyDataSetChanged()
         })
 
-        Retrofit.getMyRoom(UserInfo.ID){
-            roomList.clear()
-            it.forEach{
-                roomViewModel.insert(it){
+        Retrofit.getMyRoom(UserInfo.ID) {
+            it.forEach {
+                Log.d("test",it.toString())
+                roomViewModel.insert(it) {
                 }
             }
         }
