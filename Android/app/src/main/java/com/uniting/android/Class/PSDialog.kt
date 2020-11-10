@@ -490,4 +490,21 @@ class PSDialog(activity: Activity) {
 
         root.updateChildren(objectMap)
     }
+
+    fun setUpdateDialog() {
+        dialog!!.setContentView(R.layout.dialog_update)
+
+        val titleText : TextView = dialog!!.findViewById(R.id.text_dialog_title)
+        val contentText : TextView = dialog!!.findViewById(R.id.text_dialog_content)
+        val updateBtn : Button = dialog!!.findViewById(R.id.btn_dialog_update)
+
+        titleText.text = "업데이트"
+        contentText.text = "필수 업데이트가 있습니다."
+
+        updateBtn.setOnClickListener {
+            dismiss()
+        }
+
+        dialog!!.setCancelable(false)
+    }
 }

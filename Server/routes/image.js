@@ -26,7 +26,7 @@ router.post('/review/insert', upload.single('img'), (req, res) => {
     var image = "http://52.78.27.41:1901" + req.file.filename
 
    
-    db_image.insert_review(user_id, user_nickname, cafe_name, review_content, review_date, review_point, image, function (err, result) {
+    db_image.insert_review(user_id, user_nickname, cafe_no, review_content, review_date, review_point, image, function (err, result) {
         if (err) console.log(err)
         else {
             console.log(req.file.filename + user_id)
@@ -89,5 +89,4 @@ router.post('/review/delete', function(req, res) {
 })
 
 module.exports = router;
-
 

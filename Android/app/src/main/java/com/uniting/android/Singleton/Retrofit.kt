@@ -420,23 +420,14 @@ object Retrofit {
         })
     }
     
-    fun login(userId: String, userPw: String, callback: (Int) -> Unit) {
-        val sql = "SELECT user_pw as result FROM user WHERE user_id='${userId}'"
-
-        service.login(sql).enqueue(object: Callback<ResultModel> {
-            override fun onFailure(call: Call<ResultModel>, t: Throwable) {
-                if(t is java.io.EOFException){
-                }
-
-                callback(0)
+    fun login(userId: String, userPw: String, callback: (UserModel.User) -> Unit) {
+        service.login(userId, userPw).enqueue(object: Callback<UserModel.User> {
+            override fun onFailure(call: Call<UserModel.User>, t: Throwable) {
+                Log.d("test", t.toString())
             }
 
-            override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
-                if(response.body()!!.result == userPw) {
-                    callback(1)
-                } else {
-                    callback(2)
-                }
+            override fun onResponse(call: Call<UserModel.User>, response: Response<UserModel.User>) {
+                callback(response.body()!!)
             }
         })
     }
@@ -800,6 +791,20 @@ object Retrofit {
             }
 
             override fun onResponse(call: Call<ResultModel>, response: Response<ResultModel>) {
+            }
+        })
+    }
+    
+    fun getVersionInfo(callback: (VersionModel.Version) -> Unit) {
+        val sql = "SELECT * FROM version"
+
+        service.getVersionInfo(sql).enqueue(object : Callback<VersionModel.Version> {
+            override fun onFailure(call: Call<VersionModel.Version>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<VersionModel.Version>, response: Response<VersionModel.Version>) {
+                callback(response.body()!!)
             }
         })
     }
