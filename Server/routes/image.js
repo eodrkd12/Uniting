@@ -23,7 +23,7 @@ router.post('/review/insert', upload.single('img'), (req, res) => {
     var review_content = req.body.review_content
     var review_date = req.body.review_date
     var review_point = req.body.review_point
-    var image = "http://52.78.27.41:1901" + req.file.filename
+    var image = "http://52.78.27.41:1901/" + req.file.filename
 
    
     db_image.insert_review(user_id, user_nickname, cafe_no, review_content, review_date, review_point, image, function (err, result) {

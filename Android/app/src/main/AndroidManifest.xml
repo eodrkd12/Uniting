@@ -20,9 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Login.Signup4Activity">
-
-        </activity>
+        <activity android:name=".Cafeteria.MapActivity"></activity>
+        <activity android:name=".Login.Signup4Activity"></activity>
         <activity android:name=".Option.InquireActivity" />
         <activity android:name=".Option.AlarmActivity" />
         <activity android:name=".Option.ModifyActivity" />

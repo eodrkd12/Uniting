@@ -130,7 +130,7 @@ class Signup2Activity : AppCompatActivity() {
         backgroundtask =
             Observable.fromCallable<Any> {
                 try {
-                    var mailSender: ㄱGMailSender = GMailSender("ljs950113@gmail.com", "limjs165879!", code)
+                    var mailSender: GMailSender = GMailSender("ljs950113@gmail.com", "limjs165879!", code)
                     mailSender.sendMail(
                         "Uniting 이메일 인증"
                         , "안녕하세요.\n" +

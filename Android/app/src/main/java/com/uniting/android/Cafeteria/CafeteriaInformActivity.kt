@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
@@ -62,6 +63,12 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
                     fm.beginTransaction().add(R.id.map, it).commit()
                 }
             mapFragment.getMapAsync(this)
+
+            //지도 스크롤할 때 부모 스크롤 막기
+            mapFragment.mapView?.setOnTouchListener { view, event ->
+                scroll_cafeteria_inform.requestDisallowInterceptTouchEvent(true)
+                false
+            }
 
 
             //전화번호 클릭이벤트
@@ -166,7 +173,6 @@ class CafeteriaInformActivity : PSAppCompatActivity(), OnMapReadyCallback {
                 rating_inform.rating = 0.0f
             }
         }
-
     }
 
     override fun onMapReady(naverMap: NaverMap) {
