@@ -23,19 +23,29 @@ router.post('/get/list', function(req,res,next){
             for(i in result) {
                 switch(result[i].cafe_type) {
                     case "한식" :
-                        koreanFood.push(result[i]);
+						if(koreanFood.length != 10) {
+							koreanFood.push(result[i]);
+						}
                         break;
                     case "중식" :
-                        chineseFood.push(result[i]);
+						if(chineseFood.length != 10) {
+							chineseFood.push(result[i]);
+						}
                         break;
                     case "양식" :
-                        westernFood.push(result[i]);
+						if(westernFood.length != 10) {
+							westernFood.push(result[i]);
+						}
                         break;
                     case "일식" :
-                        japaneseFood.push(result[i]);
+						if(japaneseFood.length != 10) {
+							japaneseFood.push(result[i]);
+						}
                         break;
-                    case "치킨" :
-                        chickenFood.push(result[i])
+                    case "패스트푸드" :
+						if(fastFood.length != 10) {
+							fastFood.push(result[i])
+						}
                         break;
                 }
             }
@@ -45,7 +55,7 @@ router.post('/get/list', function(req,res,next){
             object.japaneseFood = japaneseFood
             object.chineseFood = chineseFood
             object.westernFood = westernFood
-            object.chickenFood = chickenFood
+            object.fastFood = fastFood
             res.send(object)
         }
     })

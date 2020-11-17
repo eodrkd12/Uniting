@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.uniting.android.Class.PSDialog
 import com.uniting.android.R
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -45,25 +46,45 @@ class ProfileActivity : AppCompatActivity() {
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
         width = displayMetrics.widthPixels
         dm = getResources().getDisplayMetrics()
-        /*topPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, dm!!).toInt()
-        padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15f, dm!!).toInt()
-        margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, dm!!).toInt()*/
         layoutMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, dm!!).toInt()
         margin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, dm!!).toInt()
 
         val userId = intent.getStringExtra("userId")
-        text_profile_city.text = intent.getStringExtra("userCity")
+
+
+        var height : String? = null
+        var hobby : String? = null
+        var personality : String? = null
+
+        height = intent.getStringExtra("userHeight")
+        hobby = intent.getStringExtra("userHobby")
+        personality = intent.getStringExtra("userPersonality")
+
+        text_profile_city.text = intent?.getStringExtra("userCity")
         text_profile_dept.text = intent.getStringExtra("deptName")
         text_profile_nickname.text = intent.getStringExtra("userNickname")
-        text_profile_height.text = intent.getStringExtra("userHeight")
         text_profile_age.text = age.toString() + "세"
 
-        var hobby : List<String> = intent.getStringExtra("userHobby")!!.split(",")
-        setLayout(layout_hobby, hobby)
-        Log.d("test", hobby.toString())
+        if(height == null) {
+            textView5.visibility = View.GONE
+            text_profile_height.visibility = View.GONE
+        } else {
+            text_profile_height.text = height
+        }
 
-        var personality : List<String> = intent.getStringExtra("userPersonality")!!.split(",")
-        setLayout(layout_personality, personality)
+        if(hobby == null) {
+            textView12.visibility = View.GONE
+            layout_hobby.visibility = View.GONE
+        } else {
+            setLayout(layout_hobby, hobby.split(","))
+        }
+
+        if(personality == null) {
+            textView13.visibility = View.GONE
+            layout_personality.visibility = View.GONE
+        } else {
+            setLayout(layout_personality, personality.split(","))
+        }
 
         image_profile_back.setOnClickListener {
             finish()
