@@ -43,7 +43,6 @@
         android:background="@drawable/enable_rounded_button"
         android:text="로그인"
         android:textSize="20dp"
-        android:foreground="?attr/selectableItemBackground"
         android:textColor="@color/colorMdWhite_1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
