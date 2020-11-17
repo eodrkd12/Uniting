@@ -251,7 +251,8 @@ interface RetrofitService {
     @POST("/common/subscribe/fcm")
     fun subscribeFcm(
         @Field("room_id") roomId: String,
-        @Field("user_id") userId: String
+        @Field("user_id") userId: String,
+        @Field("content") content: String
     ): Call<ResultModel>
 
     //알람 모두 켜기

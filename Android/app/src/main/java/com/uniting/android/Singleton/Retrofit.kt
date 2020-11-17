@@ -667,7 +667,10 @@ object Retrofit {
     }
 
     fun subscribeFcm(roomId: String, userId: String, callback: (ResultModel) -> Unit) {
-        service.subscribeFcm(roomId, userId).enqueue(object : Callback<ResultModel>{
+
+        val content = "${UserInfo.NICKNAME}님이 대화를 요청하였습니다."
+
+        service.subscribeFcm(roomId, userId, content).enqueue(object : Callback<ResultModel>{
             override fun onFailure(call: Call<ResultModel>, t: Throwable) {
             }
 
