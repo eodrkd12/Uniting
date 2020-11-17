@@ -130,97 +130,75 @@ class ChatActivity : PSAppCompatActivity() {
 
                 var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
 
-                if (chatList.size <= 1 || chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(
-                        " "
-                    )[0]
-                ) {
+                val calendar = Calendar.getInstance()
+                val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
-                    val calendar = Calendar.getInstance()
-                    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+                var dayOfWeekStr = ""
 
-                    var dayOfWeekStr = ""
-
-                    when (dayOfWeek) {
-                        1 -> {
-                            dayOfWeekStr = "일요일"
-                        }
-                        2 -> {
-                            dayOfWeekStr = "월요일"
-                        }
-                        3 -> {
-                            dayOfWeekStr = "화요일"
-                        }
-                        4 -> {
-                            dayOfWeekStr = "수요일"
-                        }
-                        5 -> {
-                            dayOfWeekStr = "목요일"
-                        }
-                        6 -> {
-                            dayOfWeekStr = "금요일"
-                        }
-                        7 -> {
-                            dayOfWeekStr = "토요일"
-                        }
+                when (dayOfWeek) {
+                    1 -> {
+                        dayOfWeekStr = "일요일"
                     }
+                    2 -> {
+                        dayOfWeekStr = "월요일"
+                    }
+                    3 -> {
+                        dayOfWeekStr = "화요일"
+                    }
+                    4 -> {
+                        dayOfWeekStr = "수요일"
+                    }
+                    5 -> {
+                        dayOfWeekStr = "목요일"
+                    }
+                    6 -> {
+                        dayOfWeekStr = "금요일"
+                    }
+                    7 -> {
+                        dayOfWeekStr = "토요일"
+                    }
+                }
 
-                    var systemChat = Chat(
-                        "SYSTEM_${room.room_id}_${date}",
-                        room.room_id,
-                        "SYSTEM",
-                        "SYSTEM",
-                        "${getCurDate().split(" ")[0]} ${dayOfWeekStr}",
-                        date, "", 1
-                    )
+                var systemChat = Chat(
+                    "SYSTEM_${room.room_id}_${date}",
+                    room.room_id,
+                    "SYSTEM",
+                    "SYSTEM",
+                    "${getCurDate().split(" ")[0]} ${dayOfWeekStr}",
+                    date, "", 1
+                )
 
-                    var chat = Chat(
-                        chatId,
-                        room.room_id,
-                        UserInfo.ID,
-                        UserInfo.NICKNAME,
-                        content,
-                        "${date}_1",
-                        unreadMember,
-                        0
-                    )
+                var chat = Chat(
+                    chatId,
+                    room.room_id,
+                    UserInfo.ID,
+                    UserInfo.NICKNAME,
+                    content,
+                    "${date}_1",
+                    unreadMember,
+                    0
+                )
 
-                    Retrofit.getTodaySystemChat(room.room_id,"${getCurDate().split(" ")[0]} ${dayOfWeekStr}") {
-                        Log.d("test",it.count.toString())
-                        if (it.count == 1) {
-                            chatViewModel.getTodaySystemChat(room.room_id, "${getCurDate().split(" ")[0]} ${dayOfWeekStr}"){
-                                when(it.count){
-                                    0 -> {
-                                        chatViewModel.insert(systemChat) {
-                                            insertChat(chat) {}
-                                        }
-                                    }
-                                    1 -> {
-                                       insertChat(chat) {}
+                Retrofit.getTodaySystemChat(room.room_id,"${getCurDate().split(" ")[0]} ${dayOfWeekStr}") {
+                    if (it.count == 1) {
+                        chatViewModel.getTodaySystemChat(room.room_id, "${getCurDate().split(" ")[0]} ${dayOfWeekStr}").observe(this, Observer {
+                            when(it[0].count){
+                                0 -> {
+                                    chatViewModel.insert(systemChat){
+                                        insertChat(chat){}
                                     }
                                 }
+                                1 -> {
+                                    insertChat(chat) {}
+                                }
                             }
+                        })
 
-                        } else if (it.count == 0) {
-                            insertChat(systemChat) {
-                                insertChat(chat) {}
-                            }
+                    } else if (it.count == 0) {
+                        insertChat(systemChat) {
+                            insertChat(chat) {}
                         }
                     }
-
-                } else {
-
-                    var chat = Chat(
-                        chatId,
-                        room.room_id,
-                        UserInfo.ID,
-                        UserInfo.NICKNAME,
-                        content,
-                        date,
-                        unreadMember,
-                        0
-                    )
-
-                    insertChat(chat) {}
                 }
             }
         }

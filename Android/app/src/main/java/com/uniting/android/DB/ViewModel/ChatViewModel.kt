@@ -47,9 +47,7 @@ class ChatViewModel(app: Application, roomId: String, enterDate: String): Androi
         disposable.dispose()
     }
 
-    fun getTodaySystemChat(roomId: String, content: String, callback: (CountModel) -> Unit) {
-        var countModel = repository.getTodaySystemChat(roomId, content)
-
-        callback(countModel)
+    fun getTodaySystemChat(roomId: String, content: String): LiveData<List<CountModel>> {
+        return repository.getTodaySystemChat(roomId, content)
     }
 }

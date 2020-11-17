@@ -23,5 +23,5 @@ interface ChatDao {
     fun getLastChat(roomId: String) : LiveData<List<Chat>>
 
     @Query("SELECT COUNT(*) as count FROM chat WHERE room_id = :roomId AND chat_content = :content AND system_chat = 1")
-    fun getTodaySystemChat(roomId: String, content: String) : CountModel
+    fun getTodaySystemChat(roomId: String, content: String) : LiveData<List<CountModel>>
 }

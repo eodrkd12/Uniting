@@ -39,7 +39,7 @@ class ChatRepository(app : Application, roomId: String, enterDate: String) {
         return dao.getLastChat(roomId)
     }
 
-    fun getTodaySystemChat(roomId: String, content: String) : CountModel {
+    fun getTodaySystemChat(roomId: String, content: String) : LiveData<List<CountModel>> {
         return dao.getTodaySystemChat(roomId, content)
     }
 }
