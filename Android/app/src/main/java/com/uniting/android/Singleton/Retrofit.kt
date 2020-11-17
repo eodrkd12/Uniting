@@ -809,8 +809,8 @@ object Retrofit {
         })
     }
 
-    fun getLastSystemChat(content: String, callback: (CountModel) -> Unit) {
-        val sql = "SELECT COUNT(*) as count FROM chat WHERE chat_content = '${content}' AND system_chat = 1"
+    fun getTodaySystemChat(roomId: String, content: String, callback: (CountModel) -> Unit) {
+        val sql = "SELECT COUNT(*) as count FROM chat WHERE room_id = '${roomId}' AND chat_content = '${content}' AND system_chat = 1"
 
         service.getLastSystemChat(sql).enqueue(object : Callback<CountModel> {
             override fun onFailure(call: Call<CountModel>, t: Throwable) {

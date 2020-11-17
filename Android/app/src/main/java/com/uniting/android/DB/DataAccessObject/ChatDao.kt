@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.uniting.android.DB.Entity.Chat
+import com.uniting.android.DataModel.CountModel
 
 @Dao
 interface ChatDao {
@@ -20,4 +21,7 @@ interface ChatDao {
 
     @Query("SELECT * FROM chat WHERE room_id = :roomId ORDER BY chat_time DESC LIMIT 1")
     fun getLastChat(roomId: String) : LiveData<List<Chat>>
+
+    @Query("SELECT COUNT(*) as count FROM chat WHERE room_id = :roomId AND chat_content = :content AND system_chat = 1")
+    fun getTodaySystemChat(roomId: String, content: String) : CountModel
 }

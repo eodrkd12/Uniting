@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Repository.ChatRepository
+import com.uniting.android.DataModel.CountModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -44,5 +45,11 @@ class ChatViewModel(app: Application, roomId: String, enterDate: String): Androi
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
+    }
+
+    fun getTodaySystemChat(roomId: String, content: String, callback: (CountModel) -> Unit) {
+        var countModel = repository.getTodaySystemChat(roomId, content)
+
+        callback(countModel)
     }
 }

@@ -31,7 +31,7 @@ struct LoginView: View {
                         Line(width: 2)
                     }
                     VStack(spacing: 5){
-                        TextField("비밀번호", text: $pw)
+                        SecureField("비밀번호", text: $pw)
                             .font(.system(size: 20))
                         Line(width: 2)
                     }
@@ -61,10 +61,10 @@ struct LoginView: View {
                         Text("로그인")
                             .font(.system(size: 20))
                             .foregroundColor(Color.white)
+                            .frame(width: UIScreen.main.bounds.width * 0.7, height: 40)
+                            .background(Colors.primary)
+                            .cornerRadius(45)
                     })
-                    .frame(width: UIScreen.main.bounds.width * 0.7, height: 40)
-                    .background(Colors.primary)
-                    .cornerRadius(45)
                     .alert(isPresented: $alertVisible){
                         Alert(title: Text(title), message: Text(content))
                     }

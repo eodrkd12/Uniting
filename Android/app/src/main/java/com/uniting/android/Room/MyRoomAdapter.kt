@@ -105,7 +105,7 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
                     var intent = Intent(context, ChatActivity::class.java)
                     var room = Room(myRoom.room_id, myRoom.room_title, myRoom.maker, myRoom.category, myRoom.room_date, myRoom.room_introduce, myRoom.univ_name)
                     intent.putExtra("room",room)
-                    intent.putExtra("enterDate",it.enter_date)
+                    intent.putExtra("enter_date",it.enter_date)
                     context.startActivity(intent)
                 }
             }
