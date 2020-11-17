@@ -59,7 +59,7 @@ struct ProfileView: View {
                                     .padding(.leading,15)
                                 Spacer()
                             }
-                            ProfileRow(title: "키",value: profile.user_height!)
+                            ProfileRow(title: "키",value: profile.user_height ?? "정보없음")
                             ProfileRow(title: "거주지", value: profile.user_city)
                             ProfileRow(title: "학과", value: profile.dept_name)
                         }
@@ -107,7 +107,6 @@ struct ProfileView: View {
                             }
                             if hobby.count > 0 {
                                 DynamicHeightHStack(items: hobby)
-                                    .padding(.bottom,25)
                             }
                         }
                         .padding()
@@ -129,7 +128,6 @@ struct ProfileView: View {
                             }
                             if personality.count > 0 {
                                 DynamicHeightHStack(items: personality)
-                                    .padding(.bottom,25)
                             }
                         }
                         .padding()
@@ -246,8 +244,12 @@ struct ProfileView: View {
             
             self.age=(Int(date.split(separator: "-")[0]).unsafelyUnwrapped-Int(year).unsafelyUnwrapped+1)
             
-            self.hobby = (profile.user_hobby?.split(separator: ","))!
-            self.personality = (profile.user_personality?.split(separator: ","))!
+            if profile.user_hobby != nil {
+                self.hobby = (profile.user_hobby?.split(separator: ","))!
+            }
+            if profile.user_personality != nil {
+                self.personality = (profile.user_personality?.split(separator: ","))!
+            }
         }
         .ignoresSafeArea(.all)
         .navigationTitle("")

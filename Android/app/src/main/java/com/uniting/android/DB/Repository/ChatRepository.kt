@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.uniting.android.DB.DataAccessObject.ChatDao
 import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.UnitingDB
+import com.uniting.android.DataModel.CountModel
 import io.reactivex.Observable
 
 class ChatRepository(app : Application, roomId: String, enterDate: String) {
@@ -36,5 +37,9 @@ class ChatRepository(app : Application, roomId: String, enterDate: String) {
 
     fun getLastChat(roomId: String) : LiveData<List<Chat>> {
         return dao.getLastChat(roomId)
+    }
+
+    fun getTodaySystemChat(roomId: String, content: String) : CountModel {
+        return dao.getTodaySystemChat(roomId, content)
     }
 }

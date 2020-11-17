@@ -184,11 +184,22 @@ class ChatActivity : PSAppCompatActivity() {
                         0
                     )
 
-                    Retrofit.getLastSystemChat("${getCurDate().split(" ")[0]} ${dayOfWeekStr}") {
+                    Retrofit.getTodaySystemChat(room.room_id,"${getCurDate().split(" ")[0]} ${dayOfWeekStr}") {
+                        Log.d("test",it.count.toString())
                         if (it.count == 1) {
-                            chatViewModel.insert(systemChat) {
-                                insertChat(chat) {}
+                            chatViewModel.getTodaySystemChat(room.room_id, "${getCurDate().split(" ")[0]} ${dayOfWeekStr}"){
+                                when(it.count){
+                                    0 -> {
+                                        chatViewModel.insert(systemChat) {
+                                            insertChat(chat) {}
+                                        }
+                                    }
+                                    1 -> {
+                                       insertChat(chat) {}
+                                    }
+                                }
                             }
+
                         } else if (it.count == 0) {
                             insertChat(systemChat) {
                                 insertChat(chat) {}
