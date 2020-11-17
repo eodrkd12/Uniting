@@ -24,13 +24,12 @@ import com.uniting.android.Singleton.Retrofit
 
 class MatchingFragment() : Fragment() {
 
-    var matchingTypeList = arrayListOf<String>("일반매칭","스마트매칭")
+    private val matchingTypeList = arrayListOf("일반매칭","스마트매칭")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_matching, container, false)
 
         val vpMatching = rootView.findViewById<ViewPager2>(R.id.vp_matchingtype)
@@ -90,6 +89,7 @@ class MatchingFragment() : Fragment() {
                             intent.putExtra("userAge", it.get(0).userAge)
                             intent.putExtra("userHobby", it.get(0).userHobby)
                             intent.putExtra("userPersonality", it.get(0).userPersonality)
+                            Log.d("test", it.toString())
                             startActivity(intent)
                         }
                     }
