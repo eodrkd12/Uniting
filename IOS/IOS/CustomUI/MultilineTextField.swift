@@ -12,10 +12,12 @@ struct MultilineTextField : UIViewRepresentable {
     typealias UIViewType = UITextView
     
     var text:String
-    
+    var fontSize: CGFloat = 20
     var isEditing = false
     
     @Binding var content : String
+    
+    
     
     func makeCoordinator() -> MultilineTextField.Coordinator {
                 
@@ -29,7 +31,7 @@ struct MultilineTextField : UIViewRepresentable {
         textView.isScrollEnabled=true
         textView.text=self.text
         textView.textColor = .gray
-        textView.font = .systemFont(ofSize: 20)
+        textView.font = .systemFont(ofSize: fontSize)
         textView.delegate = context.coordinator
         
         return textView

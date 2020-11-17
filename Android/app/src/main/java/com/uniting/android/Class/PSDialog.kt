@@ -446,7 +446,7 @@ class PSDialog(activity: Activity) {
                                 curDate(), "", 1
                             )
 
-                            var chatViewModel = ChatViewModel(context!!.application, roomId)
+                            var chatViewModel = ChatViewModel(context!!.application, roomId, "")
 
                             Retrofit.insertChat(systemChat){
                                 if(it.result == "success"){
@@ -455,7 +455,7 @@ class PSDialog(activity: Activity) {
                                         var intent = Intent(context, ChatActivity::class.java)
                                         FirebaseMessaging.getInstance().subscribeToTopic(room.room_id)
                                         intent.putExtra("room",room)
-                                        intent.putExtra("last_chat_time","0000-00-00")
+                                        intent.putExtra("enter_date",curDate())
                                         context!!.startActivity(intent)
                                         context!!.finish()
                                         dismiss()

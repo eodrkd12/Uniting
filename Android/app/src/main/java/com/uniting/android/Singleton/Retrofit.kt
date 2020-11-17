@@ -808,4 +808,18 @@ object Retrofit {
             }
         })
     }
+
+    fun getLastSystemChat(content: String, callback: (CountModel) -> Unit) {
+        val sql = "SELECT COUNT(*) as count FROM chat WHERE chat_content = '${content}' AND system_chat = 1"
+
+        service.getLastSystemChat(sql).enqueue(object : Callback<CountModel> {
+            override fun onFailure(call: Call<CountModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CountModel>, response: Response<CountModel>) {
+                callback(response.body()!!)
+            }
+        })
+    }
 }

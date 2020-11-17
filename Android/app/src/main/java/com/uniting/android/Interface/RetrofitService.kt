@@ -303,4 +303,9 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/common/sql/select/single")
     fun getVersionInfo(@Field("sql") sql : String) : Call<VersionModel.Version>
+
+    //마지막 시스템 챗 날짜 불러오기
+    @FormUrlEncoded
+    @POST("/common/sql/select/single")
+    fun getLastSystemChat(@Field("sql") sql: String): Call<CountModel>
 }

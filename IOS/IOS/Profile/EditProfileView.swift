@@ -145,7 +145,7 @@ struct EditProfileView: View {
                                     .padding()
                             })
                             Button(action: {
-                                var str = dateFormatter.string(from: date)
+                                let str = dateFormatter.string(from: date)
                                 birthday = String(str.split(separator: " ")[0])
                                 
                                 datePickerVisible = false

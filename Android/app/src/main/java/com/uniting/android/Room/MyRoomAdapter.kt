@@ -13,6 +13,7 @@ import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.UserInfo
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.R
+import com.uniting.android.Singleton.Retrofit
 
 class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
     RecyclerView.Adapter<MyRoomAdapter.ViewHolder>() {
@@ -100,11 +101,13 @@ class MyRoomAdapter(val context: Context, val roomList: ArrayList<MyRoomItem>) :
             })
 
             view.setOnClickListener {
-                var intent = Intent(context, ChatActivity::class.java)
-                var room = Room(myRoom.room_id, myRoom.room_title, myRoom.maker, myRoom.category, myRoom.room_date, myRoom.room_introduce, myRoom.univ_name)
-                intent.putExtra("room",room)
-                intent.putExtra("last_chat_time",myRoom.chat_time)
-                context.startActivity(intent)
+                Retrofit.getEnterDate(myRoom.room_id, UserInfo.ID){
+                    var intent = Intent(context, ChatActivity::class.java)
+                    var room = Room(myRoom.room_id, myRoom.room_title, myRoom.maker, myRoom.category, myRoom.room_date, myRoom.room_introduce, myRoom.univ_name)
+                    intent.putExtra("room",room)
+                    intent.putExtra("enterDate",it.enter_date)
+                    context.startActivity(intent)
+                }
             }
         }
 

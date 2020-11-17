@@ -32,13 +32,13 @@ struct MyRoomListView: View {
                     self.query = self.ref!.queryOrderedByKey().queryLimited(toLast: 1)
                     
                     self.query?.observe(.childAdded, with: { (snapshot) in
-                        var value = snapshot.value as! [String : Any?]
+                        let value = snapshot.value as! [String : Any?]
                         
-                        var lastChat = value["chat_content"].unsafelyUnwrapped as! String
+                        let lastChat = value["chat_content"].unsafelyUnwrapped as! String
                         
-                        var time = (value["chat_time"].unsafelyUnwrapped as! String).split(separator: " ")[1]
-                        var hour = Int(time.split(separator: ":")[0])
-                        var minute = Int(time.split(separator: ":")[1]).unsafelyUnwrapped
+                        let time = (value["chat_time"].unsafelyUnwrapped as! String).split(separator: " ")[1]
+                        let hour = Int(time.split(separator: ":")[0])
+                        let minute = Int(time.split(separator: ":")[1]).unsafelyUnwrapped
                         var minuteStr = "\(minute)"
                         if minute < 10 {
                             minuteStr = "0\(minute)"

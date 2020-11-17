@@ -15,8 +15,8 @@ interface ChatDao {
     @Query("DELETE FROM chat WHERE room_id = :roomId")
     fun deleteById(roomId: String)
 
-    @Query("SELECT * FROM chat WHERE room_id = :roomId")
-    fun getAllElement(roomId: String) : LiveData<List<Chat>>
+    @Query("SELECT * FROM chat WHERE room_id = :roomId AND chat_time >= :enterDate")
+    fun getAllElement(roomId: String, enterDate: String) : LiveData<List<Chat>>
 
     @Query("SELECT * FROM chat WHERE room_id = :roomId ORDER BY chat_time DESC LIMIT 1")
     fun getLastChat(roomId: String) : LiveData<List<Chat>>

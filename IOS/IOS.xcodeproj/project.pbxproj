@@ -17,6 +17,7 @@
 		542AC6AB24FF6DEE00726F04 /* CafeteriaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */; };
 		542AC6AD2500A7DA00726F04 /* MoreCafeteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */; };
 		542D5D552547FEF8002E8AFF /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D5D542547FEF8002E8AFF /* Line.swift */; };
+		544356EF255A71F0004B1547 /* SignUp4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544356EE255A71F0004B1547 /* SignUp4View.swift */; };
 		544A7A8D252D960400525286 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544A7A8C252D960400525286 /* EditProfileView.swift */; };
 		544DD342251C752200B59FB7 /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544DD341251C752200B59FB7 /* RoomListView.swift */; };
 		5477678C25591FF6005D2A03 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5477678B25591FF6005D2A03 /* RoundedCorners.swift */; };
@@ -90,6 +91,7 @@
 		542AC6AA24FF6DEE00726F04 /* CafeteriaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeteriaList.swift; sourceTree = "<group>"; };
 		542AC6AC2500A7DA00726F04 /* MoreCafeteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCafeteriaView.swift; sourceTree = "<group>"; };
 		542D5D542547FEF8002E8AFF /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		544356EE255A71F0004B1547 /* SignUp4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp4View.swift; sourceTree = "<group>"; };
 		544A7A8C252D960400525286 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		544DD341251C752200B59FB7 /* RoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListView.swift; sourceTree = "<group>"; };
 		5477678B25591FF6005D2A03 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				54B4E1F52553AEFB00BDCD69 /* UniversityData.swift */,
 				54B4E1F82553C3DC00BDCD69 /* SignUp2View.swift */,
 				54F6308F25552D8700449004 /* SignUp3View.swift */,
+				544356EE255A71F0004B1547 /* SignUp4View.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				54ACA955255110FC0081F154 /* SplashView.swift in Sources */,
 				540FDCE8251DABEC00CA7FC8 /* RoomItem.swift in Sources */,
 				54C5D086252ABBCD0066EFB7 /* ProfileRow.swift in Sources */,
+				544356EF255A71F0004B1547 /* SignUp4View.swift in Sources */,
 				542AC6A924FF627100726F04 /* CafeteriaData.swift in Sources */,
 				54C53503251492390045E702 /* RoomMenu.swift in Sources */,
 				544DD342251C752200B59FB7 /* RoomListView.swift in Sources */,

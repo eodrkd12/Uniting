@@ -14,6 +14,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.uniting.android.Chat.ChatActivity
 import com.uniting.android.Class.PSAppCompatActivity
 import com.uniting.android.Class.UserInfo
+import com.uniting.android.DB.Entity.Chat
 import com.uniting.android.DB.Entity.Room
 import com.uniting.android.DB.ViewModel.RoomViewModel
 import com.uniting.android.R
@@ -68,6 +69,8 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
 
     class ViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view) {
 
+        var ref : DatabaseReference? = null
+
         fun setItem(roomItem: RoomItem, lastChatTime: String) {
             view.text_title.text = roomItem.room.room_title
             view.text_introduce.text = roomItem.room.room_introduce
@@ -76,14 +79,30 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
                 Retrofit.joinCheck(roomItem.room.room_id, UserInfo.ID) {
                     if (it.count == 0) {
                         //방 입장
+                        ref = FirebaseDatabase.getInstance().reference.child("chat").child(roomItem.room.room_id)
                         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         var curDate = simpleDateFormat.format(System.currentTimeMillis())
                         Retrofit.joinRoom(roomItem.room.room_id, UserInfo.ID, curDate) {
                             if (it.result == "success") {
-                                var intent = Intent(context, ChatActivity::class.java)
-                                intent.putExtra("room", roomItem.room)
-                                intent.putExtra("last_chat_time", lastChatTime)
-                                context.startActivity(intent)
+
+                                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                                var curDate = simpleDateFormat.format(System.currentTimeMillis())
+
+                                var systemChat = Chat(
+                                    "SYSTEM_${roomItem.room.room_id}_${curDate}",
+                                    roomItem.room.room_id,
+                                    "SYSTEM",
+                                    "SYSTEM",
+                                    "${UserInfo.NICKNAME}님이 입장하였습니다.",
+                                    curDate, "", 1
+                                )
+                                Retrofit.insertChat(systemChat) {
+                                    var intent = Intent(context, ChatActivity::class.java)
+                                    intent.putExtra("room", roomItem.room)
+                                    intent.putExtra("enter_date", curDate)
+                                    context.startActivity(intent)
+                                    writeFirebase(systemChat)
+                                }
                             }
                         }
                     } else {
@@ -109,6 +128,26 @@ class RoomAdapter(val context: Context, val roomList: ArrayList<RoomItem>) :
                     }
                 }
             }
+        }
+
+        fun writeFirebase(chat: Chat){
+
+            var map = HashMap<String, Any>()
+            val key: String? = ref!!.push().key
+
+            var root = ref!!.child(key!!)
+            var objectMap = HashMap<String, Any>()
+
+            objectMap.put("chat_id", chat.chat_id)
+            objectMap.put("room_id", chat.room_id)
+            objectMap.put("user_id", chat.user_id)
+            objectMap.put("user_nickname", chat.user_nickname)
+            objectMap.put("chat_content", chat.chat_content)
+            objectMap.put("chat_time", chat.chat_time)
+            objectMap.put("unread_member", chat.unread_member)
+            objectMap.put("system_chat", chat.system_chat)
+
+            root.updateChildren(objectMap)
         }
     }
 }

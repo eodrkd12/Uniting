@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SignUp1View: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @State var university = ""
     @State var department = ""
     
@@ -28,6 +30,16 @@ struct SignUp1View: View {
             NavigationLink(destination: SignUp2View(university: selectedUniversity, universityMail: selectedUniversityMail, department: selectedDepartment), isActive: $activeNext, label: {})
             
             HStack{
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("뒤로")
+                        .foregroundColor(Colors.primary)
+                })
+                Spacer()
+            }
+            
+            HStack{
                 Text("STEP 1 OF 4")
                 Spacer()
             }
@@ -41,7 +53,7 @@ struct SignUp1View: View {
                 }
                 GeometryReader{ g in
                     VStack{
-                        TextEditor(text: $university)
+                        TextField("",text: $university)
                             .onChange(of: university){ value in
                                 selectedUniversity = ""
                                 selectedDepartment = ""
@@ -50,6 +62,7 @@ struct SignUp1View: View {
                             .font(.system(size: 20))
                             .foregroundColor(Colors.grey700)
                             .multilineTextAlignment(.leading)
+                            .padding(.leading,5)
                         
                     }
                 }
@@ -99,7 +112,7 @@ struct SignUp1View: View {
                 }
                 GeometryReader{ g in
                     VStack{
-                        TextEditor(text: $department)
+                        TextField("", text: $department)
                             .onChange(of: department){ value in
                                 selectedDepartment = ""
                             }
@@ -107,6 +120,7 @@ struct SignUp1View: View {
                             .foregroundColor(Colors.grey700)
                             .multilineTextAlignment(.leading)
                             .frame(width: g.size.width, height: 30)
+                            .padding(.leading,5)
                     }
                 }
                 .frame(height: 30)
@@ -163,7 +177,7 @@ struct SignUp1View: View {
         .navigationTitle("")
         .navigationBarHidden(true)
         .ignoresSafeArea(.all)
-        .padding(.top, 30)
+        .padding(.top, 10)
         .padding(.horizontal, 20)
         .onAppear(){
             AlamofireService.shared.getUniversity(){ universityList in

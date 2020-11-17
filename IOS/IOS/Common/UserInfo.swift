@@ -12,12 +12,12 @@ class UserInfo : ObservableObject {
     
     static var shared = UserInfo()
     
-    var ID: String = "test"
+    var ID: String = ""
     var PW: String = ""
-    var NICKNAME: String = "김세현짱ㅇㅇㅇㅇㅇㅇ"
+    var NICKNAME: String = ""
     var BIRTHDAY: String = ""
-    var GENDER: String = "M"
-    var UNIV: String = "계명대학교 성서"
-    var DEPT: String = "컴퓨터공학전공"
-    var BLOCKINGDEPT: Int = 0
+    var GENDER: String = ""
+    var UNIV: String = ""
+    var DEPT: String = ""
+    var BLOCKINGDEPT = 0
 }

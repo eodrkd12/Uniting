@@ -36,22 +36,22 @@ struct LoginView: View {
                         Line(width: 2)
                     }
                     Button(action: {
-                        AlamofireService.shared.login(userId: id, userPw: pw){ i in
-                            switch i {
-                            case 0:
-                                title = "서버 오류"
-                                content = "잠시후에 로그인해주세요."
-                                alertVisible = true
-                                break
-                            case 1:
-                                UserDefaults.standard.set(id,forKey: "id")
-                                UserDefaults.standard.set(pw,forKey: "pw")
-                                activeMain = true
-                                break
-                            case 2:
+                        AlamofireService.shared.login(userId: id, userPw: pw){ result in
+                            switch result.result {
+                            case "fail":
                                 title = "ID/PW 오류"
                                 content = "아이디 및 비밀번호를 확인해주세요."
                                 alertVisible = true
+                                break
+                            case "blacklist":
+                                title = "로그인할 수 없습니다."
+                                content = "이용이 제한된 계정입니다."
+                                alertVisible = true
+                                break
+                            case "success":
+                                UserDefaults.standard.set(id,forKey: "id")
+                                UserDefaults.standard.set(pw,forKey: "pw")
+                                activeMain = true
                                 break
                             default:
                                 break

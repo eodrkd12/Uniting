@@ -9,10 +9,13 @@
 import SwiftUI
 
 struct SignUp2View: View {
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @State var university : String
     @State var universityMail : String
     @State var department : String
-
+    
     @State var webmail = ""
     @State var code = ""
     @State var editCode = ""
@@ -27,6 +30,15 @@ struct SignUp2View: View {
         VStack(spacing: 10){
             NavigationLink(destination: SignUp3View(university: university, department: department, webmail: webmail+universityMail),isActive: $activeNext, label: {})
             HStack{
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("뒤로")
+                        .foregroundColor(Colors.primary)
+                })
+                Spacer()
+            }
+            HStack{
                 Text("STEP 2 OF 4")
                 Spacer()
             }
@@ -40,11 +52,12 @@ struct SignUp2View: View {
                 }
                 GeometryReader{ g in
                     HStack{
-                        TextEditor(text: $webmail)
+                        TextField("",text: $webmail)
                             .frame(width: g.size.width * 0.35, height: 20)
                             .font(.system(size: 18))
                             .foregroundColor(Colors.grey700)
                             .multilineTextAlignment(.center)
+                            .padding(.leading,5)
                         Text(universityMail)
                             .frame(width: g.size.width * 0.45, height: 30)
                             .font(.system(size: 18))
@@ -62,16 +75,14 @@ struct SignUp2View: View {
                             
                         }, label: {
                             Text(btnText)
-                                .frame(width: g.size.width * 0.2, height: 30)
-                                .font(.system(size: 18,weight: .bold))
+                                .frame(width: g.size.width * 0.2, height: 25)
+                                .font(.system(size: 15,weight: .bold))
                                 .foregroundColor(Color.white)
                                 .background(Colors.primary)
                                 .cornerRadius(15)
-                        })
-                    }
+                        })                    }
                 }
                 .frame(height: 30)
-                .padding(.vertical, 2)
                 Line(width: 2)
             }
             .padding()
@@ -84,19 +95,21 @@ struct SignUp2View: View {
                 }
                 GeometryReader{ g in
                     HStack{
-                        TextEditor(text: $editCode)
+                        TextField("",text: $editCode)
                             .frame(width: g.size.width * 0.8, height: 30)
                             .font(.system(size: 18))
                             .foregroundColor(Colors.grey700)
                             .multilineTextAlignment(.center)
+                            .padding(.leading,5)
+                        
                         Button(action: {
                             if editCode == code {
                                 verified = true
                             }
                         }, label: {
                             Text("인증")
-                                .frame(width: g.size.width * 0.2, height: 30)
-                                .font(.system(size: 18,weight: .bold))
+                                .frame(width: g.size.width * 0.2, height: 25)
+                                .font(.system(size: 15,weight: .bold))
                                 .foregroundColor(Color.white)
                                 .background(editCode.count == 6 ? Colors.primary : Colors.grey500)
                                 .cornerRadius(15)
@@ -104,7 +117,6 @@ struct SignUp2View: View {
                     }
                 }
                 .frame(height: 30)
-                .padding(.vertical, 2)
                 Line(width: 2)
             }
             .padding()
@@ -129,7 +141,7 @@ struct SignUp2View: View {
         .navigationTitle("")
         .navigationBarHidden(true)
         .ignoresSafeArea(.all)
-        .padding(.top, 30)
+        .padding(.top, 10)
         .padding(.horizontal, 20)
         .onAppear(){
         }

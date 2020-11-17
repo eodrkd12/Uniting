@@ -21,6 +21,7 @@ struct EditDetailProfileView: View {
     var heightArray = 150...200
     var hobbyArray = ["운동","독서"]
     var personalityArray = ["착함","성실함"]
+    var enterYearArray = 2013...2020
     
     var body: some View {
         VStack(spacing: 10){
@@ -31,15 +32,13 @@ struct EditDetailProfileView: View {
                 Spacer()
             }
             .padding(.horizontal,20)
-            List{
+            ScrollView(){
                 ForEach(optionRowArray, id: \.id){ (option) in
                     option
+                        .padding(.top,5)
                 }
             }
-            .padding(.horizontal,30)
-            .onAppear(){
-                UITableView.appearance().separatorStyle = .none
-            }
+            .padding(.horizontal,15)
             Button(action: {
                 data = ""
                 OptionRow.selected.forEach { (option) in
@@ -86,6 +85,13 @@ struct EditDetailProfileView: View {
                 self.title = "성격을 선택해주세요"
                 self.personalityArray.forEach { personality in
                     self.optionRowArray.append(OptionRow(id: id, text: personality))
+                    id += 1
+                }
+            }
+            else if self.title == "입학년도" {
+                self.title = "입학년도를 선택해주세요"
+                self.enterYearArray.forEach { enterYear in
+                    self.optionRowArray.append(OptionRow(id: id, text: "\(enterYear)학년도"))
                     id += 1
                 }
             }

@@ -28,27 +28,26 @@ import kotlin.collections.HashMap
 
 class ChatActivity : PSAppCompatActivity() {
 
-    companion object{
-        var chatLV : ListView? = null
+    companion object {
+        var chatLV: ListView? = null
     }
 
-    lateinit var room : Room
-    lateinit var chatViewModel : ChatViewModel
-    lateinit var chatAdapter : ChatListAdapter
-    lateinit var memberAdapter : MemberAdapter
+    lateinit var room: Room
+    lateinit var chatViewModel: ChatViewModel
+    lateinit var chatAdapter: ChatListAdapter
+    lateinit var memberAdapter: MemberAdapter
 
-    lateinit var roomViewModel : RoomViewModel
+    lateinit var roomViewModel: RoomViewModel
 
-    lateinit var memberList : ArrayList<MemberItem>
+    lateinit var memberList: ArrayList<MemberItem>
 
 
     var chatList = ArrayList<ChatItem>()
 
-    var ref : DatabaseReference? = null
-    var query : Query? = null
+    var ref: DatabaseReference? = null
+    var query: Query? = null
 
-    var lastChatTime = ""
-
+    var enterDate = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mainchat)
@@ -58,33 +57,31 @@ class ChatActivity : PSAppCompatActivity() {
 
         memberList = ArrayList<MemberItem>()
         room = intent.getSerializableExtra("room") as Room
-        lastChatTime = intent.getStringExtra("last_chat_time")!!
+        enterDate = intent.getStringExtra("enter_date")!!
 
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
         var roomViewModel = RoomViewModel(application)
-        roomViewModel.insert(room){
+        roomViewModel.insert(room) {
 
         }
 
-        if(room.category == "데이팅"){
-            if(UserInfo.ID == room.maker){
+        if (room.category == "데이팅") {
+            if (UserInfo.ID == room.maker) {
                 supportActionBar?.title = room.room_title.split("&")[1]
-            }
-            else{
+            } else {
                 supportActionBar?.title = room.room_title.split("&")[0]
             }
-        }
-        else{
+        } else {
             supportActionBar?.title = room.room_title
         }
 
-        Retrofit.getMembers(room.room_id){
+        Retrofit.getMembers(room.room_id) {
             memberList = ArrayList<MemberItem>()
             it.forEach {
-                if(it.id != UserInfo.ID) {
+                if (it.id != UserInfo.ID) {
                     memberList.add(MemberItem(it))
                 }
             }
@@ -102,10 +99,10 @@ class ChatActivity : PSAppCompatActivity() {
             memberAdapter.notifyDataSetChanged()
         }
 
-        chatAdapter = ChatListAdapter(this,chatList)
+        chatAdapter = ChatListAdapter(this, chatList)
         list_chat.adapter = chatAdapter
 
-        chatViewModel= ChatViewModel(application, room.room_id)
+        chatViewModel = ChatViewModel(application, room.room_id, enterDate)
 
         chatViewModel.getAllElement().observe(this, Observer {
             chatList.clear()
@@ -114,12 +111,12 @@ class ChatActivity : PSAppCompatActivity() {
             }
             chatAdapter.notifyDataSetChanged()
             chatAdapter.sortByChatTime()
-            list_chat.setSelection(chatAdapter.count-1)
+            list_chat.setSelection(chatAdapter.count - 1)
         })
 
         btn_send.setOnClickListener {
-            if(edit_chat.text.toString()=="") return@setOnClickListener
-            Retrofit.getMembers(room.room_id){
+            if (edit_chat.text.toString() == "") return@setOnClickListener
+            Retrofit.getMembers(room.room_id) {
                 var content = edit_chat.text.toString()
                 edit_chat.setText("")
                 var date = this.getCurDate()
@@ -129,17 +126,21 @@ class ChatActivity : PSAppCompatActivity() {
                     unreadMember += "${it.id}|"
                 }
 
-                unreadMember = unreadMember.replace("${UserInfo.ID}|","")
+                unreadMember = unreadMember.replace("${UserInfo.ID}|", "")
 
                 var chatId = "${UserInfo.ID}_${room.room_id}_${date}"
 
-                if (chatList.size == 0 || chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(" ")[0]) {
+                if (chatList.size <= 1 || chatList.last().chat.chat_time.split(" ")[0] < getCurDate().split(
+                        " "
+                    )[0]
+                ) {
+
                     val calendar = Calendar.getInstance()
                     val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
                     var dayOfWeekStr = ""
 
-                    when(dayOfWeek) {
+                    when (dayOfWeek) {
                         1 -> {
                             dayOfWeekStr = "일요일"
                         }
@@ -172,46 +173,30 @@ class ChatActivity : PSAppCompatActivity() {
                         date, "", 1
                     )
 
-                    Retrofit.insertChat(systemChat){
-                        if(it.result == "success"){
+                    var chat = Chat(
+                        chatId,
+                        room.room_id,
+                        UserInfo.ID,
+                        UserInfo.NICKNAME,
+                        content,
+                        "${date}_1",
+                        unreadMember,
+                        0
+                    )
 
-                            var chat = Chat(
-                                chatId,
-                                room.room_id,
-                                UserInfo.ID,
-                                UserInfo.NICKNAME,
-                                content,
-                                "${date}_1",
-                                unreadMember,
-                                0
-                            )
-
-                            Retrofit.insertChat(chat) {
-                                if (it.result == "success") {
-
-
-                                    var topic = room.room_id
-                                    var title = room.room_title
-                                    var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
-
-                                    Retrofit.sendFcm(topic, title, content)
-
-                                    writeFirebase(systemChat)
-                                    chatViewModel.insert(systemChat){
-                                        list_chat.setSelection(chatAdapter.count-1)
-
-
-                                        writeFirebase(chat)
-                                        chatViewModel.insert(chat) {
-                                            list_chat.setSelection(chatAdapter.count - 1)
-                                        }
-                                    }
-                                }
+                    Retrofit.getLastSystemChat("${getCurDate().split(" ")[0]} ${dayOfWeekStr}") {
+                        if (it.count == 1) {
+                            chatViewModel.insert(systemChat) {
+                                insertChat(chat) {}
+                            }
+                        } else if (it.count == 0) {
+                            insertChat(systemChat) {
+                                insertChat(chat) {}
                             }
                         }
                     }
-                }
-                else {
+
+                } else {
 
                     var chat = Chat(
                         chatId,
@@ -224,21 +209,7 @@ class ChatActivity : PSAppCompatActivity() {
                         0
                     )
 
-                    Retrofit.insertChat(chat) {
-                        if (it.result == "success") {
-                            writeFirebase(chat)
-
-                            var topic = room.room_id
-                            var title = room.room_title
-                            var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
-
-                            Retrofit.sendFcm(topic, title, content)
-
-                            chatViewModel.insert(chat) {
-                                list_chat.setSelection(chatAdapter.count - 1)
-                            }
-                        }
-                    }
+                    insertChat(chat) {}
                 }
             }
         }
@@ -246,20 +217,19 @@ class ChatActivity : PSAppCompatActivity() {
         btn_exit.setOnClickListener {
             roomViewModel = RoomViewModel(application)
 
-            if(memberList.size == 0){
-                Retrofit.deleteRoom(room.room_id, UserInfo.ID){
-                    roomViewModel.delete(room.room_id){
-                        chatViewModel.delete(room.room_id){
+            if (memberList.size == 0) {
+                Retrofit.deleteRoom(room.room_id, UserInfo.ID) {
+                    roomViewModel.delete(room.room_id) {
+                        chatViewModel.delete(room.room_id) {
                             finish()
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 //joined에서 데이터삭제
-                Retrofit.exitRoom(room.room_id, UserInfo.ID){
-                    roomViewModel.delete(room.room_id){
-                        chatViewModel.delete(room.room_id){
+                Retrofit.exitRoom(room.room_id, UserInfo.ID) {
+                    roomViewModel.delete(room.room_id) {
+                        chatViewModel.delete(room.room_id) {
                             finish()
                         }
                     }
@@ -267,8 +237,8 @@ class ChatActivity : PSAppCompatActivity() {
             }
         }
 
-        Retrofit.getChatAlarm(room.room_id, UserInfo.ID){
-            when(it.count){
+        Retrofit.getChatAlarm(room.room_id, UserInfo.ID) {
+            when (it.count) {
                 0 -> {
                     text_alarm.text = "알람 켜기"
                 }
@@ -279,60 +249,79 @@ class ChatActivity : PSAppCompatActivity() {
         }
 
         text_alarm.setOnClickListener {
-            when(text_alarm.text){
+            when (text_alarm.text) {
                 "알람 켜기" -> {
-                    Retrofit.chatAlarmOff(room.room_id,UserInfo.ID){
+                    Retrofit.chatAlarmOff(room.room_id, UserInfo.ID) {
                         text_alarm.text = "알람 끄기"
                         FirebaseMessaging.getInstance().subscribeToTopic(room.room_id)
                     }
                 }
                 "알람 끄기" -> {
-                    Retrofit.chatAlarmOn(room.room_id,UserInfo.ID){
+                    Retrofit.chatAlarmOn(room.room_id, UserInfo.ID) {
                         text_alarm.text = "알람 켜기"
                         FirebaseMessaging.getInstance().unsubscribeFromTopic(room.room_id)
                     }
                 }
             }
         }
+
     }
 
     override fun onResume() {
         super.onResume()
-        Retrofit.getEnterDate(room.room_id, UserInfo.ID){
-            ref = FirebaseDatabase.getInstance().reference.child("chat").child(room.room_id)
-            query = ref!!.orderByChild("chat_time").startAt(it.enter_date)
 
-            query!!.addChildEventListener(object : ChildEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
 
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
+        ref = FirebaseDatabase.getInstance().reference.child("chat").child(room.room_id)
+        query = ref!!.orderByChild("chat_time").startAt(enterDate)
 
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    if(ref != null) chatChange(snapshot)
-                }
+        query!!.addChildEventListener(object : ChildEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
 
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    if(ref != null) chatAdd(snapshot)
-                }
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
 
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                if (ref != null) chatChange(snapshot)
+            }
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (ref != null) chatAdd(snapshot)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+        })
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        ref=null
-        query=null
+        ref = null
+        query = null
     }
 
-    fun writeFirebase(chat: Chat){
+    fun insertChat(chat: Chat, callback: () -> Unit) {
+        Retrofit.insertChat(chat) {
+            if (it.result == "success") {
+                var topic = room.room_id
+                var title = room.room_title
+                var content = "${UserInfo.NICKNAME} ${edit_chat.text}"
+                Retrofit.sendFcm(topic, title, content)
+
+                writeFirebase(chat)
+
+                chatViewModel.insert(chat) {
+                    list_chat.setSelection(chatAdapter.count - 1)
+                }
+            }
+        }
+    }
+
+    fun writeFirebase(chat: Chat) {
 
         var map = HashMap<String, Any>()
         val key: String? = ref!!.push().key
@@ -352,11 +341,11 @@ class ChatActivity : PSAppCompatActivity() {
         root.updateChildren(objectMap)
     }
 
-    fun chatAdd(snapshot: DataSnapshot){
-        var key=snapshot.key
-        var value=snapshot.value as HashMap<String,Any>
+    fun chatAdd(snapshot: DataSnapshot) {
+        var key = snapshot.key
+        var value = snapshot.value as HashMap<String, Any>
 
-        if(value.get("user_id").toString() != UserInfo.ID) {
+        if (value.get("user_id").toString() != UserInfo.ID) {
             val hashMap = HashMap<String, Any>()
 
             var unreadMember = value.get("unread_member") as String
@@ -367,7 +356,7 @@ class ChatActivity : PSAppCompatActivity() {
             ref!!.updateChildren(hashMap)
         }
         var i = snapshot.children.iterator()
-        var chat : Chat? = null
+        var chat: Chat? = null
         while (i.hasNext()) {
             var chatContent = i.next().value as String
             var chatId = i.next().value as String
@@ -378,15 +367,24 @@ class ChatActivity : PSAppCompatActivity() {
             var userId = i.next().value as String
             var userNickname = i.next().value as String
 
-            chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
+            chat = Chat(
+                chatId,
+                roomId,
+                userId,
+                userNickname,
+                chatContent,
+                chatTime,
+                unreadMember,
+                systemChat
+            )
         }
-        chatViewModel.insert(chat!!){
+        chatViewModel.insert(chat!!) {
         }
     }
 
-    fun chatChange(snapshot: DataSnapshot){
+    fun chatChange(snapshot: DataSnapshot) {
         var i = snapshot.children.iterator()
-        var chat : Chat? = null
+        var chat: Chat? = null
         while (i.hasNext()) {
             var chatContent = i.next().value as String
             var chatId = i.next().value as String
@@ -397,9 +395,18 @@ class ChatActivity : PSAppCompatActivity() {
             var userId = i.next().value as String
             var userNickname = i.next().value as String
 
-            chat = Chat(chatId,roomId,userId,userNickname,chatContent,chatTime,unreadMember,systemChat)
+            chat = Chat(
+                chatId,
+                roomId,
+                userId,
+                userNickname,
+                chatContent,
+                chatTime,
+                unreadMember,
+                systemChat
+            )
         }
-        chatViewModel.insert(chat!!){
+        chatViewModel.insert(chat!!) {
         }
     }
 
@@ -407,7 +414,7 @@ class ChatActivity : PSAppCompatActivity() {
 
         var inflater = getMenuInflater()
         inflater.inflate(R.menu.menu_chat, menu)
-        menu!!.add(0,0,0,"메뉴")
+        menu!!.add(0, 0, 0, "메뉴")
             .setIcon(R.drawable.option1_icon)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
@@ -415,14 +422,14 @@ class ChatActivity : PSAppCompatActivity() {
     }
 
     private val navListener = NavigationView.OnNavigationItemSelectedListener {
-        when(it.itemId){
+        when (it.itemId) {
         }
         false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
-            0-> { // 메뉴 버튼
+            0 -> { // 메뉴 버튼
                 drawerlayout_chat.openDrawer(GravityCompat.END)
             }
             android.R.id.home -> {
@@ -431,11 +438,11 @@ class ChatActivity : PSAppCompatActivity() {
         }
         return false
     }
+
     override fun onBackPressed() {
         if (drawerlayout_chat.isDrawerOpen(GravityCompat.END)) {
             drawerlayout_chat.closeDrawers()
-        }
-        else{
+        } else {
             super.onBackPressed()
         }
     }

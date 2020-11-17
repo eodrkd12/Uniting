@@ -144,7 +144,7 @@ class MakeRoomActivity : PSAppCompatActivity() {
                                         date, "", 1
                                     )
 
-                                    var chatViewModel = ChatViewModel(application, roomId)
+                                    var chatViewModel = ChatViewModel(application, roomId, "")
 
                                     Retrofit.insertChat(systemChat){
                                         if(it.result == "success"){
@@ -154,7 +154,7 @@ class MakeRoomActivity : PSAppCompatActivity() {
 
                                                 var intent = Intent(this, ChatActivity::class.java)
                                                 intent.putExtra("room",room)
-                                                intent.putExtra("last_chat_time","0000-00-00")
+                                                intent.putExtra("enter_date",getCurDate())
                                                 startActivity(intent)
                                                 finish()
                                             }

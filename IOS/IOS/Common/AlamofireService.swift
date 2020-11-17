@@ -15,6 +15,37 @@ class AlamofireService : ObservableObject {
     
     let serverUrl = "http://52.78.27.41:1901"
     
+    // 버전 체크
+    func getVersion(callback: @escaping (VersionModel) -> Void) {
+        let url = "\(serverUrl)/common/sql/select/single"
+        
+        let sql = "SELECT * FROM version"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql" : sql
+            ]
+        ).responseJSON { res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(VersionModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     // 회원가입
     func getUniversity(callback: @escaping ([UniversityData]) -> Void){
         let url = "\(serverUrl)/university"
@@ -41,6 +72,158 @@ class AlamofireService : ObservableObject {
         }
     }
     
+    func signUp(userId: String, userPw: String, userNickname: String, userBirthday: String, userCity: String, userGender: String, univName: String, deptName: String, webMail: String, enterYear: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let now = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date=dateFormatter.string(from: now)
+        
+        var sql = "UPDATE user SET user_pw = '\(userPw)', user_nickname = '\(userNickname)', user_birthday = '\(userBirthday)', "
+        sql += "user_city = '\(userCity)', user_gender = '\(userGender)', univ_name = '\(univName)', dept_name = '\(deptName)', "
+        sql += "user_email = '\(webMail)', enter_year = '\(enterYear)', user_signdate = '\(date)' WHERE user_id = '\(userId)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql": sql
+            ]
+        ).responseJSON{ res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func updateProfileInfo(id: String, height: String, hobby: String, personality: String, introduce: String, callback: @escaping (ResultModel) -> Void){
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let sql = "UPDATE user SET user_height = '\(height)', user_hobby = '\(hobby)', user_personality = '\(personality)', user_introduce = '\(introduce)' WHERE user_id ='\(id)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql": sql
+            ]
+        ).responseJSON{ res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func idCheck(id: String, callback: @escaping (CountModel) -> Void) {
+        let url = "\(serverUrl)/common/sql/select/single"
+        
+        let sql = "SELECT COUNT(*) as count FROM user WHERE user_id = '\(id)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql": sql
+            ]
+        ).responseJSON{ res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(CountModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+        
+    func idInsert(id: String, callback: @escaping (ResultModel) -> Void) {
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let sql = "INSERT INTO user(user_id, blocking_dept) VALUES('\(id)', 0)"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql": sql
+            ]
+        ).responseJSON{ res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func idDelete(id: String, callback: @escaping (ResultModel) -> Void) {
+        let url = "\(serverUrl)/common/sql/insert"
+        
+        let sql = "DELETE FROM user WHERE user_id = '\(id)'"
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: [
+                "sql": sql
+            ]
+        ).responseJSON{ res in
+            switch res.result {
+            case .success(let data):
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    
+                    callback(result)
+                    
+                } catch {
+                    print(error)
+                }
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+        
     func getDepartment(university: String, callback: @escaping ([DepartmentData]) -> Void) {
         let url = "\(serverUrl)/common/sql/select"
         
@@ -90,7 +273,7 @@ class AlamofireService : ObservableObject {
                     let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
                     let result = try JSONDecoder().decode(ResultModel.self, from: json)
                     
-                    var resultPw = result.result
+                    let resultPw = result.result
                     
                     callback(result)
                 } catch {
@@ -104,13 +287,12 @@ class AlamofireService : ObservableObject {
     }
     
     // 로그인
-    func login(userId: String, userPw: String, callback: @escaping (Int) -> Void){
-        let url = "\(serverUrl)/common/sql/select/single"
-        
-        let sql = "SELECT user_pw as result FROM user WHERE user_id = '\(userId)'"
+    func login(userId: String, userPw: String, callback: @escaping (LoginModel) -> Void){
+        let url = "\(serverUrl)/user/login"
         
         let body = [
-            "sql" : sql
+            "user_id" : userId,
+            "user_pw" : userPw
         ]
         
         AF.request(
@@ -122,19 +304,19 @@ class AlamofireService : ObservableObject {
             case .success(let data):
                 do {
                     let json = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-                    let result = try JSONDecoder().decode(ResultModel.self, from: json)
+                    let result = try JSONDecoder().decode(LoginModel.self, from: json)
                     
-                    var resultPw = result.result
+                    UserInfo.shared.ID = result.user_id
+                    UserInfo.shared.PW = result.user_pw
+                    UserInfo.shared.NICKNAME = result.user_nickname
+                    UserInfo.shared.GENDER = result.user_gender
+                    UserInfo.shared.UNIV = result.univ_name
+                    UserInfo.shared.DEPT = result.dept_name
+                    UserInfo.shared.BLOCKINGDEPT = result.blocking_dept
                     
-                    if userPw == resultPw {
-                        callback(1)
-                    }
-                    else {
-                        callback(2)
-                    }
+                    callback(result)
                 } catch {
                     print(error)
-                    callback(0)
                 }
                 
             case .failure(let err):
@@ -197,12 +379,12 @@ class AlamofireService : ObservableObject {
         var maxAge = age.split(separator: "~")[1]
         maxAge.removeFirst()
         
-        var formatter = DateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy"
-        var year = formatter.string(from: Date())
+        let year = formatter.string(from: Date())
         
-        var minYear = Int(year)! - Int(String(minAge))! + 1
-        var maxYear = Int(year)! - Int(String(maxAge))! + 1
+        let minYear = Int(year)! - Int(String(minAge))! + 1
+        let maxYear = Int(year)! - Int(String(maxAge))! + 1
         
         var sql = "SELECT * FROM user "
         sql += "WHERE (user_id NOT IN (SELECT user_id FROM chathistory WHERE partner_id = '\(UserInfo.shared.ID)')) "
@@ -217,7 +399,7 @@ class AlamofireService : ObservableObject {
         
         if department != "" {
             sql += "AND ("
-            var departmentList = department.split(separator: ",")
+            let departmentList = department.split(separator: ",")
             departmentList.forEach { (subStr) in
                 if subStr == departmentList[0] {
                     sql += "dept_name LIKE '\(subStr)' "
@@ -233,7 +415,7 @@ class AlamofireService : ObservableObject {
         
         if hobby != "" {
             sql += "AND ("
-            var hobbyList = hobby.split(separator: ",")
+            let hobbyList = hobby.split(separator: ",")
             hobbyList.forEach{ (subStr) in
                 if subStr == hobbyList[0] {
                     sql += "user_hobby LIKE '\(subStr)' "
